@@ -1,23 +1,19 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <html>
     <head>
         <title>List of all todos</title>
     </head>
     <body>
-
-
-
-
-
-
-
-
-
-
-
-            <h2><c:forEach items="${data}" var="item">
-                ${item}<br>
-                </c:forEach>
-             </h2>
+        <b>All your todos
+        <br>
+        <table>
+        <c:forEach items="${toDosFromFile}" var="toDos">
+            <tr>
+                <td>${toDos}</td>
+            </tr>
+        </c:forEach>
+        </table>
     </body>
 </html>

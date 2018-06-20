@@ -15,6 +15,10 @@ import static helper.ReadingAndWritingToFileHelper.initStringsFromFile;
 public class ToDoServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+
+
+
+
         try {
             PrintWriter writer = response.getWriter();
             List<String> toDosFromFile = initStringsFromFile();

@@ -9,9 +9,9 @@
         <b>All your todos
         <br>
         <table>
-        <c:forEach items="${toDosFromFile}" var="toDos">
+        <c:forEach items="${toDos}" var="item">
             <tr>
-                <td>${toDos}</td>
+                <td>${item}</td>
             </tr>
         </c:forEach>
         </table>

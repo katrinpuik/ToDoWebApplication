@@ -9,9 +9,14 @@
         <b>All your todos
         <br>
         <table>
-        <c:forEach items="${toDos}" var="item">
             <tr>
-                <td>${item}</td>
+                <th>ToDo</th>
+                <th>Status</th>
+            </tr>
+        <c:forEach items="${toDos}" var="toDo">
+            <tr>
+                <td>${toDo.getDescription()}</td>
+                <td>${toDo.getStatus()}</td>
             </tr>
         </c:forEach>
         </table>

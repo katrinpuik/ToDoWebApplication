@@ -1,7 +1,4 @@
-//package src.main.java;
-
 import dto.ToDo;
-import service.ToDoService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,11 +11,9 @@ import java.util.List;
 @WebServlet(name = "ToDoServlet", urlPatterns = {"toDos"}, loadOnStartup = 1)
 public class ToDoServlet extends HttpServlet {
 
-    private ToDoService service = new ToDoService();
-
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException {
         try {
-            List<ToDo> toDos = service.getAll();
+            List<ToDo> toDos = ContextListener.service.getAll();
             request.setAttribute("toDos", toDos);
             request.getRequestDispatcher("listAll.jsp").forward(request, response);
         } catch (IOException e) {

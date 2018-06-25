@@ -12,25 +12,26 @@ import java.util.List;
 import static helper.ReadingAndWritingToFileHelper.initStringsFromFile;
 
 @WebListener
-public class ExampleContextListener implements ServletContextListener {
+public class ContextListener implements ServletContextListener {
 
     private ToDoMapper mapper = new ToDoMapper();
-    private ToDoService service = new ToDoService();
+
+    public static ToDoService service = new ToDoService();
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
-//        try {
-//            List<ToDo> toDos = mapper.deserialize(initStringsFromFile());
-//            toDos.forEach(toDo -> {
-//                try {
-//                    service.save(toDo);
-//                } catch (ServiceException e) {
-//                    throw new RuntimeException(e.getMessage());
-//                }
-//            });
-//        } catch (FileNotFoundException e) {
-//            throw new RuntimeException(e.getMessage());
-//        }
+        try {
+            List<ToDo> toDos = mapper.deserialize(initStringsFromFile());
+            toDos.forEach(toDo -> {
+                try {
+                    service.save(toDo);
+                } catch (ServiceException e) {
+                    throw new RuntimeException(e.getMessage());
+                }
+            });
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
 
     @Override

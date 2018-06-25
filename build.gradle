@@ -20,3 +20,17 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+def debugArgs = []
+if (gradle.startParameter.initScripts) {
+    def line = file(gradle.startParameter.initScripts[0]).readLines().findAll({x -> x ==~ /.*-agentlib:jdwp=.*/ })[0]
+    if (line) {
+        debugArgs = ((line =~ /.*'(.*)'.*/)[0][1] as String).split(' ')
+    }
+}
+
+gretty {
+    jvmArgs = [*debugArgs]
+    contextPath = '/'
+    managedClassReload = true
+}

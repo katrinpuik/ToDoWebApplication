@@ -19,12 +19,18 @@
                     <tr>
                         <th scope="col">Todo</th>
                         <th scope="col">Status</th>
+                        <th scope="col">Mark status as done</th>
                     </tr>
                 </thead>
                 <c:forEach items="${toDos}" var="toDo">
                     <tr>
                         <td>${toDo.getDescription()}</td>
                         <td>${toDo.getStatus()}</td>
+                        <td>
+                            <form method="put" action="todos/${toDo.getId()}">
+                                <button onclick>DONE</button>
+                            </form>
+                        </td>
                     </tr>
                 </c:forEach>
                 </table>

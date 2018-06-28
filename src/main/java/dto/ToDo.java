@@ -3,6 +3,7 @@ package dto;
 
 import enums.Status;
 
+import static enums.Status.NOT_DONE;
 import static enums.Status.valueOf;
 
 public class ToDo {
@@ -12,6 +13,7 @@ public class ToDo {
 
     public ToDo(String description) {
         this.description = description;
+        this.status = NOT_DONE;
     }
 
     public String getDescription() {

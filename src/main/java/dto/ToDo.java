@@ -44,8 +44,16 @@ public class ToDo {
         this.id = id;
     }
 
+    public boolean isCompletable() {
+        return status == Status.NOT_DONE;
+    }
+
+
     @Override
     public String toString() {
         return description + ", " + String.valueOf(status) + ", id" + id;
     }
+
+
+
 }

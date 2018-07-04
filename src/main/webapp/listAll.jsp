@@ -19,6 +19,7 @@
                 <table class="table">
                 <thead>
                     <tr>
+                        <th scope="col">Delete</th>
                         <th scope="col">Todo</th>
                         <th scope="col">Status</th>
                         <th scope="col">Mark status as done</th>
@@ -26,6 +27,7 @@
                 </thead>
                 <c:forEach items="${toDos}" var="toDo">
                     <tr>
+                        <td><a class="btn btn-outline-primary float-left" value=".float-left" href="todos?delete=${toDo.getId()}" role="button">Delete</a></td>
                         <td>${toDo.getDescription()}</td>
                         <td>${toDo.getStatus()}</td>
                         <td>

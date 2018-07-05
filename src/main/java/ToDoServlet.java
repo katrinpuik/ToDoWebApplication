@@ -14,40 +14,43 @@ import java.util.List;
 public class ToDoServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException {
-        try {
-            List<ToDo> toDos;
-            String statusFromRequest = request.getParameter("status");
-            String toDotoDoneFromRequest = request.getParameter("done");
-            String toDotoDeleteFromRequest = request.getParameter("delete");
 
-            // muuda todo staatust
-            if (toDotoDoneFromRequest != null) {
-                ToDo toDotoChangeStatus = ContextListener.service.findById(Integer.parseInt(toDotoDoneFromRequest));
-                toDotoChangeStatus.setStatus("DONE");
-                try {
-                    ContextListener.service.save(toDotoChangeStatus);
-                } catch (ServiceException e) {
-                    throw new RuntimeException(e.getMessage());
-                }
-            }
+        String statusFromRequest = request.getParameter("status");
+        String toDotoDoneFromRequest = request.getParameter("done");
+        String toDotoDeleteFromRequest = request.getParameter("delete");
 
-            if (toDotoDeleteFromRequest != null) {
-                ContextListener.service.remove(Integer.parseInt(toDotoDeleteFromRequest));
+        // muuda todo staatust
+        if (toDotoDoneFromRequest != null) {
+            ToDo toDotoChangeStatus = ContextListener.service.findById(Integer.parseInt(toDotoDoneFromRequest));
+            toDotoChangeStatus.setStatus("DONE");
+            try {
+                ContextListener.service.save(toDotoChangeStatus);
+            } catch (ServiceException e) {
+                throw new RuntimeException(e.getMessage());
             }
-
-            // joonista todosid
-            if (statusFromRequest != null) {
-                toDos = ContextListener.service.findByStatus(Status.valueOf(statusFromRequest));
-                request.setAttribute("toDos", toDos);
-                request.getRequestDispatcher("listNotDone.jsp").forward(request, response);
-            }
-            else {
-                toDos = ContextListener.service.getAll();
-                request.setAttribute("toDos", toDos);
-                request.getRequestDispatcher("listAll.jsp").forward(request, response);
-            }
-        } catch (IOException e) {
-            System.out.println("Error");
         }
+
+        if (toDotoDeleteFromRequest != null) {
+            ContextListener.service.remove(Integer.parseInt(toDotoDeleteFromRequest));
+        }
+
+        // joonista todosid
+
+        request.setAttribute("toDos", createList(statusFromRequest));
+        try {
+            request.getRequestDispatcher("listAll.jsp").forward(request, response);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private List<ToDo> createList(String status) {
+        List<ToDo> toDos;
+        if (status != null) {
+            toDos = ContextListener.service.findByStatus(Status.valueOf(status));
+        } else {
+            toDos = ContextListener.service.getAll();
+        }
+        return toDos;
     }
 }

@@ -19,10 +19,11 @@
             <div class="form-group">
                 <label for="selectStatus">Find todo by status</label>
                 <select class="form-control, col-xs-2" id="selectStatus" onchange="changeStatus()">
-                    <option value="ALL TODOS">ALL TODOS</option>
-                    <option value="NOT_DONE">NOT DONE</option>
-                    <option value="DONE">DONE</option>
-                    <option value="DISCARDED">DISCARDED</option>
+
+                    <c:forEach items="${statusList}" var="status">
+                           <option <c:if test="${status.isSelected()}">selected</c:if> value="${status.getValue()}">${status.getName()}</option>
+                    </c:forEach>
+
                 </select>
             </div>
             <div>

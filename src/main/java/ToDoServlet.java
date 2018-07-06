@@ -66,6 +66,7 @@ public class ToDoServlet extends HttpServlet {
         return toDos;
     }
 
+
     private List<StatusForDropdown> createStatusList(Status status) {
         List<StatusForDropdown> result = new ArrayList<>();
         result.add(new StatusForDropdown(DONE, "Tehtud", checkIfSelected(status, DONE)));

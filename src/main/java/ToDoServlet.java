@@ -12,20 +12,22 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.lang.String.valueOf;
+import static enums.Status.*;
 
 @WebServlet(name = "ToDoServlet", urlPatterns = {"todos"}, loadOnStartup = 1)
 public class ToDoServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 
-        String statusFromRequest = request.getParameter("status");
-        String toDotoDoneFromRequest = request.getParameter("done");
-        String toDotoDeleteFromRequest = request.getParameter("delete");
+        String statusFromRequestAsString = request.getParameter("status");
+        Status statusFromRequestAsEnum = createValidStatus(statusFromRequestAsString);
+
+        String idOfToDotoDoneFromRequest = request.getParameter("done");
+        String idOfToDotoDeleteFromRequest = request.getParameter("delete");
 
         // muuda todo staatust
-        if (toDotoDoneFromRequest != null) {
-            ToDo toDotoChangeStatus = ContextListener.service.findById(Integer.parseInt(toDotoDoneFromRequest));
+        if (idOfToDotoDoneFromRequest != null) {
+            ToDo toDotoChangeStatus = ContextListener.service.findById(Integer.parseInt(idOfToDotoDoneFromRequest));
             toDotoChangeStatus.setStatus("DONE");
             try {
                 ContextListener.service.save(toDotoChangeStatus);
@@ -34,17 +36,19 @@ public class ToDoServlet extends HttpServlet {
             }
         }
 
-        if (toDotoDeleteFromRequest != null) {
-            ContextListener.service.remove(Integer.parseInt(toDotoDeleteFromRequest));
+        if (idOfToDotoDeleteFromRequest != null) {
+            ContextListener.service.remove(Integer.parseInt(idOfToDotoDeleteFromRequest));
         }
 
 
-
-        request.setAttribute("statusList", createStatusList(statusFromRequest));
-
 // joonista todosid
 
-        request.setAttribute("toDos", createTodoList(statusFromRequest));
+        // kui ei ole sobiv staatus sisestatud, siis n'ita k]iki todosid
+
+        request.setAttribute("statusList", createStatusList(statusFromRequestAsEnum));
+
+        request.setAttribute("toDos", createTodoList(statusFromRequestAsEnum));
+
         try {
             request.getRequestDispatcher("listAll.jsp").forward(request, response);
         } catch (IOException e) {
@@ -52,26 +56,35 @@ public class ToDoServlet extends HttpServlet {
         }
     }
 
-    private List<ToDo> createTodoList(String status) {
+    private List<ToDo> createTodoList(Status status) {
         List<ToDo> toDos;
         if (status != null) {
-            toDos = ContextListener.service.findByStatus(Status.valueOf(status));
+            toDos = ContextListener.service.findByStatus(status);
         } else {
             toDos = ContextListener.service.getAll();
         }
         return toDos;
     }
 
-    private List<StatusForDropdown> createStatusList(String status) {
+    private List<StatusForDropdown> createStatusList(Status status) {
         List<StatusForDropdown> result = new ArrayList<>();
-        result.add(new StatusForDropdown(Status.DONE, "Tehtud", checkIfSelected(status, Status.DONE)));
-        result.add(new StatusForDropdown(Status.NOT_DONE, "Tegemata", checkIfSelected(status, Status.NOT_DONE)));
-        result.add(new StatusForDropdown(Status.DISCARDED, "Unustatud", checkIfSelected(status, Status.DISCARDED)));
+        result.add(new StatusForDropdown(DONE, "Tehtud", checkIfSelected(status, DONE)));
+        result.add(new StatusForDropdown(NOT_DONE, "Tegemata", checkIfSelected(status, NOT_DONE)));
+        result.add(new StatusForDropdown(DISCARDED, "Polegi vaja teha", checkIfSelected(status, DISCARDED)));
         return result;
     }
 
-    private boolean checkIfSelected(String statusFromRequest, Status status) {
-        return statusFromRequest.equals(status.toString());
+    private boolean checkIfSelected(Status status, Status statusInOptions) {
+        return status == statusInOptions;
     }
 
+//vaja kontrollida
+    private Status createValidStatus(String statusFromRequest) {
+        for (Status status : values()) {
+            if (status.toString().equals(statusFromRequest)) {
+                return valueOf(statusFromRequest);
+            }
+        }
+        return null;
+    }
 }

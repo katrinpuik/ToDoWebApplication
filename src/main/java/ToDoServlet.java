@@ -24,6 +24,7 @@ public class ToDoServlet extends HttpServlet {
 
         String idOfToDotoDoneFromRequest = request.getParameter("done");
         String idOfToDotoDeleteFromRequest = request.getParameter("delete");
+        String descriptionOfToDoToFindFromRequest = request.getParameter("search");
 
         // muuda todo staatust
         if (idOfToDotoDoneFromRequest != null) {
@@ -41,13 +42,14 @@ public class ToDoServlet extends HttpServlet {
         }
 
 
+
 // joonista todosid
 
         // kui ei ole sobiv staatus sisestatud, siis n'ita k]iki todosid
 
         request.setAttribute("statusList", createStatusList(statusFromRequestAsEnum));
 
-        request.setAttribute("toDos", createTodoList(statusFromRequestAsEnum));
+        request.setAttribute("toDos", createTodoList(statusFromRequestAsEnum, descriptionOfToDoToFindFromRequest));
 
         try {
             request.getRequestDispatcher("listAll.jsp").forward(request, response);
@@ -56,10 +58,16 @@ public class ToDoServlet extends HttpServlet {
         }
     }
 
-    private List<ToDo> createTodoList(Status status) {
+    private List<ToDo> createTodoList(Status status, String description) {
         List<ToDo> toDos;
-        if (status != null) {
+        if (status !=null && description !=null){
+            toDos = ContextListener.service.findByStatusAndDescription(status,description);
+        }
+        else if (status != null) {
             toDos = ContextListener.service.findByStatus(status);
+        }
+        else if (description != null) {
+            toDos = ContextListener.service.findByDescription(description);
         } else {
             toDos = ContextListener.service.getAll();
         }

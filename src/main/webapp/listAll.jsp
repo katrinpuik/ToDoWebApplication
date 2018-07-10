@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <html>
     <%@ include file="header.jsp" %>
@@ -16,15 +16,21 @@
             <div>
                 <a class="btn btn-outline-primary float-right" value=".float-right" href="todos/new" role="button">Insert new todo</a>
             </div>
-            <div class="form-group">
-                <label for="selectStatus">Find todo by status</label>
-                <select class="form-control, col-xs-2" id="selectStatus" onchange="changeStatus()">
-
-                    <c:forEach items="${statusList}" var="status">
-                           <option <c:if test="${status.isSelected()}">selected</c:if> value="${status.getValue()}">${status.getName()}</option>
-                    </c:forEach>
-
-                </select>
+            <div class="row">
+                <div class="form-group">
+                    <label for="description">Search:</label>
+                    <input type="text" class="form-control, col-xs-6" id="description">
+                </div>
+                <div class="form-group">
+                    <select class="form-control, col-xs-2" id="selectStatus" onchange="changeStatus()">
+                        <c:forEach items="${statusList}" var="status">
+                            <option <c:if test="${status.isSelected()}">selected</c:if> value="${status.getValue()}">${status.getName()}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div>
+                    <button class="btn" onclick="searchTodo()"><i class="fa fa-search"></i></button>
+                </div>
             </div>
             <div>
                 <table class="table">

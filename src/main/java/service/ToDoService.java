@@ -35,6 +35,10 @@ public class ToDoService {
         return repository.findByStatus(status);
     }
 
+    public List<ToDo> findByStatusAndDescription (Status status, String description) {
+        return repository.findByStatusAndDescription(status, description);
+    }
+
     public ToDo findById (Integer id) {
         return repository.findById(id);
     }

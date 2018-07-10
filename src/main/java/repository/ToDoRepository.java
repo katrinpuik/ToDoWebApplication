@@ -17,7 +17,8 @@ public class ToDoRepository {
     private AtomicInteger id = new AtomicInteger(1);
 
     public void saveOrUpdateAndSaveToDos(ToDo toDo) throws ServiceException {
-        if (toDo.getId() != null) {
+
+      if (toDo.getId() != null) {
             if (findById(toDo.getId()) == null) {
                 throw new ServiceException("No toDo with such id");
             } else remove(toDo.getId());
@@ -57,6 +58,12 @@ public class ToDoRepository {
     public List<ToDo> findByStatus(Status status) {
         return toDos.stream()
                 .filter(toDo -> areEqual(status, toDo.getStatus()))
+                .collect(Collectors.toList());
+    }
+
+    public List<ToDo> findByStatusAndDescription (Status status, String description) {
+        return findByStatus(status).stream()
+                .filter(toDo -> areEqual(description, toDo.getDescription()))
                 .collect(Collectors.toList());
     }
 

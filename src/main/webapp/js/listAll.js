@@ -8,4 +8,12 @@ function changeStatus() {
        }
  }
 
+ function searchTodo() {
+        var description = document.getElementById("description").value;
+        var status = document.getElementById("selectStatus").value;
+        location.href = "todos?status=" + status + "&search=" + description;
+
+
+ }
+
 

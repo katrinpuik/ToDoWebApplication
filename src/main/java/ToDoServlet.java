@@ -36,6 +36,9 @@ public class ToDoServlet extends HttpServlet {
             }
         }
 
+
+
+
         if (idOfToDotoDeleteFromRequest != null) {
             ContextListener.service.remove(Integer.parseInt(idOfToDotoDeleteFromRequest));
         }

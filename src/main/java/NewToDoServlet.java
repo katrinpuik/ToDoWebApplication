@@ -18,11 +18,13 @@ public class NewToDoServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String newDescription = request.getParameter("newTodo");
-        try {
-            ContextListener.service.save(new ToDo(newDescription));
-        } catch (ServiceException e) {
-            throw new RuntimeException(e.getMessage());
+        if (newDescription != null && !newDescription.equals("")) {
+            try {
+                ContextListener.service.save(new ToDo(newDescription));
+            } catch (ServiceException e) {
+                throw new RuntimeException(e.getMessage());
+            }
+            response.sendRedirect("/todos");
         }
-        response.sendRedirect("/todos");
     }
 }

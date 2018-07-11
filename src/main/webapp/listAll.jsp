@@ -23,6 +23,7 @@
                 </div>
                 <div class="form-group">
                     <select class="form-control, col-xs-2" id="selectStatus" onchange="changeStatus()">
+                        <option value="All">ALL</option>
                         <c:forEach items="${statusList}" var="status">
                             <option <c:if test="${status.isSelected()}">selected</c:if> value="${status.getValue()}">${status.getName()}</option>
                         </c:forEach>

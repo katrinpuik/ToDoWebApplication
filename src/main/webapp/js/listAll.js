@@ -1,6 +1,6 @@
 function changeStatus() {
        var status = document.getElementById("selectStatus").value;
-       if (status === "ALL TODOS") {
+       if (status === "All") {
            location.href = "todos"
        }
        else {

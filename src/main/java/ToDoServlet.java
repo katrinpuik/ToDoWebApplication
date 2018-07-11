@@ -19,8 +19,7 @@ public class ToDoServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 
-        String statusFromRequestAsString = request.getParameter("status");
-        Status statusFromRequestAsEnum = createValidStatus(statusFromRequestAsString);
+        Status statusFromRequestAsEnum = createValidStatus(request.getParameter("status"));
 
         String idOfToDotoDoneFromRequest = request.getParameter("done");
         String idOfToDotoDeleteFromRequest = request.getParameter("delete");
@@ -74,12 +73,12 @@ public class ToDoServlet extends HttpServlet {
         return toDos;
     }
 
-
+// tegin for'iga ]mber
     private List<StatusForDropdown> createStatusList(Status status) {
         List<StatusForDropdown> result = new ArrayList<>();
-        result.add(new StatusForDropdown(DONE, "Tehtud", checkIfSelected(status, DONE)));
-        result.add(new StatusForDropdown(NOT_DONE, "Tegemata", checkIfSelected(status, NOT_DONE)));
-        result.add(new StatusForDropdown(DISCARDED, "Polegi vaja teha", checkIfSelected(status, DISCARDED)));
+        for (Status statusInEnums : values()) {
+            result.add(new StatusForDropdown(statusInEnums, statusInEnums.toString(), checkIfSelected(status, statusInEnums)));
+        }
         return result;
     }
 

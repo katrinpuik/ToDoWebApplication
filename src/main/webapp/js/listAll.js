@@ -1,19 +1,14 @@
-function changeStatus() {
-       var status = document.getElementById("selectStatus").value;
-       if (status === "All") {
-           location.href = "todos"
-       }
-       else {
-           location.href = "todos?status=" + status;
-       }
- }
+function searchTodos() {
+    var description = document.getElementById("description").value;
+    var status = document.getElementById("selectStatus").value;
 
- function searchTodo() {
-        var description = document.getElementById("description").value;
-        var status = document.getElementById("selectStatus").value;
-        location.href = "todos?status=" + status + "&search=" + description;
-
-
- }
-
-
+    if (status !== null && description !== null) {
+        location.href = "todos?status=" + status + "&description=" + description;
+    } else if (status !== null) {
+        location.href = "todos?status=" + status;
+    } else if (description !== null) {
+        location.href = "todos?description" + description;
+    } else {
+        location.href = "todos";
+    }
+}

@@ -12,18 +12,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static enums.Status.*;
-
 @WebServlet(name = "ToDoServlet", urlPatterns = {"todos"}, loadOnStartup = 1)
 public class ToDoServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 
         Status statusFromRequestAsEnum = createValidStatus(request.getParameter("status"));
+        String descriptionOfToDoToFindFromRequest = request.getParameter("description");
+
+
 
         String idOfToDotoDoneFromRequest = request.getParameter("done");
         String idOfToDotoDeleteFromRequest = request.getParameter("delete");
-        String descriptionOfToDoToFindFromRequest = request.getParameter("search");
 
         // muuda todo staatust
         if (idOfToDotoDoneFromRequest != null) {
@@ -41,14 +41,13 @@ public class ToDoServlet extends HttpServlet {
         }
 
 
-
 // joonista todosid
-
-        // kui ei ole sobiv staatus sisestatud, siis n'ita k]iki todosid
 
         request.setAttribute("statusList", createStatusList(statusFromRequestAsEnum));
 
         request.setAttribute("toDos", createTodoList(statusFromRequestAsEnum, descriptionOfToDoToFindFromRequest));
+
+        request.setAttribute("query", descriptionOfToDoToFindFromRequest);
 
         try {
             request.getRequestDispatcher("listAll.jsp").forward(request, response);
@@ -59,13 +58,11 @@ public class ToDoServlet extends HttpServlet {
 
     private List<ToDo> createTodoList(Status status, String description) {
         List<ToDo> toDos;
-        if (status !=null && description !=null){
-            toDos = ContextListener.service.findByStatusAndDescription(status,description);
-        }
-        else if (status != null) {
+        if (status != null && description != null) {
+            toDos = ContextListener.service.findByStatusAndDescription(status, description);
+        } else if (status != null) {
             toDos = ContextListener.service.findByStatus(status);
-        }
-        else if (description != null) {
+        } else if (description != null) {
             toDos = ContextListener.service.findByDescription(description);
         } else {
             toDos = ContextListener.service.getAll();
@@ -73,10 +70,9 @@ public class ToDoServlet extends HttpServlet {
         return toDos;
     }
 
-// tegin for'iga ]mber
     private List<StatusForDropdown> createStatusList(Status status) {
         List<StatusForDropdown> result = new ArrayList<>();
-        for (Status statusInEnums : values()) {
+        for (Status statusInEnums : Status.values()) {
             result.add(new StatusForDropdown(statusInEnums, statusInEnums.toString(), checkIfSelected(status, statusInEnums)));
         }
         return result;
@@ -86,11 +82,10 @@ public class ToDoServlet extends HttpServlet {
         return status == statusInOptions;
     }
 
-//vaja kontrollida
     private Status createValidStatus(String statusFromRequest) {
-        for (Status status : values()) {
+        for (Status status : Status.values()) {
             if (status.toString().equals(statusFromRequest)) {
-                return valueOf(statusFromRequest);
+                return Status.valueOf(statusFromRequest);
             }
         }
         return null;

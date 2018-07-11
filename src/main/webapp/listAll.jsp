@@ -19,10 +19,10 @@
             <div class="row">
                 <div class="form-group">
                     <label for="description">Search:</label>
-                    <input type="text" class="form-control, col-xs-6" id="description">
+                    <input type="text" class="form-control, col-xs-6" id="description" value="${query}">
                 </div>
                 <div class="form-group">
-                    <select class="form-control, col-xs-2" id="selectStatus" onchange="changeStatus()">
+                    <select class="form-control, col-xs-2" id="selectStatus">
                         <option value="All">ALL</option>
                         <c:forEach items="${statusList}" var="status">
                             <option <c:if test="${status.isSelected()}">selected</c:if> value="${status.getValue()}">${status.getName()}</option>
@@ -30,7 +30,7 @@
                     </select>
                 </div>
                 <div>
-                    <button class="btn" onclick="searchTodo()"><i class="fa fa-search"></i></button>
+                    <button class="btn" onclick="searchTodos()" ><i class="fa fa-search"></i></button>
                 </div>
             </div>
             <div>

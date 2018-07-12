@@ -25,6 +25,8 @@ public class NewToDoServlet extends HttpServlet {
                 throw new RuntimeException(e.getMessage());
             }
             response.sendRedirect("/todos");
+        } else {
+            response.sendRedirect("/todos/new");
         }
     }
 }

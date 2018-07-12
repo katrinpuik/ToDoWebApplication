@@ -12,3 +12,19 @@ function searchTodos() {
         location.href = "todos";
     }
 }
+
+
+function checkIfDescriptionIsNotEmpty() {
+    var descriptionOfNewTodo = document.getElementById("newTodo").value;
+    if (descriptionOfNewTodo === null || descriptionOfNewTodo ==="") {
+        var errorMessage = document.getElementById("errorMessage");
+        errorMessage.hidden = false;
+    } else {
+        submitNewTodo()
+    }
+}
+
+function submitNewTodo() {
+    document.getElementById("submitNewTodo").submit();
+}
+

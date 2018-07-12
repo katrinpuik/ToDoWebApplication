@@ -3,17 +3,21 @@
 
 <html>
     <%@ include file="header.jsp" %>
-<body>
-<div class="container">
-<br>
-<br>
-<br>
-    <form method="post" action="/todos/new">
-        Insert new todo:<br>
-        <input type="text" name="newTodo"><br>
-        <input type="submit" value="Submit">
-    </form>
-</div class="container">
-<%@ include file="footer.jsp" %>
-</body>
+    <body>
+        <div class="container">
+            <br>
+            <br>
+            <br>
+            <form id="submitNewTodo" method="post" action="/todos/new">
+                Insert new todo:<br>
+                <input type="text" id="newTodo" name="newTodo"></input>
+                <br>
+                    <div id="errorMessage" hidden style="color: red">Description is required</div>
+                <button type="button" id="submitButton" onclick="checkIfDescriptionIsNotEmpty()">Submit</button>
+            </form>
+        </div>
+        <%@ include file="footer.jsp" %>
+    </body>
 </html>
+
+

@@ -20,30 +20,6 @@ public class ToDoServlet extends HttpServlet {
         Status statusFromRequestAsEnum = createValidStatus(request.getParameter("status"));
         String descriptionOfToDoToFindFromRequest = request.getParameter("description");
 
-
-
-        String idOfToDotoDoneFromRequest = request.getParameter("done");
-        String idOfToDotoDeleteFromRequest = request.getParameter("delete");
-
-        // muuda todo staatust
-        if (idOfToDotoDoneFromRequest != null) {
-            ToDo toDotoChangeStatus = ContextListener.service.findById(Integer.parseInt(idOfToDotoDoneFromRequest));
-            toDotoChangeStatus.setStatus("DONE");
-            try {
-                ContextListener.service.save(toDotoChangeStatus);
-            } catch (ServiceException e) {
-                throw new RuntimeException(e.getMessage());
-            }
-        }
-
-
-
-
-        if (idOfToDotoDeleteFromRequest != null) {
-            ContextListener.service.remove(Integer.parseInt(idOfToDotoDeleteFromRequest));
-        }
-
-
 // joonista todosid
 
         request.setAttribute("statusList", createStatusList(statusFromRequestAsEnum));
@@ -56,6 +32,29 @@ public class ToDoServlet extends HttpServlet {
             request.getRequestDispatcher("listAll.jsp").forward(request, response);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String idOfToDotoDoneFromRequest = request.getParameter("done");
+// nupp jsp/s ära muuta, javascript teha selle funktsiooni jaoks
+        // muuda todo staatust
+        if (idOfToDotoDoneFromRequest != null) {
+            ToDo toDotoChangeStatus = ContextListener.service.findById(Integer.parseInt(idOfToDotoDoneFromRequest));
+            toDotoChangeStatus.setStatus("DONE");
+            try {
+                ContextListener.service.save(toDotoChangeStatus);
+            } catch (ServiceException e) {
+                throw new RuntimeException(e.getMessage());
+            }
+        }
+    }
+
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        String idOfToDotoDeleteFromRequest = request.getParameter("delete");
+
+        if (idOfToDotoDeleteFromRequest != null) {
+            ContextListener.service.remove(Integer.parseInt(idOfToDotoDeleteFromRequest));
         }
     }
 

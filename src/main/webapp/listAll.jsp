@@ -30,7 +30,7 @@
                     </select>
                 </div>
                 <div>
-                    <button class="btn" onclick="searchTodos()" ><i class="fa fa-search"></i></button>
+                    <button class="btn" onclick="searchTodos()"><i class="fa fa-search"></i></button>
                 </div>
             </div>
             <div>
@@ -54,7 +54,9 @@
                                 </c:if>
                             </div>
                         </td>
-                        <td><a class="btn btn-outline-primary float-left" value=".float-left" href="todos?delete=${toDo.getId()}" role="button">Delete</a></td>
+                        <td>
+                            <a class="btn btn-outline-primary float-left" value=".float-left" href="todos?delete=${toDo.getId()}" role="button">Delete</a>
+                        </td>
                     </tr>
                 </c:forEach>
                 </table>

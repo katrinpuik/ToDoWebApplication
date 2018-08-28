@@ -55,7 +55,7 @@
                             </div>
                         </td>
                         <td>
-                            <a class="btn btn-outline-primary float-left" value=".float-left" href="todos?delete=${toDo.getId()}" role="button">Delete</a>
+                            <button type="button" class="btn btn-primary" onclick="deleteTodo(${toDo.getId()})">Delete</button>
                         </td>
                     </tr>
                 </c:forEach>

@@ -34,3 +34,10 @@ function changeStatusToDone(id) {
         location.reload();
     });
 }
+
+function deleteTodo(id) {
+    let request = new Request("http://localhost:8080/todos?delete=" + id, {method: "DELETE"});
+    fetch(request).then(function(response) {
+            location.reload();
+    });
+}

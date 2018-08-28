@@ -44,13 +44,12 @@ public class ToDoServlet extends HttpServlet {
                 ContextListener.service.save(toDotoChangeStatus);
             } catch (ServiceException e) {
                 throw new RuntimeException(e.getMessage());
-            } response.sendRedirect("/todos");
+            }
         }
     }
 
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         String idOfToDotoDeleteFromRequest = request.getParameter("delete");
-
         if (idOfToDotoDeleteFromRequest != null) {
             ContextListener.service.remove(Integer.parseInt(idOfToDotoDeleteFromRequest));
         }

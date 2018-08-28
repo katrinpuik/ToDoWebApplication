@@ -37,8 +37,6 @@ public class ToDoServlet extends HttpServlet {
 
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String idOfToDotoDoneFromRequest = request.getParameter("done");
-// nupp jsp/s ära muuta, javascript teha selle funktsiooni jaoks
-        // muuda todo staatust
         if (idOfToDotoDoneFromRequest != null) {
             ToDo toDotoChangeStatus = ContextListener.service.findById(Integer.parseInt(idOfToDotoDoneFromRequest));
             toDotoChangeStatus.setStatus("DONE");
@@ -46,7 +44,7 @@ public class ToDoServlet extends HttpServlet {
                 ContextListener.service.save(toDotoChangeStatus);
             } catch (ServiceException e) {
                 throw new RuntimeException(e.getMessage());
-            }
+            } response.sendRedirect("/todos");
         }
     }
 

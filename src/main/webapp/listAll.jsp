@@ -50,7 +50,7 @@
                         <td>
                             <div>
                                 <c:if test="${toDo.isCompletable()}">
-                                <a class="btn btn-outline-primary center" value=".center" href="todos?done=${toDo.getId()}" role="button">Done</a>
+                                <button type="button" class="btn btn-primary" onclick="changeStatusToDone(${toDo.getId()})">Done</button>
                                 </c:if>
                             </div>
                         </td>

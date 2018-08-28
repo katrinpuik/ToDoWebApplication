@@ -13,7 +13,7 @@
                 <input type="text" id="newTodo" name="newTodo"></input>
                 <br>
                     <div id="errorMessage" hidden style="color: red">Description is required</div>
-                <button type="button" id="submitButton" onclick="checkIfDescriptionIsNotEmpty()">Submit</button>
+                <button type="button" id="submitButton" onclick="checkIfDescriptionIsNotEmptyAndSubmit()">Submit</button>
             </form>
         </div>
         <%@ include file="footer.jsp" %>

@@ -14,7 +14,7 @@ function searchTodos() {
 }
 
 
-function checkIfDescriptionIsNotEmpty() {
+function checkIfDescriptionIsNotEmptyAndSubmit() {
     var descriptionOfNewTodo = document.getElementById("newTodo").value;
     if (descriptionOfNewTodo === null || descriptionOfNewTodo ==="") {
         var errorMessage = document.getElementById("errorMessage");
@@ -28,3 +28,9 @@ function submitNewTodo() {
     document.getElementById("submitNewTodo").submit();
 }
 
+function changeStatusToDone(id) {
+    let request = new Request("http://localhost:8080/todos?done=" + id, {method: "PUT"} );
+    fetch(request).then(function(response) {
+        location.reload();
+    });
+}

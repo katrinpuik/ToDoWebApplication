@@ -215,6 +215,23 @@ class TodoServiceTest {
         assertEquals(singletonList(todo), todosWithStatusNull);
     }
 
+    @Test
+    void findByStatusAndDescription () throws ServiceException {
+        Todo todo1 = new Todo("todo1");
+        todo1.setStatus("DONE");
+        service.save(todo1);
+        Todo todo2 = new Todo("todo2");
+        todo2.setStatus("NOT_DONE");
+        service.save(todo2);
+        Todo todo3 = new Todo("todo3");
+        service.save(todo3);
+
+        List<Todo> todosFoundByStatusAndDescription = service.findByStatusAndDescription(Status.NOT_DONE, "todo2");
+
+        assertEquals(1, todosFoundByStatusAndDescription.size());
+        assertEquals(singletonList(todo2), todosFoundByStatusAndDescription);
+    }
+
     private Todo createTodo(Status status) {
         Todo todo = new Todo("todo");
         todo.setStatus(status == null ? null : status.name());

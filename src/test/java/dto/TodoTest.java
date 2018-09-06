@@ -52,6 +52,6 @@ class TodoTest {
     void initialStatusIsNull() {
         Todo first = new Todo("todoFirst");
 
-        assertNull(first.getStatus());
+        assertEquals(Status.NOT_DONE, first.getStatus());
     }
 }

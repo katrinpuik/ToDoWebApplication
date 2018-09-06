@@ -1,8 +1,8 @@
 import dto.ToDo;
 import enums.Status;
 import exception.ServiceException;
-import service.ToDoMapper;
-import service.ToDoService;
+import service.TodoMapper;
+import service.TodoService;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -15,9 +15,9 @@ import static helper.ReadingAndWritingToFileHelper.initStringsFromFile;
 @WebListener
 public class ContextListener implements ServletContextListener {
 
-    private ToDoMapper mapper = new ToDoMapper();
+    private TodoMapper mapper = new TodoMapper();
 
-    public static ToDoService service = new ToDoService();
+    public static TodoService service = new TodoService();
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {

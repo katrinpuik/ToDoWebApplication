@@ -43,19 +43,19 @@
                         <th scope="col">Delete</th>
                     </tr>
                 </thead>
-                <c:forEach items="${toDos}" var="toDo">
+                <c:forEach items="${todos}" var="todo">
                     <tr>
-                        <td>${toDo.getDescription()}</td>
-                        <td>${toDo.getStatus()}</td>
+                        <td>${todo.getDescription()}</td>
+                        <td>${todo.getStatus()}</td>
                         <td>
                             <div>
-                                <c:if test="${toDo.isCompletable()}">
-                                <button type="button" class="btn btn-primary" onclick="changeStatusToDone(${toDo.getId()})">Done</button>
+                                <c:if test="${todo.isCompletable()}">
+                                <button type="button" class="btn btn-primary" onclick="changeStatusToDone(${todo.getId()})">Done</button>
                                 </c:if>
                             </div>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-primary" onclick="deleteTodo(${toDo.getId()})">Delete</button>
+                            <button type="button" class="btn btn-primary" onclick="deleteTodo(${todo.getId()})">Delete</button>
                         </td>
                     </tr>
                 </c:forEach>

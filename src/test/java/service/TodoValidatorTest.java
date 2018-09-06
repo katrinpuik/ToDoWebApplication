@@ -6,12 +6,12 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ToDoValidatorTest {
-    private ToDoValidator validator;
+class TodoValidatorTest {
+    private TodoValidator validator;
 
     @BeforeEach
     void setUp() {
-        validator = new ToDoValidator();
+        validator = new TodoValidator();
     }
 
     @Test
@@ -57,7 +57,6 @@ class ToDoValidatorTest {
         Throwable exception = assertThrows(ServiceException.class, () -> validator.isValidStatus("not_done"));
         assertEquals("Invalid status", exception.getMessage());
     }
-
 
     @Test
     void isValidStatusDiscarded() throws ServiceException {

@@ -1,21 +1,21 @@
 package service;
 
-import dto.ToDo;
+import dto.Todo;
 import enums.Status;
 import exception.ServiceException;
-import repository.ToDoRepository;
+import repository.TodoRepository;
 
 import java.util.List;
 
-public class ToDoService {
+public class TodoService {
 
-    private ToDoRepository repository = new ToDoRepository();
+    private TodoRepository repository = new TodoRepository();
 
-    public void save(ToDo todo) throws ServiceException {
-        repository.saveOrUpdateAndSaveToDos(todo);
+    public void save(Todo todo) throws ServiceException {
+        repository.saveOrUpdateAndSaveTodos(todo);
     }
 
-    public List<ToDo> getAll() {
+    public List<Todo> getAll() {
         return repository.getAll();
     }
 
@@ -27,19 +27,19 @@ public class ToDoService {
         repository.remove(id);
     }
 
-    public List<ToDo> findByDescription(String description) {
+    public List<Todo> findByDescription(String description) {
         return repository.findByDescription(description);
     }
 
-    public List<ToDo> findByStatus(Status status) {
+    public List<Todo> findByStatus(Status status) {
         return repository.findByStatus(status);
     }
 
-    public List<ToDo> findByStatusAndDescription (Status status, String description) {
+    public List<Todo> findByStatusAndDescription (Status status, String description) {
         return repository.findByStatusAndDescription(status, description);
     }
 
-    public ToDo findById (Integer id) {
+    public Todo findById (Integer id) {
         return repository.findById(id);
     }
 

@@ -4,7 +4,7 @@ import exception.ServiceException;
 
 import static enums.Status.valueOf;
 
-public class ToDoValidator {
+public class TodoValidator {
 
     public boolean isValidDescription(String description) throws ServiceException {
         if (description != null && !description.isEmpty()) {

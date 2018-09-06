@@ -6,27 +6,27 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-class ToDoTest {
+class TodoTest {
 
     @Test
     void testDescription() {
-        ToDo first = new ToDo("toDoFirst");
-        ToDo second = new ToDo("toDoSecond");
+        Todo first = new Todo("todoFirst");
+        Todo second = new Todo("todoSecond");
 
-        assertEquals("toDoFirst", first.getDescription());
-        assertEquals("toDoSecond", second.getDescription());
+        assertEquals("todoFirst", first.getDescription());
+        assertEquals("todoSecond", second.getDescription());
     }
 
     @Test
     void descriptionNull() {
-        ToDo toDo = new ToDo(null);
+        Todo todo = new Todo(null);
 
-        assertNull(toDo.getDescription());
+        assertNull(todo.getDescription());
     }
 
     @Test
     void setStatusDone() {
-        ToDo first = new ToDo("toDoFirst");
+        Todo first = new Todo("todoFirst");
         first.setStatus("DONE");
 
         assertEquals(Status.DONE, first.getStatus());
@@ -34,7 +34,7 @@ class ToDoTest {
 
     @Test
     void setStatusNotDone() {
-        ToDo first = new ToDo("toDoFirst");
+        Todo first = new Todo("todoFirst");
         first.setStatus("NOT_DONE");
 
         assertEquals(Status.NOT_DONE, first.getStatus());
@@ -42,7 +42,7 @@ class ToDoTest {
 
     @Test
     void setStatusDiscarded() {
-        ToDo first = new ToDo("toDoFirst");
+        Todo first = new Todo("todoFirst");
         first.setStatus("DISCARDED");
 
         assertEquals(Status.DISCARDED, first.getStatus());
@@ -50,9 +50,8 @@ class ToDoTest {
 
     @Test
     void initialStatusIsNull() {
-        ToDo first = new ToDo("toDoFirst");
+        Todo first = new Todo("todoFirst");
 
         assertNull(first.getStatus());
     }
-
 }

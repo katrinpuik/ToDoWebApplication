@@ -22,7 +22,7 @@
                     <input type="text" class="form-control, col-xs-6" id="description" value="${query}">
                 </div>
                 <div class="form-group">
-                    <select class="form-control, col-xs-2" id="selectStatus">
+                    <select class="form-control, col-xs-2" id="selectStatus" onchange="searchTodos()">
                         <option value="All">ALL</option>
                         <c:forEach items="${statusList}" var="status">
                             <option <c:if test="${status.isSelected()}">selected</c:if> value="${status.getValue()}">${status.getName()}</option>

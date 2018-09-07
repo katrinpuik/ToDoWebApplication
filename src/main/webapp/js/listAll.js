@@ -1,3 +1,13 @@
+window.addEventListener("load", function(){
+    var input = document.getElementById("description");
+    input.addEventListener("keyup", function(event) {
+    event.preventDefault();
+        if (event.keyCode === 13) {
+            searchTodos();
+        }
+    });
+});
+
 function searchTodos() {
     location.href = "todos?" + generateStringForUrl();
 }

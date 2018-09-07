@@ -24,6 +24,5 @@ public class StatusForDropdown {
     public boolean isSelected() {
         return isSelected;
     }
-
 }
 

@@ -23,26 +23,11 @@ function getDataForGeneratingUrl() {
 }
 
 function generateStringForUrl() {
-    var dataToUrl = getDataForGeneratingUrl();
     var arrayFromDataToUrl = [];
-        for (var [key, value] of dataToUrl){
-            var itemToArray = key + "=" + value;
-            arrayFromDataToUrl.push(itemToArray);
-        }
-        var stringToUrl = arrayFromDataToUrl.join("&");
-     return stringToUrl;
-
-
-//    var mapRowsCounter = 1;
-//    for (var [key, value] of dataToUrl) {
-//            if (mapRowsCounter< dataToUrl.size) {
-//                stringToUrl += key + "=" + value + "&";
-//                mapRowsCounter++;
-//            } else {
-//                stringToUrl += key + "=" + value;
-//            }
-//        }
-//    return stringToUrl;
+    getDataForGeneratingUrl().forEach(function(value, key) {
+        arrayFromDataToUrl.push(key + "=" + value);
+    });
+    return arrayFromDataToUrl.join("&");
 }
 
 function checkIfDescriptionIsNotEmptyAndSubmit() {

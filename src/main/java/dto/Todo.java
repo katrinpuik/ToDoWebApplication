@@ -6,12 +6,12 @@ import enums.Status;
 import static enums.Status.NOT_DONE;
 import static enums.Status.valueOf;
 
-public class ToDo {
+public class Todo {
     private Integer id;
     private String description;
     private Status status;
 
-    public ToDo(String description) {
+    public Todo(String description) {
         this.description = description;
         this.status = NOT_DONE;
     }
@@ -36,11 +36,11 @@ public class ToDo {
         }
     }
 
-    public Integer getId(){
+    public Integer getId() {
         return id;
     }
 
-    public void setId (Integer id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -48,12 +48,8 @@ public class ToDo {
         return status == Status.NOT_DONE;
     }
 
-
     @Override
     public String toString() {
         return description + ", " + String.valueOf(status) + ", id" + id;
     }
-
-
-
 }

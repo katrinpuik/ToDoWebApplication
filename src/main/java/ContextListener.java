@@ -1,5 +1,4 @@
-import dto.ToDo;
-import enums.Status;
+import dto.Todo;
 import exception.ServiceException;
 import service.TodoMapper;
 import service.TodoService;
@@ -22,8 +21,8 @@ public class ContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         try {
-            List<ToDo> toDos = mapper.deserialize(initStringsFromFile());
-            toDos.forEach(toDo -> {
+            List<Todo> todos = mapper.deserialize(initStringsFromFile());
+            todos.forEach(toDo -> {
                 try {
                     service.save(toDo);
                 } catch (ServiceException e) {

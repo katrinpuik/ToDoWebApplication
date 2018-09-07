@@ -1,6 +1,6 @@
 package repository;
 
-import dto.ToDo;
+import dto.Todo;
 import enums.Status;
 import exception.ServiceException;
 
@@ -11,59 +11,57 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 
-public class ToDoRepository {
+public class TodoRepository {
 
-    private List<ToDo> toDos = new ArrayList<>();
+    private List<Todo> todos = new ArrayList<>();
     private AtomicInteger id = new AtomicInteger(1);
 
-    public void saveOrUpdateAndSaveToDos(ToDo toDo) throws ServiceException {
+    public void saveOrUpdateAndSaveTodos(Todo todo) throws ServiceException {
 
-      if (toDo.getId() != null) {
-            if (findById(toDo.getId()) == null) {
-                throw new ServiceException("No toDo with such id");
-            } else remove(toDo.getId());
+        if (todo.getId() != null) {
+            if (findById(todo.getId()) == null) {
+                throw new ServiceException("No todo with such id");
+            } else remove(todo.getId());
         } else {
-            toDo.setId(id.getAndIncrement());
+            todo.setId(id.getAndIncrement());
         }
-        toDos.add(toDo);
+        todos.add(todo);
     }
 
-    public ToDo findById(Integer id) {
-        return toDos.stream()
+    public Todo findById(Integer id) {
+        return todos.stream()
                 .filter(toDo -> Objects.equals(toDo.getId(), id))
                 .findFirst()
                 .orElse(null);
     }
 
-    public List<ToDo> getAll() {
-        return toDos;
+    public List<Todo> getAll() {
+        return todos;
     }
 
     public void remove(String description) {
-        toDos.removeIf(toDo -> areEqual(description, toDo.getDescription()));
+        todos.removeIf(todo -> areEqual(description, todo.getDescription()));
     }
 
-    public void remove (Integer id) {
-        toDos.removeIf(toDo -> Objects.equals(id, toDo.getId()));
+    public void remove(Integer id) {
+        todos.removeIf(todo -> Objects.equals(id, todo.getId()));
     }
 
-
-    public List<ToDo> findByDescription(String description) {
-        return toDos.stream()
-                .filter(toDo -> areEqual(description, toDo.getDescription()))
+    public List<Todo> findByDescription(String description) {
+        return todos.stream()
+                .filter(todo -> areEqual(description, todo.getDescription()))
                 .collect(Collectors.toList());
     }
 
-
-    public List<ToDo> findByStatus(Status status) {
-        return toDos.stream()
-                .filter(toDo -> areEqual(status, toDo.getStatus()))
+    public List<Todo> findByStatus(Status status) {
+        return todos.stream()
+                .filter(todo -> areEqual(status, todo.getStatus()))
                 .collect(Collectors.toList());
     }
 
-    public List<ToDo> findByStatusAndDescription (Status status, String description) {
+    public List<Todo> findByStatusAndDescription(Status status, String description) {
         return findByStatus(status).stream()
-                .filter(toDo -> areEqual(description, toDo.getDescription()))
+                .filter(todo -> areEqual(description, todo.getDescription()))
                 .collect(Collectors.toList());
     }
 

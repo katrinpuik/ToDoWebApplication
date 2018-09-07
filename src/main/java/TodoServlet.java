@@ -1,5 +1,5 @@
 import dto.StatusForDropdown;
-import dto.ToDo;
+import dto.Todo;
 import enums.Status;
 import exception.ServiceException;
 
@@ -12,21 +12,21 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name = "ToDoServlet", urlPatterns = {"todos"}, loadOnStartup = 1)
-public class ToDoServlet extends HttpServlet {
+@WebServlet(name = "TodoServlet", urlPatterns = {"todos"}, loadOnStartup = 1)
+public class TodoServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 
         Status statusFromRequestAsEnum = createValidStatus(request.getParameter("status"));
-        String descriptionOfToDoToFindFromRequest = request.getParameter("description");
+        String descriptionOfTodoToFindFromRequest = request.getParameter("description");
 
 // joonista todosid
 
         request.setAttribute("statusList", createStatusList(statusFromRequestAsEnum));
 
-        request.setAttribute("toDos", createTodoList(statusFromRequestAsEnum, descriptionOfToDoToFindFromRequest));
+        request.setAttribute("todos", createTodoList(statusFromRequestAsEnum, descriptionOfTodoToFindFromRequest));
 
-        request.setAttribute("query", descriptionOfToDoToFindFromRequest);
+        request.setAttribute("query", descriptionOfTodoToFindFromRequest);
 
         try {
             request.getRequestDispatcher("listAll.jsp").forward(request, response);
@@ -36,12 +36,12 @@ public class ToDoServlet extends HttpServlet {
     }
 
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String idOfToDotoDoneFromRequest = request.getParameter("done");
-        if (idOfToDotoDoneFromRequest != null) {
-            ToDo toDotoChangeStatus = ContextListener.service.findById(Integer.parseInt(idOfToDotoDoneFromRequest));
-            toDotoChangeStatus.setStatus("DONE");
+        String idOfTodoToDoneFromRequest = request.getParameter("done");
+        if (idOfTodoToDoneFromRequest != null) {
+            Todo todoToChangeStatus = ContextListener.service.findById(Integer.parseInt(idOfTodoToDoneFromRequest));
+            todoToChangeStatus.setStatus("DONE");
             try {
-                ContextListener.service.save(toDotoChangeStatus);
+                ContextListener.service.save(todoToChangeStatus);
             } catch (ServiceException e) {
                 throw new RuntimeException(e.getMessage());
             }
@@ -49,24 +49,24 @@ public class ToDoServlet extends HttpServlet {
     }
 
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        String idOfToDotoDeleteFromRequest = request.getParameter("delete");
-        if (idOfToDotoDeleteFromRequest != null) {
-            ContextListener.service.remove(Integer.parseInt(idOfToDotoDeleteFromRequest));
+        String idOfTodoToDeleteFromRequest = request.getParameter("delete");
+        if (idOfTodoToDeleteFromRequest != null) {
+            ContextListener.service.remove(Integer.parseInt(idOfTodoToDeleteFromRequest));
         }
     }
 
-    private List<ToDo> createTodoList(Status status, String description) {
-        List<ToDo> toDos;
+    private List<Todo> createTodoList(Status status, String description) {
+        List<Todo> todos;
         if (status != null && description != null) {
-            toDos = ContextListener.service.findByStatusAndDescription(status, description);
+            todos = ContextListener.service.findByStatusAndDescription(status, description);
         } else if (status != null) {
-            toDos = ContextListener.service.findByStatus(status);
+            todos = ContextListener.service.findByStatus(status);
         } else if (description != null) {
-            toDos = ContextListener.service.findByDescription(description);
+            todos = ContextListener.service.findByDescription(description);
         } else {
-            toDos = ContextListener.service.getAll();
+            todos = ContextListener.service.getAll();
         }
-        return toDos;
+        return todos;
     }
 
     private List<StatusForDropdown> createStatusList(Status status) {

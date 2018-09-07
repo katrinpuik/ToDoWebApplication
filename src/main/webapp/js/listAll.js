@@ -1,12 +1,22 @@
 window.addEventListener("load", function(){
-    var input = document.getElementById("description");
-    input.addEventListener("keyup", function(event) {
-    event.preventDefault();
-        if (event.keyCode === 13) {
-            searchTodos();
-        }
-    });
+   var textInput = document.getElementById("description");
+   var timeout = null;
+   textInput.onkeyup = function (e) {
+       clearTimeout(timeout);
+       timeout = setTimeout(function () {searchTodos()}, 500);
+   };
 });
+
+
+//window.addEventListener("load", function(){
+//    var input = document.getElementById("description");
+//    input.addEventListener("keyup", function(event) {
+//    event.preventDefault();
+//        if (event.keyCode === 13) {
+//            searchTodos();
+//        }
+//    });
+//});
 
 function searchTodos() {
     location.href = "todos?" + generateStringForUrl();

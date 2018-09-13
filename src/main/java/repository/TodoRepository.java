@@ -4,11 +4,16 @@ import dto.Todo;
 import enums.Status;
 import exception.ServiceException;
 
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
+
+import static java.lang.String.valueOf;
 
 
 public class TodoRepository {
@@ -18,14 +23,31 @@ public class TodoRepository {
 
     public void saveOrUpdateAndSaveTodos(Todo todo) throws ServiceException {
 
-        if (todo.getId() != null) {
-            if (findById(todo.getId()) == null) {
-                throw new ServiceException("No todo with such id");
-            } else remove(todo.getId());
-        } else {
-            todo.setId(id.getAndIncrement());
+        String url = "jdbc:mysql://localhost:3306/todos";
+        String user = "todouser";
+        String password = "todopass";
+
+        String query = "INSERT INTO todos (description, status) VALUES (?, ?);";
+
+        try (PreparedStatement statement = DriverManager.getConnection(url, user, password).prepareStatement(query)) {
+            statement.setString(1, todo.getDescription());
+            statement.setString(2, valueOf(todo.getStatus()));
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+
+            Logger lgr = Logger.getLogger(TodoRepository.class.getName());
+            lgr.log(Level.SEVERE, ex.getMessage(), ex);
         }
-        todos.add(todo);
+
+
+//        if (todo.getId() != null) {
+//            if (findById(todo.getId()) == null) {
+//                throw new ServiceException("No todo with such id");
+//            } else remove(todo.getId());
+//        } else {
+//            todo.setId(id.getAndIncrement());
+//        }
+//        todos.add(todo);
     }
 
     public Todo findById(Integer id) {

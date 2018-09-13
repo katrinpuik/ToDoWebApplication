@@ -20,18 +20,18 @@ public class ContextListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
-        try {
-            List<Todo> todos = mapper.deserialize(initStringsFromFile());
-            todos.forEach(toDo -> {
-                try {
-                    service.save(toDo);
-                } catch (ServiceException e) {
-                    throw new RuntimeException(e.getMessage());
-                }
-            });
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e.getMessage());
-        }
+//        try {
+//            List<Todo> todos = mapper.deserialize(initStringsFromFile());
+//            todos.forEach(toDo -> {
+//                try {
+//                    service.save(toDo);
+//                } catch (ServiceException e) {
+//                    throw new RuntimeException(e.getMessage());
+//                }
+//            });
+//        } catch (FileNotFoundException e) {
+//            throw new RuntimeException(e.getMessage());
+//        }
     }
 
     @Override

@@ -38,16 +38,6 @@ public class TodoRepository {
             Logger lgr = Logger.getLogger(TodoRepository.class.getName());
             lgr.log(Level.SEVERE, ex.getMessage(), ex);
         }
-
-
-//        if (todo.getId() != null) {
-//            if (findById(todo.getId()) == null) {
-//                throw new ServiceException("No todo with such id");
-//            } else remove(todo.getId());
-//        } else {
-//            todo.setId(id.getAndIncrement());
-//        }
-//        todos.add(todo);
     }
 
     public Todo findById(Integer id) {

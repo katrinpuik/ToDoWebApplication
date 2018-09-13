@@ -2,6 +2,7 @@ import dto.StatusForDropdown;
 import dto.Todo;
 import enums.Status;
 import exception.ServiceException;
+import service.TodoService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,12 +16,12 @@ import java.util.List;
 @WebServlet(name = "TodoServlet", urlPatterns = {"todos"}, loadOnStartup = 1)
 public class TodoServlet extends HttpServlet {
 
+    private TodoService service = new TodoService();
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 
         Status statusFromRequestAsEnum = createValidStatus(request.getParameter("status"));
         String descriptionOfTodoToFindFromRequest = request.getParameter("description");
-
-// joonista todosid
 
         request.setAttribute("statusList", createStatusList(statusFromRequestAsEnum));
 
@@ -38,10 +39,10 @@ public class TodoServlet extends HttpServlet {
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String idOfTodoToDoneFromRequest = request.getParameter("done");
         if (idOfTodoToDoneFromRequest != null) {
-            Todo todoToChangeStatus = ContextListener.service.findById(Integer.parseInt(idOfTodoToDoneFromRequest));
+            Todo todoToChangeStatus = service.findById(Integer.parseInt(idOfTodoToDoneFromRequest));
             todoToChangeStatus.setStatus("DONE");
             try {
-                ContextListener.service.save(todoToChangeStatus);
+                service.save(todoToChangeStatus);
             } catch (ServiceException e) {
                 throw new RuntimeException(e.getMessage());
             }
@@ -51,20 +52,20 @@ public class TodoServlet extends HttpServlet {
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         String idOfTodoToDeleteFromRequest = request.getParameter("delete");
         if (idOfTodoToDeleteFromRequest != null) {
-            ContextListener.service.remove(Integer.parseInt(idOfTodoToDeleteFromRequest));
+           service.remove(Integer.parseInt(idOfTodoToDeleteFromRequest));
         }
     }
 
     private List<Todo> createTodoList(Status status, String description) {
         List<Todo> todos;
         if (status != null && description != null) {
-            todos = ContextListener.service.findByStatusAndDescription(status, description);
+            todos = service.findByStatusAndDescription(status, description);
         } else if (status != null) {
-            todos = ContextListener.service.findByStatus(status);
+            todos = service.findByStatus(status);
         } else if (description != null) {
-            todos = ContextListener.service.findByDescription(description);
+            todos = service.findByDescription(description);
         } else {
-            todos = ContextListener.service.getAll();
+            todos = service.getAll();
         }
         return todos;
     }

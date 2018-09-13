@@ -8,7 +8,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -19,14 +18,12 @@ import static java.lang.String.valueOf;
 public class TodoRepository {
 
     private List<Todo> todos = new ArrayList<>();
-    private AtomicInteger id = new AtomicInteger(1);
+    private String url = "jdbc:mysql://localhost:3306/todos";
+    private String user = "todouser";
+    private String password = "todopass";
+    private static Logger logger = Logger.getLogger(TodoRepository.class.getName());
 
-    public void saveOrUpdateAndSaveTodos(Todo todo) throws ServiceException {
-
-        String url = "jdbc:mysql://localhost:3306/todos";
-        String user = "todouser";
-        String password = "todopass";
-
+    public void saveTodos(Todo todo) throws ServiceException {
         String query = "INSERT INTO todos (description, status) VALUES (?, ?);";
 
         try (PreparedStatement statement = DriverManager.getConnection(url, user, password).prepareStatement(query)) {
@@ -34,10 +31,27 @@ public class TodoRepository {
             statement.setString(2, valueOf(todo.getStatus()));
             statement.executeUpdate();
         } catch (SQLException ex) {
-
-            Logger lgr = Logger.getLogger(TodoRepository.class.getName());
-            lgr.log(Level.SEVERE, ex.getMessage(), ex);
+            logger.log(Level.SEVERE, ex.getMessage(), ex);
         }
+    }
+
+    //updateTodos()
+
+    public List<Todo> getAll() {
+        List<Todo> allTodos = new ArrayList<>();
+        String query = "SELECT * FROM todos";
+        try (PreparedStatement statement = DriverManager.getConnection(url, user, password).prepareStatement(query)) {
+            ResultSet results = statement.executeQuery();
+                while (results.next()) {
+
+                    Todo todo = new Todo(results.getString("description"));
+                    todo.setStatus(results.getString("status"));
+                    allTodos.add(todo);
+                }
+        } catch (SQLException ex) {
+            logger.log(Level.SEVERE, ex.getMessage(), ex);
+        }
+        return allTodos;
     }
 
     public Todo findById(Integer id) {
@@ -47,9 +61,6 @@ public class TodoRepository {
                 .orElse(null);
     }
 
-    public List<Todo> getAll() {
-        return todos;
-    }
 
     public void remove(String description) {
         todos.removeIf(todo -> areEqual(description, todo.getDescription()));

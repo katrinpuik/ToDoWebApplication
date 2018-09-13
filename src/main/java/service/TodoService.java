@@ -12,7 +12,7 @@ public class TodoService {
     private TodoRepository repository = new TodoRepository();
 
     public void save(Todo todo) throws ServiceException {
-        repository.saveOrUpdateAndSaveTodos(todo);
+        repository.saveTodos(todo);
     }
 
     public List<Todo> getAll() {

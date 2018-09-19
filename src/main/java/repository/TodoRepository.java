@@ -87,7 +87,13 @@ public class TodoRepository {
     }
 
     public void remove(Integer id) {
-        todos.removeIf(todo -> Objects.equals(id, todo.getId()));
+        String query = "DELETE FROM todos WHERE id=?;";
+        try (PreparedStatement statement = DriverManager.getConnection(url, user, password).prepareStatement(query)) {
+            statement.setInt(1, id);
+            statement.execute();
+        } catch (SQLException ex) {
+            logger.log(Level.SEVERE, ex.getMessage(), ex);
+        }
     }
 
     public List<Todo> findByDescription(String description) {

@@ -5,53 +5,69 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class TodoTest {
 
     @Test
-    void testDescription() {
-        Todo first = new Todo("todoFirst");
-        Todo second = new Todo("todoSecond");
+    void createTodoWithDescriptionStatus() {
+        Todo todoFirst = new Todo("todoFirst", Status.NOT_DONE);
+        Todo todoSecond = new Todo("todoSecond", Status.DISCARDED);
 
-        assertEquals("todoFirst", first.getDescription());
-        assertEquals("todoSecond", second.getDescription());
+        assertEquals("todoFirst", todoFirst.getDescription());
+        assertEquals("todoSecond", todoSecond.getDescription());
+        assertEquals(Status.NOT_DONE, todoFirst.getStatus() );
+        assertEquals(Status.DISCARDED, todoSecond.getStatus());
+    }
+
+    @Test
+    void createTodoWithDescriptionStatusId (){
+        Todo todoFirst = new Todo("todoFirst", Status.NOT_DONE, 1);
+        Todo todoSecond = new Todo("todoSecond", Status.DISCARDED, 2);
+
+        assertEquals("todoFirst", todoFirst.getDescription());
+        assertEquals("todoSecond", todoSecond.getDescription());
+        assertEquals(Status.NOT_DONE, todoFirst.getStatus() );
+        assertEquals(Status.DISCARDED, todoSecond.getStatus());
+        assertEquals(1, todoFirst.getId().intValue());
+    }
+
+    @Test
+    void setStatusDone() {
+        Todo todo = new Todo("todo", Status.NOT_DONE);
+        todo.setStatus("DONE");
+
+        assertEquals(Status.DONE, todo.getStatus());
+    }
+
+    @Test
+    void setStatusDiscarded() {
+        Todo todo = new Todo("todo", Status.NOT_DONE);
+        todo.setStatus("NOT_DONE");
+
+        assertEquals(Status.NOT_DONE, todo.getStatus());
     }
 
     @Test
     void descriptionNull() {
-        Todo todo = new Todo(null);
+        Todo todo = new Todo(null, Status.NOT_DONE);
 
         assertNull(todo.getDescription());
     }
 
     @Test
-    void setStatusDone() {
-        Todo first = new Todo("todoFirst");
-        first.setStatus("DONE");
+    void setNewDescription() {
+        Todo todo = new Todo("description", Status.NOT_DONE);
+        todo.setDescription("new description");
 
-        assertEquals(Status.DONE, first.getStatus());
+        assertEquals("new description", todo.getDescription());
     }
 
     @Test
-    void setStatusNotDone() {
-        Todo first = new Todo("todoFirst");
-        first.setStatus("NOT_DONE");
+    void isCompletable(){
+        Todo todo = new Todo("description", Status.NOT_DONE);
 
-        assertEquals(Status.NOT_DONE, first.getStatus());
+        assertTrue(todo.isCompletable());
     }
 
-    @Test
-    void setStatusDiscarded() {
-        Todo first = new Todo("todoFirst");
-        first.setStatus("DISCARDED");
-
-        assertEquals(Status.DISCARDED, first.getStatus());
-    }
-
-    @Test
-    void initialStatusIsNull() {
-        Todo first = new Todo("todoFirst");
-
-        assertEquals(Status.NOT_DONE, first.getStatus());
-    }
 }

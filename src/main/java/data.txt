@@ -1,7 +1,0 @@
-run,NOT_DONE
-walk,NOT_DONE
-test,DONE
-write,DISCARDED
-very important thing to do,NOT_DONE
-not so important thing to do,DISCARDED
-new description,NOT_DONE

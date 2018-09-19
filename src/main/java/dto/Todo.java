@@ -7,13 +7,18 @@ import static enums.Status.NOT_DONE;
 import static enums.Status.valueOf;
 
 public class Todo {
-    private Integer id;
     private String description;
     private Status status;
+    private Integer id;
 
-    public Todo(String description) {
+    public Todo(String description, Status status) {
         this.description = description;
-        this.status = NOT_DONE;
+        this.status = status;
+    }
+
+    public Todo (String description, Status status, Integer id) {
+        this(description, status);
+        this.id = id;
     }
 
     public String getDescription() {
@@ -29,11 +34,7 @@ public class Todo {
     }
 
     public void setStatus(String status) {
-        if (status == null) {
-            this.status = null;
-        } else {
-            this.status = valueOf(status);
-        }
+        this.status = valueOf(status);
     }
 
     public Integer getId() {

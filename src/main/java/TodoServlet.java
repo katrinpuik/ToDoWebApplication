@@ -40,9 +40,8 @@ public class TodoServlet extends HttpServlet {
         String idOfTodoToDoneFromRequest = request.getParameter("done");
         if (idOfTodoToDoneFromRequest != null) {
             Todo todoToChangeStatus = service.findById(Integer.parseInt(idOfTodoToDoneFromRequest));
-            todoToChangeStatus.setStatus("DONE");
             try {
-                service.save(todoToChangeStatus);
+                service.updateStatus(todoToChangeStatus);
             } catch (ServiceException e) {
                 throw new RuntimeException(e.getMessage());
             }

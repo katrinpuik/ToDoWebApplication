@@ -15,6 +15,10 @@ public class TodoService {
         repository.saveTodos(todo);
     }
 
+    public void updateStatus(Todo todo) throws ServiceException {
+        repository.updateStatus(todo);
+    }
+
     public List<Todo> getAll() {
         return repository.getAll();
     }

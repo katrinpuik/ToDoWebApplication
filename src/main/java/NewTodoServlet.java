@@ -1,4 +1,5 @@
 import dto.Todo;
+import enums.Status;
 import exception.ServiceException;
 import service.TodoService;
 
@@ -22,7 +23,7 @@ public class NewTodoServlet extends HttpServlet {
         String newDescription = request.getParameter("newTodo");
         if (newDescription != null && !newDescription.equals("")) {
             try {
-                service.save(new Todo(newDescription));
+                service.save (new Todo(newDescription, Status.NOT_DONE));
             } catch (ServiceException e) {
                 throw new RuntimeException(e.getMessage());
             }

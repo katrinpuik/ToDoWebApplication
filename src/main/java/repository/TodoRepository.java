@@ -4,7 +4,11 @@ import dto.Todo;
 import enums.Status;
 import exception.ServiceException;
 
-import java.sql.*;
+import javax.sql.rowset.serial.SerialException;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -28,26 +32,36 @@ public class TodoRepository {
 
         try (PreparedStatement statement = DriverManager.getConnection(url, user, password).prepareStatement(query)) {
             statement.setString(1, todo.getDescription());
-            statement.setString(2, valueOf(todo.getStatus()));
+            statement.setString(2, todo.getStatus().name());
             statement.executeUpdate();
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, ex.getMessage(), ex);
+            throw new ServiceException("Unable to save todo");
         }
     }
 
-    //updateTodos()
+    public void updateStatus (Todo todo) throws ServiceException {
+        String query = "UPDATE todos SET status = ? WHERE id=?;";
+
+        try (PreparedStatement statement = DriverManager.getConnection(url, user, password).prepareStatement(query)) {
+            statement.setString(1, Status.DONE.name());
+            statement.setInt(2, todo.getId());
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            throw new ServiceException("Unable to update todo");
+        }
+    }
 
     public List<Todo> getAll() {
         List<Todo> allTodos = new ArrayList<>();
-        String query = "SELECT * FROM todos";
+        String query = "SELECT * FROM todos;";
         try (PreparedStatement statement = DriverManager.getConnection(url, user, password).prepareStatement(query)) {
             ResultSet results = statement.executeQuery();
-                while (results.next()) {
-
-                    Todo todo = new Todo(results.getString("description"));
-                    todo.setStatus(results.getString("status"));
-                    allTodos.add(todo);
-                }
+            while (results.next()) {
+                Todo todo = new Todo(results.getString("description"), Status.valueOf(results.getString("status")), results.getInt("id"));
+                allTodos.add(todo);
+            }
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, ex.getMessage(), ex);
         }
@@ -55,12 +69,18 @@ public class TodoRepository {
     }
 
     public Todo findById(Integer id) {
-        return todos.stream()
-                .filter(toDo -> Objects.equals(toDo.getId(), id))
-                .findFirst()
-                .orElse(null);
+        String query = "SELECT * FROM todos WHERE id=?;";
+        try (PreparedStatement statement = DriverManager.getConnection(url, user, password).prepareStatement(query)) {
+            statement.setInt(1, id);
+            ResultSet results = statement.executeQuery();
+            while (results.next()) {
+                return new Todo(results.getString("description"), Status.valueOf(results.getString("status")), results.getInt("id"));
+            }
+        } catch (SQLException ex) {
+            logger.log(Level.SEVERE, ex.getMessage(), ex);
+        }
+        return null;
     }
-
 
     public void remove(String description) {
         todos.removeIf(todo -> areEqual(description, todo.getDescription()));

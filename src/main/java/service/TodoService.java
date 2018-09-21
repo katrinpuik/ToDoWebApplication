@@ -9,7 +9,7 @@ import java.util.List;
 
 public class TodoService {
 
-    TodoRepository repository = new TodoRepository();
+    private TodoRepository repository = new TodoRepository();
 
     public void save(Todo todo) throws ServiceException {
         repository.saveTodos(todo);
@@ -42,6 +42,4 @@ public class TodoService {
     public Todo findById (Integer id) {
         return repository.findById(id);
     }
-
-
 }

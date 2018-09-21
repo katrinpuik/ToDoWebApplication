@@ -4,6 +4,8 @@ import dto.Todo;
 import exception.ServiceException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import repository.TodoRepository;
 
 import java.util.Collections;
@@ -11,25 +13,29 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
+import static org.mockito.MockitoAnnotations.initMocks;
 
 
 class TodoServiceTest {
 
+    @InjectMocks
     private TodoService service;
 
-    @BeforeEach
-    public void setUp() {
-        service = new TodoService();
-        service.repository = mock(TodoRepository.class);
-    }
+    @Mock
+    private TodoRepository repository;
 
+    @BeforeEach
+    void setUp() {
+        initMocks(this);
+    }
+    
     @Test
     void save_callsRepositorySave() throws ServiceException {
         Todo todo = mock(Todo.class);
 
         service.save(todo);
 
-        verify(service.repository).saveTodos(todo);
+        verify(repository).saveTodos(todo);
     }
 
     @Test
@@ -38,14 +44,14 @@ class TodoServiceTest {
 
         service.updateStatus(todo);
 
-        verify(service.repository).updateStatus(todo);
+        verify(repository).updateStatus(todo);
     }
 
     @Test
     void getAll_returnsListOfTodos() {
         List<Todo> expectedTodos = Collections.singletonList(mock(Todo.class));
 
-        when(service.repository.getAll()).thenReturn(expectedTodos);
+        when(repository.getAll()).thenReturn(expectedTodos);
 
         List<Todo> todos = service.getAll();
 
@@ -56,14 +62,14 @@ class TodoServiceTest {
     void remove_callsRepositoryRemove() {
         service.remove(null);
 
-        verify(service.repository).remove(null);
+        verify(repository).remove(null);
     }
 
     @Test
     void findByDescription_callsRepositoryFindByDescription() {
         List<Todo> expectedTodos = Collections.singletonList(mock(Todo.class));
 
-        when(service.repository.findByDescription(null)).thenReturn(expectedTodos);
+        when(repository.findByDescription(null)).thenReturn(expectedTodos);
 
         List<Todo> todos = service.findByDescription(null);
 
@@ -74,7 +80,7 @@ class TodoServiceTest {
     void findByStatus_callsRepositoryFindByStatus() {
         List<Todo> expectedTodos = Collections.singletonList(mock(Todo.class));
 
-        when(service.repository.findByStatus(null)).thenReturn(expectedTodos);
+        when(repository.findByStatus(null)).thenReturn(expectedTodos);
 
         List<Todo> todos = service.findByStatus(null);
 
@@ -85,7 +91,7 @@ class TodoServiceTest {
     void findByStatusAndDescription_callsRepositoryFindByStatusAndDescription() {
         List<Todo> expectedTodos = Collections.singletonList(mock(Todo.class));
 
-        when(service.repository.findByStatusAndDescription(null, null)).thenReturn(expectedTodos);
+        when(repository.findByStatusAndDescription(null, null)).thenReturn(expectedTodos);
 
         List<Todo> todos = service.findByStatusAndDescription(null, null);
 
@@ -96,7 +102,7 @@ class TodoServiceTest {
     void findById_callsRepositoryFindById() {
         Todo expectedTodo = mock(Todo.class);
 
-        when(service.repository.findById(null)).thenReturn(expectedTodo);
+        when(repository.findById(null)).thenReturn(expectedTodo);
 
         Todo todo = service.findById(null);
 

@@ -9,7 +9,7 @@ import java.util.List;
 
 public class TodoService {
 
-    private TodoRepository repository = new TodoRepository();
+    TodoRepository repository = new TodoRepository();
 
     public void save(Todo todo) throws ServiceException {
         repository.saveTodos(todo);
@@ -21,10 +21,6 @@ public class TodoService {
 
     public List<Todo> getAll() {
         return repository.getAll();
-    }
-
-    public void remove(String description) {
-        repository.remove(description);
     }
 
     public void remove (Integer id) {

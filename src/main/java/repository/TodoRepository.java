@@ -21,7 +21,6 @@ import static java.lang.String.valueOf;
 
 public class TodoRepository {
 
-    private List<Todo> todos = new ArrayList<>();
     private String url = "jdbc:mysql://localhost:3306/todos";
     private String user = "todouser";
     private String password = "todopass";
@@ -82,10 +81,6 @@ public class TodoRepository {
         return null;
     }
 
-    public void remove(String description) {
-        todos.removeIf(todo -> areEqual(description, todo.getDescription()));
-    }
-
     public void remove(Integer id) {
         String query = "DELETE FROM todos WHERE id=?;";
         try (PreparedStatement statement = DriverManager.getConnection(url, user, password).prepareStatement(query)) {
@@ -97,36 +92,49 @@ public class TodoRepository {
     }
 
     public List<Todo> findByDescription(String description) {
-        return todos.stream()
-                .filter(todo -> areEqual(description, todo.getDescription()))
-                .collect(Collectors.toList());
+        List<Todo> todosFoundByDescription = new ArrayList<>();
+        String query = "SELECT * FROM todos WHERE description =?;";
+        try (PreparedStatement statement = DriverManager.getConnection(url, user, password).prepareStatement(query)) {
+            statement.setString(1, description);
+            ResultSet results = statement.executeQuery();
+            while (results.next()) {
+                todosFoundByDescription.add(new Todo(results.getString("description"), Status.valueOf(results.getString("status")), results.getInt("id")));
+            }
+        } catch (SQLException ex) {
+            logger.log(Level.SEVERE, ex.getMessage(), ex);
+        }
+        return todosFoundByDescription;
     }
 
     public List<Todo> findByStatus(Status status) {
-        return todos.stream()
-                .filter(todo -> areEqual(status, todo.getStatus()))
-                .collect(Collectors.toList());
+        List<Todo> todosFoundByStatus = new ArrayList<>();
+        String query = "SELECT * FROM todos WHERE status =?;";
+        try (PreparedStatement statement = DriverManager.getConnection(url, user, password).prepareStatement(query)) {
+            statement.setString(1, status.name());
+            ResultSet results = statement.executeQuery();
+            while (results.next()) {
+                todosFoundByStatus.add(new Todo(results.getString("description"), Status.valueOf(results.getString("status")), results.getInt("id")));
+            }
+        } catch (SQLException ex) {
+            logger.log(Level.SEVERE, ex.getMessage(), ex);
+        }
+        return todosFoundByStatus;
     }
 
     public List<Todo> findByStatusAndDescription(Status status, String description) {
-        return findByStatus(status).stream()
-                .filter(todo -> areEqual(description, todo.getDescription()))
-                .collect(Collectors.toList());
-    }
+        List<Todo> todosFoundByStatusAndDescription = new ArrayList<>();
+        String query = "SELECT * FROM todos WHERE status = ? AND description = ?;";
+        try (PreparedStatement statement = DriverManager.getConnection(url, user, password).prepareStatement(query)) {
+            statement.setString(1, status.name());
+            statement.setString(2, description);
+            ResultSet results = statement.executeQuery();
+            while (results.next()) {
+                todosFoundByStatusAndDescription.add(new Todo(results.getString("description"), Status.valueOf(results.getString("status")), results.getInt("id")));
+            }
+        } catch (SQLException ex) {
+            logger.log(Level.SEVERE, ex.getMessage(), ex);
+        }
+        return todosFoundByStatusAndDescription;
 
-    private boolean areEqual(Status status1, Status status2) {
-        return status2 == null && status1 == null
-                || status1 != null && status2 != null
-                && status2.equals(status1);
-    }
-
-    private boolean areEqual(String value1, String value2) {
-        return value1 == null && value2 == null
-                || (value1 != null && value2 != null
-                && haveSameLowerCaseValue(value1, value2));
-    }
-
-    private boolean haveSameLowerCaseValue(String value1, String value2) {
-        return value2.toLowerCase().contains(value1.toLowerCase());
     }
 }

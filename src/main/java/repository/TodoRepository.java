@@ -4,7 +4,6 @@ import dto.Todo;
 import enums.Status;
 import exception.ServiceException;
 
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,12 +16,12 @@ import java.util.logging.Logger;
 public class TodoRepository {
 
     private static Logger logger = Logger.getLogger(TodoRepository.class.getName());
-    private DatabaseConnection connection = new DatabaseConnection();
+    Database database = new Database();
 
     public void saveTodos(Todo todo) throws ServiceException {
         String query = "INSERT INTO todos (description, status) VALUES (?, ?);";
 
-        try (PreparedStatement statement = connection.getConnection().prepareStatement(query)) {
+        try (PreparedStatement statement = database.getConnection().prepareStatement(query)) {
             statement.setString(1, todo.getDescription());
             statement.setString(2, todo.getStatus().name());
             statement.executeUpdate();
@@ -35,7 +34,7 @@ public class TodoRepository {
     public void updateStatus (Todo todo) throws ServiceException {
         String query = "UPDATE todos SET status = ? WHERE id=?;";
 
-        try (PreparedStatement statement = connection.getConnection().prepareStatement(query)) {
+        try (PreparedStatement statement = database.getConnection().prepareStatement(query)) {
             statement.setString(1, Status.DONE.name());
             statement.setInt(2, todo.getId());
             statement.executeUpdate();
@@ -46,28 +45,22 @@ public class TodoRepository {
     }
 
     public List<Todo> getAll() {
-        List<Todo> allTodos = new ArrayList<>();
         String query = "SELECT * FROM todos;";
-        try (PreparedStatement statement = connection.getConnection().prepareStatement(query)) {
+        try (PreparedStatement statement = database.getConnection().prepareStatement(query)) {
             ResultSet results = statement.executeQuery();
-            while (results.next()) {
-                Todo todo = new Todo(results.getString("description"), Status.valueOf(results.getString("status")), results.getInt("id"));
-                allTodos.add(todo);
-            }
+            return generateTodosFromDatabaseData(results);
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, ex.getMessage(), ex);
         }
-        return allTodos;
+        return new ArrayList<>();
     }
 
     public Todo findById(Integer id) {
         String query = "SELECT * FROM todos WHERE id=?;";
-        try (PreparedStatement statement = connection.getConnection().prepareStatement(query)) {
+        try (PreparedStatement statement = database.getConnection().prepareStatement(query)) {
             statement.setInt(1, id);
             ResultSet results = statement.executeQuery();
-            while (results.next()) {
-                return new Todo(results.getString("description"), Status.valueOf(results.getString("status")), results.getInt("id"));
-            }
+                return generateTodosFromDatabaseData(results).get(0);
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, ex.getMessage(), ex);
         }
@@ -76,7 +69,7 @@ public class TodoRepository {
 
     public void remove(Integer id) {
         String query = "DELETE FROM todos WHERE id=?;";
-        try (PreparedStatement statement = connection.getConnection().prepareStatement(query)) {
+        try (PreparedStatement statement = database.getConnection().prepareStatement(query)) {
             statement.setInt(1, id);
             statement.execute();
         } catch (SQLException ex) {
@@ -85,50 +78,51 @@ public class TodoRepository {
     }
 
     public List<Todo> findByDescription(String description) {
-        List<Todo> todosFoundByDescription = new ArrayList<>();
         String query = "SELECT * FROM todos WHERE description =?;";
-        try (PreparedStatement statement = connection.getConnection().prepareStatement(query)) {
+        try (PreparedStatement statement = database.getConnection().prepareStatement(query)) {
             statement.setString(1, description);
             ResultSet results = statement.executeQuery();
-            todosFoundByDescription = generateTodosFromDatabaseData(results);
+            return generateTodosFromDatabaseData(results);
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, ex.getMessage(), ex);
         }
-        return todosFoundByDescription;
+        return new ArrayList<>();
     }
 
     public List<Todo> findByStatus(Status status) {
-        List<Todo> todosFoundByStatus = new ArrayList<>();
         String query = "SELECT * FROM todos WHERE status =?;";
-        try (PreparedStatement statement = connection.getConnection().prepareStatement(query)) {
+        try (PreparedStatement statement = database.getConnection().prepareStatement(query)) {
             statement.setString(1, status.name());
             ResultSet results = statement.executeQuery();
-            todosFoundByStatus = generateTodosFromDatabaseData(results);
+           return generateTodosFromDatabaseData(results);
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, ex.getMessage(), ex);
         }
-        return todosFoundByStatus;
+        return new ArrayList<>();
     }
 
     public List<Todo> findByStatusAndDescription(Status status, String description) {
-        List<Todo> todosFoundByStatusAndDescription = new ArrayList<>();
         String query = "SELECT * FROM todos WHERE status = ? AND description = ?;";
-        try (PreparedStatement statement = connection.getConnection().prepareStatement(query)) {
+        try (PreparedStatement statement = database.getConnection().prepareStatement(query)) {
             statement.setString(1, status.name());
             statement.setString(2, description);
             ResultSet results = statement.executeQuery();
-            todosFoundByStatusAndDescription = generateTodosFromDatabaseData(results);
+            return generateTodosFromDatabaseData(results);
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, ex.getMessage(), ex);
         }
-        return todosFoundByStatusAndDescription;
+        return new ArrayList<>();
     }
 
     private List<Todo> generateTodosFromDatabaseData(ResultSet results) throws SQLException {
         List<Todo> todos= new ArrayList<>();
         while (results.next()) {
-            todos.add(new Todo(results.getString("description"), Status.valueOf(results.getString("status")), results.getInt("id")));
+            todos.add(createTodoFromResult(results));
         }
         return todos;
+    }
+
+    Todo createTodoFromResult(ResultSet results) throws SQLException {
+        return new Todo (results.getString("description"), Status.valueOf(results.getString("status")), results.getInt("id"));
     }
 }

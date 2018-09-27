@@ -1,6 +1,5 @@
 import dto.Todo;
 import enums.Status;
-import exception.ServiceException;
 import service.TodoService;
 
 import javax.servlet.ServletException;
@@ -19,14 +18,10 @@ public class NewTodoServlet extends HttpServlet {
         request.getRequestDispatcher("/newTodo.jsp").forward(request, response);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String newDescription = request.getParameter("newTodo");
         if (newDescription != null && !newDescription.equals("")) {
-            try {
-                service.save (new Todo(newDescription, Status.NOT_DONE));
-            } catch (ServiceException e) {
-                throw new RuntimeException(e.getMessage());
-            }
+            service.save(new Todo(newDescription, Status.NOT_DONE));
             response.sendRedirect("/todos");
         } else {
             response.sendRedirect("/todos/new");

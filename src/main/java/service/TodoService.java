@@ -19,27 +19,27 @@ public class TodoService {
         repository.updateStatus(todo);
     }
 
-    public List<Todo> getAll() {
+    public List<Todo> getAll() throws ServiceException {
         return repository.getAll();
     }
 
-    public void remove (Integer id) {
+    public void remove (Integer id) throws ServiceException {
         repository.remove(id);
     }
 
-    public List<Todo> findByDescription(String description) {
+    public List<Todo> findByDescription(String description) throws ServiceException {
         return repository.findByDescription(description);
     }
 
-    public List<Todo> findByStatus(Status status) {
+    public List<Todo> findByStatus(Status status) throws ServiceException {
         return repository.findByStatus(status);
     }
 
-    public List<Todo> findByStatusAndDescription (Status status, String description) {
+    public List<Todo> findByStatusAndDescription (Status status, String description) throws ServiceException {
         return repository.findByStatusAndDescription(status, description);
     }
 
-    public Todo findById (Integer id) {
+    public Todo findById (Integer id) throws ServiceException {
         return repository.findById(id);
     }
 }

@@ -1,7 +1,6 @@
 import dto.StatusForDropdown;
 import dto.Todo;
 import enums.Status;
-import exception.ServiceException;
 import service.TodoService;
 
 import javax.servlet.ServletException;
@@ -36,22 +35,18 @@ public class TodoServlet extends HttpServlet {
         }
     }
 
-    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) {
         String idOfTodoToDoneFromRequest = request.getParameter("done");
         if (idOfTodoToDoneFromRequest != null) {
             Todo todoToChangeStatus = service.findById(Integer.parseInt(idOfTodoToDoneFromRequest));
-            try {
-                service.updateStatus(todoToChangeStatus);
-            } catch (ServiceException e) {
-                throw new RuntimeException(e.getMessage());
-            }
+            service.updateStatus(todoToChangeStatus);
         }
     }
 
-    protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response) {
         String idOfTodoToDeleteFromRequest = request.getParameter("delete");
         if (idOfTodoToDeleteFromRequest != null) {
-           service.remove(Integer.parseInt(idOfTodoToDeleteFromRequest));
+            service.remove(Integer.parseInt(idOfTodoToDeleteFromRequest));
         }
     }
 

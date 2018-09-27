@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 public class TodoRepository {
 
     private static Logger logger = Logger.getLogger(TodoRepository.class.getName());
-    Database database = new Database();
+    private Database database = new Database();
 
     public void saveTodos(Todo todo) throws ServiceException {
         String query = "INSERT INTO todos (description, status) VALUES (?, ?);";
@@ -31,7 +31,7 @@ public class TodoRepository {
         }
     }
 
-    public void updateStatus (Todo todo) throws ServiceException {
+    public void updateStatus(Todo todo) throws ServiceException {
         String query = "UPDATE todos SET status = ? WHERE id=?;";
 
         try (PreparedStatement statement = database.getConnection().prepareStatement(query)) {
@@ -44,40 +44,41 @@ public class TodoRepository {
         }
     }
 
-    public List<Todo> getAll() {
+    public List<Todo> getAll() throws ServiceException {
         String query = "SELECT * FROM todos;";
         try (PreparedStatement statement = database.getConnection().prepareStatement(query)) {
             ResultSet results = statement.executeQuery();
             return generateTodosFromDatabaseData(results);
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, ex.getMessage(), ex);
+            throw new ServiceException("Unable to get todos");
         }
-        return new ArrayList<>();
     }
 
-    public Todo findById(Integer id) {
+    public Todo findById(Integer id) throws ServiceException {
         String query = "SELECT * FROM todos WHERE id=?;";
         try (PreparedStatement statement = database.getConnection().prepareStatement(query)) {
             statement.setInt(1, id);
             ResultSet results = statement.executeQuery();
-                return generateTodosFromDatabaseData(results).get(0);
+            return generateTodosFromDatabaseData(results).get(0);
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, ex.getMessage(), ex);
+            throw new ServiceException("Unable to find  todo");
         }
-        return null;
     }
 
-    public void remove(Integer id) {
+    public void remove(Integer id) throws ServiceException {
         String query = "DELETE FROM todos WHERE id=?;";
         try (PreparedStatement statement = database.getConnection().prepareStatement(query)) {
             statement.setInt(1, id);
             statement.execute();
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, ex.getMessage(), ex);
+            throw new ServiceException("Unable to remove todo");
         }
     }
 
-    public List<Todo> findByDescription(String description) {
+    public List<Todo> findByDescription(String description) throws ServiceException {
         String query = "SELECT * FROM todos WHERE description =?;";
         try (PreparedStatement statement = database.getConnection().prepareStatement(query)) {
             statement.setString(1, description);
@@ -85,23 +86,23 @@ public class TodoRepository {
             return generateTodosFromDatabaseData(results);
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, ex.getMessage(), ex);
+            throw new ServiceException("Unable to find todo");
         }
-        return new ArrayList<>();
     }
 
-    public List<Todo> findByStatus(Status status) {
+    public List<Todo> findByStatus(Status status) throws ServiceException {
         String query = "SELECT * FROM todos WHERE status =?;";
         try (PreparedStatement statement = database.getConnection().prepareStatement(query)) {
             statement.setString(1, status.name());
             ResultSet results = statement.executeQuery();
-           return generateTodosFromDatabaseData(results);
+            return generateTodosFromDatabaseData(results);
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, ex.getMessage(), ex);
+            throw new ServiceException("Unable to find todo");
         }
-        return new ArrayList<>();
     }
 
-    public List<Todo> findByStatusAndDescription(Status status, String description) {
+    public List<Todo> findByStatusAndDescription(Status status, String description) throws ServiceException {
         String query = "SELECT * FROM todos WHERE status = ? AND description = ?;";
         try (PreparedStatement statement = database.getConnection().prepareStatement(query)) {
             statement.setString(1, status.name());
@@ -110,12 +111,12 @@ public class TodoRepository {
             return generateTodosFromDatabaseData(results);
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, ex.getMessage(), ex);
+            throw new ServiceException("Unable to find todo");
         }
-        return new ArrayList<>();
     }
 
     private List<Todo> generateTodosFromDatabaseData(ResultSet results) throws SQLException {
-        List<Todo> todos= new ArrayList<>();
+        List<Todo> todos = new ArrayList<>();
         while (results.next()) {
             todos.add(createTodoFromResult(results));
         }
@@ -123,6 +124,6 @@ public class TodoRepository {
     }
 
     Todo createTodoFromResult(ResultSet results) throws SQLException {
-        return new Todo (results.getString("description"), Status.valueOf(results.getString("status")), results.getInt("id"));
+        return new Todo(results.getString("description"), Status.valueOf(results.getString("status")), results.getInt("id"));
     }
 }

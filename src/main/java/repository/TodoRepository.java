@@ -31,12 +31,12 @@ public class TodoRepository {
         }
     }
 
-    public void updateStatus(Todo todo) throws ServiceException {
+    public void updateStatusToDone(Integer id) throws ServiceException {
         String query = "UPDATE todos SET status = ? WHERE id=?;";
 
         try (PreparedStatement statement = database.getConnection().prepareStatement(query)) {
             statement.setString(1, Status.DONE.name());
-            statement.setInt(2, todo.getId());
+            statement.setInt(2, id);
             statement.executeUpdate();
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, ex.getMessage(), ex);

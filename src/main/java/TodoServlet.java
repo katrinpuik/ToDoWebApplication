@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Integer.parseInt;
+
 @WebServlet(name = "TodoServlet", urlPatterns = {"todos"}, loadOnStartup = 1)
 public class TodoServlet extends HttpServlet {
 
@@ -36,17 +38,17 @@ public class TodoServlet extends HttpServlet {
     }
 
     protected void doPut(HttpServletRequest request, HttpServletResponse response) {
-        String idOfTodoToDoneFromRequest = request.getParameter("done");
+        Integer idOfTodoToDoneFromRequest = parseInt(request.getParameter("done"));
         if (idOfTodoToDoneFromRequest != null) {
-            Todo todoToChangeStatus = service.findById(Integer.parseInt(idOfTodoToDoneFromRequest));
-            service.updateStatus(todoToChangeStatus);
+            Todo todoToChangeStatus = service.findById(idOfTodoToDoneFromRequest);
+            service.updateStatus(idOfTodoToDoneFromRequest);
         }
     }
 
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) {
         String idOfTodoToDeleteFromRequest = request.getParameter("delete");
         if (idOfTodoToDeleteFromRequest != null) {
-            service.remove(Integer.parseInt(idOfTodoToDeleteFromRequest));
+            service.remove(parseInt(idOfTodoToDeleteFromRequest));
         }
     }
 

@@ -40,11 +40,9 @@ class TodoServiceTest {
 
     @Test
     void updateStatus_callsRepositoryUpdateStatus() throws ServiceException {
-//        Todo todo = mock(Todo.class);
+        service.updateStatus(1);
 
-        service.updateStatus(null);
-
-        verify(repository).updateStatusToDone(null);
+        verify(repository).updateStatusToDone(1);
     }
 
     @Test

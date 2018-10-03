@@ -40,8 +40,22 @@ public class TodoRepository {
             statement.executeUpdate();
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, ex.getMessage(), ex);
-            throw new ServiceException("Unable to update todo");
+            throw new ServiceException("Unable to update status to done");
         }
+    }
+
+    public void updateDate(String date, Integer id) throws ServiceException {
+        String query = "UPDATE todos SET dueDate = ? WHERE id=?";
+
+        try (PreparedStatement statement = database.getConnection().prepareStatement(query)) {
+            statement.setString(1, date);
+            statement.setInt(2, id);
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            throw new ServiceException("Unable to update date");
+        }
+
     }
 
     public List<Todo> getAll() throws ServiceException {

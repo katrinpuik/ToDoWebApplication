@@ -39,20 +39,22 @@
                     <tr>
                         <th scope="col">Todo</th>
                         <th scope="col">Status</th>
-                        <th scope="col">Mark status as done</th>
+                        <th scope="col">Due date</th>
+                        <th scope="col">Mark as done</th>
                         <th scope="col">Delete</th>
                     </tr>
                 </thead>
                 <c:forEach items="${todos}" var="todo">
-                    <tr>
+                    <tr class="todoRow" data-id="${todo.getId()}">
                         <td>${todo.getDescription()}</td>
                         <td>${todo.getStatus()}</td>
                         <td>
-                            <div>
-                                <c:if test="${todo.isCompletable()}">
+                            <input type="date" class="dueDate" name="date">
+                        </td>
+                        <td>
+                             <c:if test="${todo.isCompletable()}">
                                 <button type="button" class="btn btn-primary" onclick="changeStatusToDone(${todo.getId()})">Done</button>
-                                </c:if>
-                            </div>
+                             </c:if>
                         </td>
                         <td>
                             <button type="button" class="btn btn-primary" onclick="deleteTodo(${todo.getId()})">Delete</button>
@@ -62,6 +64,16 @@
                 </table>
             </div>
         </div class="container">
+
+        <div class="test">
+            <div class="foo">
+                 <div id="123">
+                 </div>
+            </div>
+        </div>
+
         <%@ include file="footer.jsp" %>
     </body>
 </html>
+
+

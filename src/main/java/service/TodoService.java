@@ -18,6 +18,9 @@ public class TodoService {
     public void updateStatus(Integer id) throws ServiceException {
         repository.updateStatusToDone(id);
     }
+    public void updateDate(String date, Integer id) throws ServiceException {
+        repository.updateDate(date, id);
+    }
 
     public List<Todo> getAll() throws ServiceException {
         return repository.getAll();

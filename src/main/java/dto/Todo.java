@@ -3,6 +3,8 @@ package dto;
 
 import enums.Status;
 
+import java.util.Date;
+
 import static enums.Status.NOT_DONE;
 import static enums.Status.valueOf;
 
@@ -10,6 +12,7 @@ public class Todo {
     private String description;
     private Status status;
     private Integer id;
+    private Date dueDate;
 
     public Todo(String description, Status status) {
         this.description = description;
@@ -47,6 +50,14 @@ public class Todo {
 
     public boolean isCompletable() {
         return status == Status.NOT_DONE;
+    }
+
+    public Date getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(Date dueDate) {
+        this.dueDate = dueDate;
     }
 
     @Override

@@ -38,11 +38,9 @@ public class TodoServlet extends HttpServlet {
     }
 
     protected void doPut(HttpServletRequest request, HttpServletResponse response) {
-        Integer idOfTodoToDoneFromRequest = parseInt(request.getParameter("done"));
-        if (idOfTodoToDoneFromRequest != null) {
-            Todo todoToChangeStatus = service.findById(idOfTodoToDoneFromRequest);
-            service.updateStatus(idOfTodoToDoneFromRequest);
-        }
+        Integer id = parseInt(request.getParameter("id"));
+        String date = request.getParameter("date");
+            service.updateDate(date, id);
     }
 
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) {

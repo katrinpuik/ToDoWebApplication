@@ -8,6 +8,9 @@ window.addEventListener("load", function(){
    var dateInputs = Array.from(document.getElementsByClassName("dueDate")).forEach(function(dateInput) {
        dateInput.onchange = addDueDate;
    });
+   var todosToChangeToDone = Array.from(document.getElementsByClassName("btn btn-primary toDone")).forEach(function(todoToDone) {
+       todoToDone.onclick = changeStatusToDone;
+   });
 });
 
 function searchTodos() {
@@ -16,27 +19,26 @@ function searchTodos() {
 
 function addDueDate(event) {
     var dateInputButton = event.target;
-//      console.log(dateInputButton);
     var todoRow = dateInputButton.closest(".todoRow");
-//      console.log(todoRow);
     var idOfTodoToChangeDate = todoRow.dataset.id;
-//      console.log(idOfTodoToChangeDate);
     var date = event.target.value;
-//      console.log(date);
 
     let request = new Request("http://localhost:8080/todos?date=" + date + "&id=" + idOfTodoToChangeDate, {method: "PUT"})
     fetch(request).then(function(response) {
         location.reload();
     });
-
 }
 
-//function changeStatusToDone(id) {
-//    let request = new Request("http://localhost:8080/todos/done=" + id, {method: "PUT"});
-//    fetch(request).then(function(response) {
-//        location.reload();
-//    });
-//}
+function changeStatusToDone(event) {
+    var todoToDoneButton = event.target;
+    var todoRow = todoToDoneButton.closest(".todoRow");
+    var idOfTodoToChangeToDone = todoRow.dataset.id;
+
+    let request = new Request("http://localhost:8080/todos/done?id=" + idOfTodoToChangeToDone, {method: "PUT"});
+    fetch(request).then(function(response) {
+        location.reload();
+    });
+}
 
 function getDataForGeneratingUrl() {
      var parameters = new Map();
@@ -69,8 +71,6 @@ function checkIfDescriptionIsNotEmptyAndSubmit() {
 function submitNewTodo() {
     document.getElementById("submitNewTodo").submit();
 }
-
-
 
 function deleteTodo(id) {
     let request = new Request("http://localhost:8080/todos?delete=" + id, {method: "DELETE"});

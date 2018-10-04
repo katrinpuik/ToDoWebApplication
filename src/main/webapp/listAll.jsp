@@ -53,7 +53,7 @@
                         </td>
                         <td>
                              <c:if test="${todo.isCompletable()}">
-                                <button type="button" class="btn btn-primary" onclick="changeStatusToDone(${todo.getId()})">Done</button>
+                                <button type="button" class="btn btn-primary toDone">Done</button>
                              </c:if>
                         </td>
                         <td>
@@ -64,14 +64,6 @@
                 </table>
             </div>
         </div class="container">
-
-        <div class="test">
-            <div class="foo">
-                 <div id="123">
-                 </div>
-            </div>
-        </div>
-
         <%@ include file="footer.jsp" %>
     </body>
 </html>

@@ -1,4 +1,3 @@
-import dto.Todo;
 import service.TodoService;
 
 import javax.servlet.annotation.WebServlet;

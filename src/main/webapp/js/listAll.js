@@ -11,6 +11,10 @@ window.addEventListener("load", function(){
    var todosToChangeToDone = Array.from(document.getElementsByClassName("btn btn-primary toDone")).forEach(function(todoToDone) {
        todoToDone.onclick = changeStatusToDone;
    });
+   var todosToDelete = Array.from(document.getElementsByClassName("btn btn-primary toDelete")).forEach(function(todoToDelete) {
+       todoToDelete.onclick = deleteTodo;
+   })
+
 });
 
 function searchTodos() {
@@ -35,6 +39,17 @@ function changeStatusToDone(event) {
     var idOfTodoToChangeToDone = todoRow.dataset.id;
 
     let request = new Request("http://localhost:8080/todos/done?id=" + idOfTodoToChangeToDone, {method: "PUT"});
+    fetch(request).then(function(response) {
+        location.reload();
+    });
+}
+
+function deleteTodo(event) {
+    var todoToDeleteButton = event.target;
+    var todoRow = todoToDeleteButton.closest(".todoRow");
+    var idOfTodoToDelete = todoRow.dataset.id;
+
+    let request = new Request("http://localhost:8080/todos/delete?id=" + idOfTodoToDelete, {method: "DELETE"});
     fetch(request).then(function(response) {
         location.reload();
     });
@@ -72,9 +87,3 @@ function submitNewTodo() {
     document.getElementById("submitNewTodo").submit();
 }
 
-function deleteTodo(id) {
-    let request = new Request("http://localhost:8080/todos?delete=" + id, {method: "DELETE"});
-    fetch(request).then(function(response) {
-        location.reload();
-    });
-}

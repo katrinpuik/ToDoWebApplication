@@ -43,13 +43,6 @@ public class TodoServlet extends HttpServlet {
             service.updateDate(date, id);
     }
 
-    protected void doDelete(HttpServletRequest request, HttpServletResponse response) {
-        String idOfTodoToDeleteFromRequest = request.getParameter("delete");
-        if (idOfTodoToDeleteFromRequest != null) {
-            service.remove(parseInt(idOfTodoToDeleteFromRequest));
-        }
-    }
-
     private List<Todo> createTodoList(Status status, String description) {
         List<Todo> todos;
         if (status != null && description != null) {

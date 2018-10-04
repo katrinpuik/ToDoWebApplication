@@ -57,7 +57,7 @@
                              </c:if>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-primary" onclick="deleteTodo(${todo.getId()})">Delete</button>
+                            <button type="button" class="btn btn-primary toDelete">Delete</button>
                         </td>
                     </tr>
                 </c:forEach>

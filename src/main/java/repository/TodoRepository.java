@@ -4,6 +4,7 @@ import dto.Todo;
 import enums.Status;
 import exception.ServiceException;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -138,6 +139,10 @@ public class TodoRepository {
     }
 
     Todo createTodoFromResult(ResultSet results) throws SQLException {
-        return new Todo(results.getString("description"), Status.valueOf(results.getString("status")), results.getInt("id"));
+        return new Todo(
+                results.getString("description"),
+                Status.valueOf(results.getString("status")),
+                results.getInt("id"),
+                results.getDate("dueDate"));
     }
 }

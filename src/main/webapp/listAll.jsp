@@ -25,7 +25,9 @@
                     <select class="form-control, col-xs-2" id="selectStatus" onchange="searchTodos()">
                         <option value="All">ALL</option>
                         <c:forEach items="${statusList}" var="status">
-                            <option <c:if test="${status.isSelected()}">selected</c:if> value="${status.getValue()}">${status.getName()}</option>
+                            <option <c:if test="${status.isSelected()}">selected</c:if>
+                                    value="${status.getValue()}">${status.getName()}
+                            </option>
                         </c:forEach>
                     </select>
                 </div>
@@ -49,7 +51,7 @@
                         <td>${todo.getDescription()}</td>
                         <td>${todo.getStatus()}</td>
                         <td>
-                            <input type="date" class="dueDate" name="date">
+                            <input type="date" class="dueDate" name="date" value="${todo.getDueDate()}">
                         </td>
                         <td>
                              <c:if test="${todo.isCompletable()}">

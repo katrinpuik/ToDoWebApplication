@@ -5,7 +5,6 @@ import enums.Status;
 
 import java.util.Date;
 
-import static enums.Status.NOT_DONE;
 import static enums.Status.valueOf;
 
 public class Todo {
@@ -19,9 +18,10 @@ public class Todo {
         this.status = status;
     }
 
-    public Todo (String description, Status status, Integer id) {
+    public Todo (String description, Status status, Integer id, Date dueDate) {
         this(description, status);
         this.id = id;
+        this.dueDate = dueDate;
     }
 
     public String getDescription() {

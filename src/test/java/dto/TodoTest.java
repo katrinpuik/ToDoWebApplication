@@ -3,6 +3,8 @@ package dto;
 import enums.Status;
 import org.junit.jupiter.api.Test;
 
+import java.sql.Date;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -22,14 +24,16 @@ class TodoTest {
 
     @Test
     void createTodoWithDescriptionStatusId (){
-        Todo todoFirst = new Todo("todoFirst", Status.NOT_DONE, 1);
-        Todo todoSecond = new Todo("todoSecond", Status.DISCARDED, 2);
+        Todo todoFirst = new Todo("todoFirst", Status.NOT_DONE, 1, Date.valueOf("2018-09-09"));
+        Todo todoSecond = new Todo("todoSecond", Status.DISCARDED, 2, Date.valueOf("2018-09-08"));
 
         assertEquals("todoFirst", todoFirst.getDescription());
         assertEquals("todoSecond", todoSecond.getDescription());
         assertEquals(Status.NOT_DONE, todoFirst.getStatus() );
         assertEquals(Status.DISCARDED, todoSecond.getStatus());
         assertEquals(1, todoFirst.getId().intValue());
+        assertEquals(2, todoSecond.getId().intValue());
+        assertEquals("2018-09-09", String.valueOf(todoFirst.getDueDate()));
     }
 
     @Test

@@ -5,27 +5,55 @@ window.addEventListener("load", function(){
        clearTimeout(timeout);
        timeout = setTimeout(function () {searchTodos()}, 500);
    };
-   var dateInputs = Array.from(document.getElementsByClassName("dueDate")).forEach(function(dateInput) {
+   Array.from(document.getElementsByClassName("dueDate")).forEach(function(dateInput) {
        dateInput.onchange = addDueDate;
+
+       var row = dateInput.closest(".todoRow");
+       var timeLeftBox = row.getElementsByClassName("timeLeft")[0];
+       if (timeLeftBox) {
+           timeLeftBox.innerHTML = calculateTimeLeft(dateInput);
+       }
+//       console.log(getClosestRowId(dateInput));
    });
-   var todosToChangeToDone = Array.from(document.getElementsByClassName("btn btn-primary toDone")).forEach(function(todoToDone) {
+   Array.from(document.getElementsByClassName("toDone")).forEach(function(todoToDone) {
        todoToDone.onclick = changeStatusToDone;
    });
-   var todosToDelete = Array.from(document.getElementsByClassName("btn btn-primary toDelete")).forEach(function(todoToDelete) {
+   Array.from(document.getElementsByClassName("toDelete")).forEach(function(todoToDelete) {
        todoToDelete.onclick = deleteTodo;
-   })
-
+   });
 });
 
-function searchTodos() {
-    location.href = "todos?" + generateStringForUrl();
+function getClosestRowId(element) {
+    return element.closest(".todoRow").dataset.id;
+}
+
+//function getClosestRow(element) {
+//    var row = element.closest(".todoRow");
+//    if (row) {
+//        return {
+//            id: row.dataset.id,
+//            doneButton: row.getElementsByClassName("toDone")[0],
+//            deleteButton: row.getElementsByClassName("toDelete")[0],
+//            dueDateBox: row.getElementsByClassName("dueDate")[0],
+//            timeLeftBox: row.getElementsByClassName("timeLeft")[0]
+//        }
+//    }
+//    return {}
+//}
+
+
+function calculateTimeLeft(dateInput) {
+    if(dateInput.value != "") {
+        var date = new Date(dateInput.value);
+        var dateNow = new Date();
+            return (date-dateNow) / 1000 / 60 / 60/ 24;
+    }
 }
 
 function addDueDate(event) {
     var dateInputButton = event.target;
-    var todoRow = dateInputButton.closest(".todoRow");
-    var idOfTodoToChangeDate = todoRow.dataset.id;
-    var date = event.target.value;
+    var idOfTodoToChangeDate = getClosestRowId(dateInputButton);
+    var date = dateInputButton.value;
 
     let request = new Request("http://localhost:8080/todos?date=" + date + "&id=" + idOfTodoToChangeDate, {method: "PUT"})
     fetch(request).then(function(response) {
@@ -35,8 +63,7 @@ function addDueDate(event) {
 
 function changeStatusToDone(event) {
     var todoToDoneButton = event.target;
-    var todoRow = todoToDoneButton.closest(".todoRow");
-    var idOfTodoToChangeToDone = todoRow.dataset.id;
+    var idOfTodoToChangeToDone = getClosestRowId(todoToDoneButton);
 
     let request = new Request("http://localhost:8080/todos/done?id=" + idOfTodoToChangeToDone, {method: "PUT"});
     fetch(request).then(function(response) {
@@ -46,13 +73,16 @@ function changeStatusToDone(event) {
 
 function deleteTodo(event) {
     var todoToDeleteButton = event.target;
-    var todoRow = todoToDeleteButton.closest(".todoRow");
-    var idOfTodoToDelete = todoRow.dataset.id;
+    var idOfTodoToDelete = getClosestRowId(todoToDeleteButton);
 
     let request = new Request("http://localhost:8080/todos/delete?id=" + idOfTodoToDelete, {method: "DELETE"});
     fetch(request).then(function(response) {
         location.reload();
     });
+}
+
+function searchTodos() {
+    location.href = "todos?" + generateStringForUrl();
 }
 
 function getDataForGeneratingUrl() {

@@ -42,6 +42,7 @@
                         <th scope="col">Todo</th>
                         <th scope="col">Status</th>
                         <th scope="col">Due date</th>
+                        <th scope="col">Time left</th>
                         <th scope="col">Mark as done</th>
                         <th scope="col">Delete</th>
                     </tr>
@@ -53,6 +54,7 @@
                         <td>
                             <input type="date" class="dueDate" name="date" value="${todo.getDueDate()}">
                         </td>
+                        <td class="timeLeft"> </td>
                         <td>
                              <c:if test="${todo.isCompletable()}">
                                 <button type="button" class="btn btn-primary toDone">Done</button>

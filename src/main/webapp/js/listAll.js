@@ -11,7 +11,12 @@ window.addEventListener("load", function(){
        var row = dateInput.closest(".todoRow");
        var timeLeftBox = row.getElementsByClassName("timeLeft")[0];
        if (timeLeftBox) {
-           timeLeftBox.innerHTML = calculateTimeLeft(dateInput);
+           var difference = calculateTimeLeft(dateInput);
+           if (difference > 0) {
+                timeLeftBox.innerHTML = difference + " days left";
+           } else if (difference < 0) {
+                timeLeftBox.innerHTML = Math.abs(difference) + " days due";
+           }
        }
    });
    Array.from(document.getElementsByClassName("toDone")).forEach(function(todoToDone) {
@@ -28,13 +33,11 @@ function calculateTimeLeft(dateInput) {
         var date = new Date(dateInput.value);
         var dateNow = new Date();
             return Math.floor((date-dateNow) / 1000 / 60 / 60/ 24);
-    } else {
-        return null;
     }
 }
 
 function addDueDate(event) {
-    var dueDateBoxBox = event.target;
+    var dueDateBox = event.target;
     var idOfTodoToChangeDate = getClosestRowId(dueDateBox);
     var date = dueDateBox.value;
 

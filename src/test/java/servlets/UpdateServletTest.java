@@ -12,7 +12,7 @@ import java.io.IOException;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-class UpdateServletTest1 {
+class UpdateServletTest {
 
     @InjectMocks
     private UpdateServlet servlet;

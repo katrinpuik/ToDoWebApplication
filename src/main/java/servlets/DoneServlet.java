@@ -24,8 +24,7 @@ public class DoneServlet extends HttpServlet {
         if (StringUtils.isNullOrEmpty(id)) {
             logger.warning("Id is missing");
         } else {
-            Integer idOfTodoToDoneFromRequest = parseInt(id);
-            service.updateStatus(idOfTodoToDoneFromRequest);
+            service.updateStatus(parseInt(id));
         }
     }
 }

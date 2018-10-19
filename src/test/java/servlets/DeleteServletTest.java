@@ -33,4 +33,25 @@ class DeleteServletTest {
 
         verify(service).remove(1);
     }
+
+    @Test
+    void doDeleteIdEmptyString(){
+        HttpServletRequest request = mock(HttpServletRequest.class);
+        when(request.getParameter("id")).thenReturn("");
+
+        servlet.doDelete(request,null);
+
+        verifyZeroInteractions(service);
+    }
+
+    @Test
+    void doDeleteIdNull(){
+        HttpServletRequest request = mock(HttpServletRequest.class);
+        when(request.getParameter("id")).thenReturn(null);
+
+        servlet.doDelete(request,null);
+
+        verifyZeroInteractions(service);
+    }
+
 }

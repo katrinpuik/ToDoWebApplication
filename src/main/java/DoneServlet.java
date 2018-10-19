@@ -13,6 +13,6 @@ public class DoneServlet extends HttpServlet {
 
     protected void doPut(HttpServletRequest request, HttpServletResponse response) {
         Integer idOfTodoToDoneFromRequest = parseInt(request.getParameter("id"));
-            service.updateStatus(idOfTodoToDoneFromRequest);
+        service.updateStatus(idOfTodoToDoneFromRequest);
     }
 }

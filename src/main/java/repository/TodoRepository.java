@@ -56,7 +56,18 @@ public class TodoRepository {
             logger.log(Level.SEVERE, ex.getMessage(), ex);
             throw new ServiceException("Unable to update date");
         }
+    }
 
+    public void updateDescription(String newDescription, Integer id) throws ServiceException{
+        String query = "UPDATE todos SET description = ? WHERE id = ?";
+
+        try(PreparedStatement statement = database.getConnection().prepareStatement(query)) {
+            statement.setString(1, newDescription);
+            statement.setInt(2, id);
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            throw new ServiceException("Unable to update description");        }
     }
 
     public List<Todo> getAll() throws ServiceException {

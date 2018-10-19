@@ -22,6 +22,10 @@ public class TodoService {
         repository.updateDate(date, id);
     }
 
+    public void updateDescription(String newDescription, Integer id) throws ServiceException {
+        repository.updateDescription(newDescription,id);
+    }
+
     public List<Todo> getAll() throws ServiceException {
         return repository.getAll();
     }

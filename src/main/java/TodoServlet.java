@@ -22,7 +22,7 @@ public class TodoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 
         Status statusFromRequestAsEnum = createValidStatus(request.getParameter("status"));
-        String descriptionOfTodoToFindFromRequest = request.getParameter("description");
+        String descriptionOfTodoToFindFromRequest = request.getParameter("descriptionSearched");
 
         request.setAttribute("statusList", createStatusList(statusFromRequestAsEnum));
 
@@ -35,12 +35,6 @@ public class TodoServlet extends HttpServlet {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    protected void doPut(HttpServletRequest request, HttpServletResponse response) {
-        Integer id = parseInt(request.getParameter("id"));
-        String date = request.getParameter("date");
-            service.updateDate(date, id);
     }
 
     private List<Todo> createTodoList(Status status, String description) {

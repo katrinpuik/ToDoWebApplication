@@ -1,10 +1,19 @@
 window.addEventListener("load", function(){
-   var textInput = document.getElementById("description");
+   var textInputSearch = document.getElementById("descriptionSearched");
    var timeout = null;
-   textInput.onkeyup = function (e) {
+   textInputSearch.onkeyup = function (e) {
        clearTimeout(timeout);
        timeout = setTimeout(function () {searchTodos()}, 500);
    };
+
+   Array.from(document.getElementsByClassName("description")).forEach(function(descriptionInput) {
+        var timeout = null;
+        descriptionInput.onkeyup = function (event) {
+            clearTimeout(timeout);
+            timeout = setTimeout(function () {updateDescription(event)}, 500);
+        };
+   });
+
    Array.from(document.getElementsByClassName("dueDate")).forEach(function(dateInput) {
        dateInput.onchange = addDueDate;
 
@@ -19,6 +28,7 @@ window.addEventListener("load", function(){
            }
        }
    });
+
    Array.from(document.getElementsByClassName("toDone")).forEach(function(todoToDone) {
        todoToDone.onclick = changeStatusToDone;
    });
@@ -28,33 +38,61 @@ window.addEventListener("load", function(){
 });
 
 
+function changeStatusToDone(event) {
+    var todoToDoneButton = event.target;
+    var idOfTodoToChangeToDone = getClosestRowId(todoToDoneButton);
+
+    let request = new Request(
+        "http://localhost:8080/todos/done?id=" + idOfTodoToChangeToDone,
+        {
+            method: "PUT",
+        });
+    fetch(request).then(function(response) {
+        location.reload();
+    });
+}
+
+function addDueDate(event) {
+    var dueDateBox = event.target;
+    var bodyJson = {
+            id:getClosestRowId(dueDateBox),
+            date: dueDateBox.value
+            };
+
+    let request = new Request(
+        "http://localhost:8080/todos/update",
+        {
+            method: "POST",
+            body: JSON.stringify(bodyJson)
+        });
+    fetch(request).then(function(response) {
+        location.reload();
+    });
+}
+
+function updateDescription(event) {
+    var descriptionBox = event.target;
+    var bodyJson = {
+        id: getClosestRowId(descriptionBox),
+        description: descriptionBox.value
+        };
+    let request = new Request (
+        "http://localhost:8080/todos/update",
+        {
+            method: "POST",
+            body: JSON.stringify(bodyJson)
+        });
+    fetch(request).then(function(response) {
+        location.reload();
+        });
+}
+
 function calculateTimeLeft(dateInput) {
     if(dateInput.value != "") {
         var date = new Date(dateInput.value);
         var dateNow = new Date();
             return Math.floor((date-dateNow) / 1000 / 60 / 60/ 24);
     }
-}
-
-function addDueDate(event) {
-    var dueDateBox = event.target;
-    var idOfTodoToChangeDate = getClosestRowId(dueDateBox);
-    var date = dueDateBox.value;
-
-    let request = new Request("http://localhost:8080/todos?date=" + date + "&id=" + idOfTodoToChangeDate, {method: "PUT"})
-    fetch(request).then(function(response) {
-        location.reload();
-    });
-}
-
-function changeStatusToDone(event) {
-    var todoToDoneButton = event.target;
-    var idOfTodoToChangeToDone = getClosestRowId(todoToDoneButton);
-
-    let request = new Request("http://localhost:8080/todos/done?id=" + idOfTodoToChangeToDone, {method: "PUT"});
-    fetch(request).then(function(response) {
-        location.reload();
-    });
 }
 
 function deleteTodo(event) {
@@ -78,9 +116,9 @@ function searchTodos() {
 function getDataForGeneratingUrl() {
      var parameters = new Map();
      parameters.set("status", document.getElementById("selectStatus").value);
-     var description = document.getElementById("description").value;
+     var description = document.getElementById("descriptionSearched").value;
         if (description !== null && description !== undefined && description !=="") {
-        parameters.set("description", description);
+        parameters.set("descriptionSearched", description);
         }
      return parameters;
 }
@@ -106,6 +144,7 @@ function checkIfDescriptionIsNotEmptyAndSubmit() {
 function submitNewTodo() {
     document.getElementById("submitNewTodo").submit();
 }
+
 
 // näide sellest, kuidas teades üht rea elementi (selle saab ikka event.target'iga), saab kätte kõik
 // teised selle rea elemendid

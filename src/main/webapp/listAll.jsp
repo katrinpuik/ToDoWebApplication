@@ -18,8 +18,8 @@
             </div>
             <div class="row">
                 <div class="form-group">
-                    <label for="description">Search:</label>
-                    <input type="text" class="form-control, col-xs-6" id="description" value="${query}">
+                    <label for="descriptionSearched">Search:</label>
+                    <input type="text" class="form-control, col-xs-6" id="descriptionSearched" value="${query}">
                 </div>
                 <div class="form-group">
                     <select class="form-control, col-xs-2" id="selectStatus" onchange="searchTodos()">
@@ -49,7 +49,9 @@
                 </thead>
                 <c:forEach items="${todos}" var="todo">
                     <tr class="todoRow" data-id="${todo.getId()}">
-                        <td>${todo.getDescription()}</td>
+                        <td>
+                        <textarea class="description" rows="2" cols="30">${todo.getDescription()}</textarea>
+                        </td>
                         <td>${todo.getStatus()}</td>
                         <td>
                             <input type="date" class="dueDate" name="date" value="${todo.getDueDate()}">

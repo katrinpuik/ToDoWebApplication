@@ -1,3 +1,5 @@
+package servlets;
+
 import service.TodoService;
 
 import javax.servlet.annotation.WebServlet;
@@ -7,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import static java.lang.Integer.parseInt;
 
-@WebServlet(name = "DeleteServlet", urlPatterns = {"todos/delete"}, loadOnStartup = 1)
+@WebServlet(name = "servlets.DeleteServlet", urlPatterns = {"todos/delete"}, loadOnStartup = 1)
 public class DeleteServlet extends HttpServlet {
     private TodoService service = new TodoService();
 

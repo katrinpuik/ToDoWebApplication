@@ -1,3 +1,5 @@
+package servlets;
+
 import dto.StatusForDropdown;
 import dto.Todo;
 import enums.Status;
@@ -14,7 +16,7 @@ import java.util.List;
 
 import static java.lang.Integer.parseInt;
 
-@WebServlet(name = "TodoServlet", urlPatterns = {"todos"}, loadOnStartup = 1)
+@WebServlet(name = "servlets.TodoServlet", urlPatterns = {"todos"}, loadOnStartup = 1)
 public class TodoServlet extends HttpServlet {
 
     private TodoService service = new TodoService();

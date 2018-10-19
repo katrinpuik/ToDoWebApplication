@@ -1,3 +1,5 @@
+package servlets;
+
 import service.TodoService;
 
 import javax.servlet.annotation.WebServlet;
@@ -7,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import static java.lang.Integer.parseInt;
 
-@WebServlet(name = "DoneServlet", urlPatterns = {"todos/done"}, loadOnStartup = 1)
+@WebServlet(name = "servlets.DoneServlet", urlPatterns = {"todos/done"}, loadOnStartup = 1)
 public class DoneServlet extends HttpServlet {
     private TodoService service = new TodoService();
 

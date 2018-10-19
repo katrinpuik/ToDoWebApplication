@@ -28,7 +28,7 @@ public class TodoRepositoryTest {
     @Test
     void createTodoFromResult() throws SQLException {
         ResultSet resultSet = mock(ResultSet.class);
-        Date date = new Date(123);
+        Date date = new Date(124);
 
         when(resultSet.getString("description")).thenReturn("test");
         when(resultSet.getString("status")).thenReturn("DONE");

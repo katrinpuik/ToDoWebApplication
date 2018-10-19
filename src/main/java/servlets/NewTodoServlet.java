@@ -1,3 +1,5 @@
+package servlets;
+
 import dto.Todo;
 import enums.Status;
 import service.TodoService;
@@ -10,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-@WebServlet(name = "NewTodoServlet", urlPatterns = {"todos/new"}, loadOnStartup = 1)
+@WebServlet(name = "servlets.NewTodoServlet", urlPatterns = {"todos/new"}, loadOnStartup = 1)
 public class NewTodoServlet extends HttpServlet {
     TodoService service = new TodoService();
 

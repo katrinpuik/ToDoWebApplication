@@ -1,7 +1,22 @@
 package dto;
 
 public class TodoUpdateRequest {
-    public Integer id;
-    public String description;
-    public String date;
+    private Integer id;
+    private String description;
+    private String date;
+
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getDate() {
+        return date;
+    }
 }
+
+

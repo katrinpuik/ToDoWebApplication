@@ -72,6 +72,7 @@ class NewTodoServletTest {
         servlet.doPost(request,response);
 
         verify(response).sendRedirect("/todos/new");
+        //kontrolli et save ei l'he k'ima
     }
 
     @Test

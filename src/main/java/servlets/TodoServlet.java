@@ -14,8 +14,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.lang.Integer.parseInt;
-
 @WebServlet(name = "servlets.TodoServlet", urlPatterns = {"todos"}, loadOnStartup = 1)
 public class TodoServlet extends HttpServlet {
 
@@ -23,14 +21,20 @@ public class TodoServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 
-        Status statusFromRequestAsEnum = createValidStatus(request.getParameter("status"));
-        String descriptionOfTodoToFindFromRequest = request.getParameter("descriptionSearched");
+        Status statusFromRequestAsEnum =
+                createValidStatus(request.getParameter("status"));
+        String descriptionOfTodoToFindFromRequest =
+                request.getParameter("descriptionSearched");
 
-        request.setAttribute("statusList", createStatusList(statusFromRequestAsEnum));
+        request.setAttribute("statusList",
+                createStatusList(statusFromRequestAsEnum));
 
-        request.setAttribute("todos", createTodoList(statusFromRequestAsEnum, descriptionOfTodoToFindFromRequest));
+        request.setAttribute("todos",
+                createTodoList(statusFromRequestAsEnum,
+                        descriptionOfTodoToFindFromRequest));
 
-        request.setAttribute("query", descriptionOfTodoToFindFromRequest);
+        request.setAttribute("query",
+                descriptionOfTodoToFindFromRequest);
 
         try {
             request.getRequestDispatcher("listAll.jsp").forward(request, response);
@@ -39,7 +43,7 @@ public class TodoServlet extends HttpServlet {
         }
     }
 
-    private List<Todo> createTodoList(Status status, String description) {
+    List<Todo> createTodoList(Status status, String description) {
         List<Todo> todos;
         if (status != null && description != null) {
             todos = service.findByStatusAndDescription(status, description);
@@ -53,22 +57,28 @@ public class TodoServlet extends HttpServlet {
         return todos;
     }
 
-    private List<StatusForDropdown> createStatusList(Status status) {
+    List<StatusForDropdown> createStatusList(Status status) {
         List<StatusForDropdown> result = new ArrayList<>();
         for (Status statusInEnums : Status.values()) {
-            result.add(new StatusForDropdown(statusInEnums, statusInEnums.toString(), checkIfSelected(status, statusInEnums)));
+            result.add(new StatusForDropdown
+                    (statusInEnums, statusInEnums.toString(),
+                            checkIfSelected(status, statusInEnums))
+            );
         }
         return result;
     }
 
-    private boolean checkIfSelected(Status status, Status statusInOptions) {
+    boolean checkIfSelected(Status status, Status statusInOptions) {
         return status == statusInOptions;
     }
 
-    private Status createValidStatus(String statusFromRequest) {
+    Status createValidStatus(String statusFromRequest) {
+        if (statusFromRequest == null) {
+            return null;
+        }
         for (Status status : Status.values()) {
-            if (status.toString().equals(statusFromRequest)) {
-                return Status.valueOf(statusFromRequest);
+            if (status.toString().equals(statusFromRequest.toUpperCase())) {
+                return status;
             }
         }
         return null;

@@ -15,7 +15,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Arrays.asList;
@@ -47,7 +46,7 @@ class TodoServletTest {
         when(request.getParameter("status")).thenReturn("DONE");
         when(servlet.createTodoList(any(), any())).thenReturn(null);
         when(servlet.createStatusList(Status.DONE)).thenReturn(listForTest);
-        when(request.getRequestDispatcher("listAll.jsp")).thenReturn(requestDispatcher);
+        when(request.getRequestDispatcher("/jsp/listAll.jsp")).thenReturn(requestDispatcher);
 
         servlet.doGet(request, response);
 
@@ -66,7 +65,7 @@ class TodoServletTest {
         when(request.getParameter("status")).thenReturn("DONE");
         when(servlet.createStatusList(any())).thenReturn(null);
         when(servlet.createTodoList(Status.DONE, "test")).thenReturn(listForTest);
-        when(request.getRequestDispatcher("listAll.jsp")).thenReturn(requestDispatcher);
+        when(request.getRequestDispatcher("/jsp/listAll.jsp")).thenReturn(requestDispatcher);
 
         servlet.doGet(request, response);
 
@@ -83,7 +82,7 @@ class TodoServletTest {
         when(request.getParameter("descriptionSearched")).thenReturn("test");
         when(servlet.createTodoList(any(), any())).thenReturn(null);
         when(servlet.createStatusList(any())).thenReturn(null);
-        when(request.getRequestDispatcher("listAll.jsp")).thenReturn(requestDispatcher);
+        when(request.getRequestDispatcher("/jsp/listAll.jsp")).thenReturn(requestDispatcher);
 
         servlet.doGet(request, response);
 

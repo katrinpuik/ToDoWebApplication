@@ -17,7 +17,7 @@ public class NewTodoServlet extends HttpServlet {
     TodoService service = new TodoService();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/newTodo.jsp").forward(request, response);
+        request.getRequestDispatcher("/jsp/newTodo.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {

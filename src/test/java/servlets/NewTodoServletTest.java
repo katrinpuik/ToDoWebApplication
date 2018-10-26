@@ -41,7 +41,7 @@ class NewTodoServletTest {
         HttpServletRequest request = mock(HttpServletRequest.class);
         HttpServletResponse response = mock(HttpServletResponse.class);
         RequestDispatcher requestDispatcher = mock(RequestDispatcher.class);
-        when(request.getRequestDispatcher("/newTodo.jsp")).thenReturn(requestDispatcher);
+        when(request.getRequestDispatcher("/jsp/newTodo.jsp")).thenReturn(requestDispatcher);
 
         servlet.doGet(request, response);
 

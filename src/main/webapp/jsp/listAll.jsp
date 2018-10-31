@@ -7,37 +7,28 @@
     <%@ include file="header.jsp" %>
     <body>
         <div class="container">
-        <br>
-        <br>
-        <br>
-            <h2 align="center">Everything you have to do</h2>
-            <br>
-            <br>
-            <div>
-                <a class="btn btn-outline-primary float-right" value=".float-right" href="todos/new" role="button">Insert new todo</a>
-            </div>
-            <div class="row">
+            <h2 align="center">TODOS</h2>
+            <div class="searchRow">
                 <div class="form-group">
-                    <label for="descriptionSearched">Search:</label>
-                    <input type="text" class="form-control, col-xs-6" id="descriptionSearched" value="${query}">
+                    <input type="text" class="form-control" id="descriptionSearched" placeholder="Search" value="${query}">
                 </div>
-                <div class="form-group">
-                    <select class="form-control, col-xs-2" id="selectStatus" onchange="searchTodos()">
+                <div class="dropdown">
+                    <select class="btn btn-secondary dropdown-toggle" type="button" id="selectStatus"  onchange="searchTodos()">
                         <option value="All">ALL</option>
-                        <c:forEach items="${statusList}" var="status">
-                            <option <c:if test="${status.isSelected()}">selected</c:if>
+                            <c:forEach items="${statusList}" var="status">
+                                <option <c:if test="${status.isSelected()}">selected</c:if>
                                     value="${status.getValue()}">${status.getName()}
                             </option>
                         </c:forEach>
                     </select>
                 </div>
-                <div>
-                    <button class="btn" onclick="searchTodos()"><i class="fa fa-search"></i></button>
+                <div class="addNew">
+                    <a class="btn btn-outline-secondary" href="todos/new" role="button">Insert new todo</a>
                 </div>
             </div>
             <div>
-                <table class="table">
-                <thead>
+                <table class="table table-striped">
+                <thead class="table-secondary">
                     <tr>
                         <th scope="col">Todo</th>
                         <th scope="col">Status</th>

@@ -28,38 +28,44 @@
             </div>
             <div>
                 <table class="table table-striped">
-                <thead class="table-secondary">
-                    <tr>
-                        <th scope="col">Todo</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Due date</th>
-                        <th scope="col">Time left</th>
-                        <th scope="col">Mark as done</th>
-                        <th scope="col">Delete</th>
-                    </tr>
-                </thead>
-                <c:forEach items="${todos}" var="todo">
-                    <tr class="todoRow" data-id="${todo.getId()}">
-                        <td>
-                        <textarea class="description" rows="2" cols="30">${todo.getDescription()}</textarea>
-                        </td>
-                        <td>${todo.getStatus()}</td>
-                        <td>
-                            <input type="date" class="dueDate" name="date" value="${todo.getDueDate()}">
-                        </td>
-                        <td class="timeLeft"> </td>
-                        <td>
-                             <c:if test="${todo.isCompletable()}">
-                                <button type="button" class="btn btn-primary toDone">Done</button>
-                             </c:if>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-primary toDelete">Delete</button>
-                        </td>
-                    </tr>
-                </c:forEach>
+                    <thead class="table-secondary">
+                        <tr>
+                            <th scope="col">Todo</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Due date</th>
+                            <th scope="col">Time left</th>
+                            <th scope="col">Mark as done</th>
+                        </tr>
+                    </thead>
+                    <tbody class="awesome table">
+                        <c:forEach items="${todos}" var="todo">
+                            <tr class="todoRow" data-id="${todo.getId()}">
+                                <td class="descriptionArea">
+                                    <textarea class="description">${todo.getDescription()}</textarea>
+                                </td>
+                                <td>${todo.getStatus()}</td>
+                                <td>
+                                    <input type="date" class="dueDate" name="date" value="${todo.getDueDate()}">
+                                </td>
+                                <td class="timeLeft"> </td>
+                                <td>
+                                    <c:if test="${todo.isCompletable()}">
+                                        <button type="button" class="btn btn-primary toDone">Done</button>
+                                    </c:if>
+                                </td>
+                                <td class="todoRowOverlay">
+                                    <button type="button" class="toDelete btn btn-primary">Delete</button>
+                                </td>
+                            </tr>
+                       </c:forEach>
+                    </tbody>
                 </table>
             </div>
+
+
+
+
+
         </div class="container">
         <%@ include file="footer.jsp" %>
     </body>

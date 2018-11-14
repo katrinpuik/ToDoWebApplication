@@ -57,7 +57,15 @@ tr:hover .todoRowOverlay {
     float: right;
 }
 
+.toDone {
+    float: right;
+    margin-right:10px;
+}
 
+.edit {
+    float:right;
+    margin-right:10px;
+}
 
 
 

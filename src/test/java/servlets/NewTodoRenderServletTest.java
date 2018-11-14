@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-class NewTodoServletTest {
+class NewTodoRenderServletTest {
 
     @InjectMocks
     private NewTodoServlet servlet;

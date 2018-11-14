@@ -34,7 +34,6 @@
                             <th scope="col">Status</th>
                             <th scope="col">Due date</th>
                             <th scope="col">Time left</th>
-                            <th scope="col">Mark as done</th>
                         </tr>
                     </thead>
                     <tbody class="awesome table">
@@ -48,18 +47,45 @@
                                     <input type="date" class="dueDate" name="date" value="${todo.getDueDate()}">
                                 </td>
                                 <td class="timeLeft"> </td>
-                                <td>
-                                    <c:if test="${todo.isCompletable()}">
-                                        <button type="button" class="btn btn-primary toDone">Done</button>
-                                    </c:if>
-                                </td>
                                 <td class="todoRowOverlay">
                                     <button type="button" class="toDelete btn btn-primary">Delete</button>
+                                    <c:if test="${todo.isCompletable()}">
+                                        <button type="button" class="toDone btn btn-primary">Done</button>
+                                    </c:if>
+                                    <button type="button"
+                                        class="edit btn btn-info btn-lg"
+                                        data-toggle="modal" data-target="#editModal">
+                                        <i class="fa fa-edit" aria-hidden="true"></i>
+                                    </button>
                                 </td>
                             </tr>
                        </c:forEach>
                     </tbody>
                 </table>
+
+                <div id="editModal" class="modal fade" role="dialog">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h4 class="modal-title">Edit your todo</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      </div>
+                      <div class="modal-body">
+                        <textarea class="descriptionInModal"></textarea>
+                        <p class="">
+
+
+
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+
             </div>
 
 

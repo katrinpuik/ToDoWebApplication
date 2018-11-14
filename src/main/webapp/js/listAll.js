@@ -35,6 +35,9 @@ window.addEventListener("load", function(){
    Array.from(document.getElementsByClassName("toDelete")).forEach(function(todoToDelete) {
        todoToDelete.onclick = deleteTodo;
    });
+   Array.from(document.getElementsByClassName("edit")).forEach(function(todoToEdit) {
+       todoToEdit.onclick = getTodoToEdit;
+   });
 });
 
 
@@ -56,7 +59,7 @@ function addDueDate(event) {
     var dueDateBox = event.target;
     var bodyJson = {
             id:getClosestRowId(dueDateBox),
-            date: dueDateBox.value
+            date:dueDateBox.value
             };
 
     let request = new Request(
@@ -73,8 +76,8 @@ function addDueDate(event) {
 function updateDescription(event) {
     var descriptionBox = event.target;
     var bodyJson = {
-        id: getClosestRowId(descriptionBox),
-        description: descriptionBox.value
+        id:getClosestRowId(descriptionBox),
+        description:descriptionBox.value
         };
     let request = new Request (
         "http://localhost:8080/todos/update",
@@ -85,6 +88,30 @@ function updateDescription(event) {
     fetch(request).then(function(response) {
         location.reload();
         });
+}
+
+function getTodoToEdit(event) {
+    var editButton = event.target;
+    var idOfTodoToEdit = getClosestRowId(editButton);
+
+
+
+    let request = new Request("http://localhost:8080/todos/todo?id=" + idOfTodoToEdit, {method: "GET"});
+
+    var todoToEditJson;
+
+   fetch(request)
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(jsonResponse) {
+           fillModalWithData(jsonResponse)
+        });
+
+    function fillModalWithData(data) {
+        var modal = document.getElementById("editModal");
+        var descriptionElement = modal.getElementByClassName('descriptionInModal').innerHTML = data.description;
+    }
 }
 
 function calculateTimeLeft(dateInput) {

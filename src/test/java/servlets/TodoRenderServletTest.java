@@ -23,10 +23,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-class TodoServletTest {
+class TodoRenderServletTest {
     @Spy
     @InjectMocks
-    private TodoServlet servlet;
+    private TodoRenderServlet servlet;
 
     @Mock
     private TodoService service;

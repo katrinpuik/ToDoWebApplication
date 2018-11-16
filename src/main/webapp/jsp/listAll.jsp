@@ -76,7 +76,7 @@
                         <input type="date" class="dueDateInModal" name="date">
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-primary">Save</button>
+                        <button type="button" class="saveInModal btn btn-primary">Save</button>
                       </div>
                     </div>
 

@@ -1,4 +1,6 @@
 window.addEventListener("load", function(){
+    TodoModal.init(document.getElementById("editModal"));
+
    var textInputSearch = document.getElementById("descriptionSearched");
    var timeout = null;
    textInputSearch.onkeyup = function (e) {
@@ -6,13 +8,13 @@ window.addEventListener("load", function(){
        timeout = setTimeout(function () {searchTodos()}, 500);
    };
 
-   Array.from(document.getElementsByClassName("description")).forEach(function(descriptionInput) {
-        var timeout = null;
-        descriptionInput.onkeyup = function (event) {
-            clearTimeout(timeout);
-            timeout = setTimeout(function () {updateDescription(event)}, 500);
-        };
-   });
+//   Array.from(document.getElementsByClassName("description")).forEach(function(descriptionInput) {
+//        var timeout = null;
+//        descriptionInput.onkeyup = function (event) {
+//            clearTimeout(timeout);
+//            timeout = setTimeout(function () {updateDescription(event)}, 500);
+//        };
+//   });
 
    Array.from(document.getElementsByClassName("dueDate")).forEach(function(dateInput) {
        dateInput.onchange = addDueDate;
@@ -101,6 +103,7 @@ function showModal(event) {
             return response.json();
         })
         .then(function(jsonResponse) {
+            // TodoModal.show(jsonResponse)
            fillModalWithData(jsonResponse)
         });
 

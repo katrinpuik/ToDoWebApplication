@@ -72,13 +72,11 @@
                       </div>
                       <div class="modal-body">
                         <textarea class="descriptionInModal"></textarea>
-                        <p class="">
-
-
-
+                        <p class="statusInModal"></p>
+                        <input type="date" class="dueDateInModal" name="date">
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save</button>
                       </div>
                     </div>
 

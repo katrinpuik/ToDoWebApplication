@@ -36,7 +36,7 @@ window.addEventListener("load", function(){
        todoToDelete.onclick = deleteTodo;
    });
    Array.from(document.getElementsByClassName("edit")).forEach(function(todoToEdit) {
-       todoToEdit.onclick = getTodoToEdit;
+       todoToEdit.onclick = showModal;
    });
 });
 
@@ -90,15 +90,11 @@ function updateDescription(event) {
         });
 }
 
-function getTodoToEdit(event) {
+function showModal(event) {
     var editButton = event.target;
     var idOfTodoToEdit = getClosestRowId(editButton);
 
-
-
-    let request = new Request("http://localhost:8080/todos/todo?id=" + idOfTodoToEdit, {method: "GET"});
-
-    var todoToEditJson;
+   let request = new Request("http://localhost:8080/todos/todo?id=" + idOfTodoToEdit, {method: "GET"});
 
    fetch(request)
         .then(function(response) {
@@ -110,7 +106,9 @@ function getTodoToEdit(event) {
 
     function fillModalWithData(data) {
         var modal = document.getElementById("editModal");
-        var descriptionElement = modal.getElementByClassName('descriptionInModal').innerHTML = data.description;
+        modal.getElementsByClassName('descriptionInModal')[0].value= data.description;
+        modal.getElementsByClassName('statusInModal')[0].innerHTML=data.status;
+        modal.getElementsByClassName('dueDateInModal')[0].value=data.dueDate;
     }
 }
 

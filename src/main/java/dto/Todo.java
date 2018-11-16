@@ -1,6 +1,7 @@
 package dto;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import enums.Status;
 
 import java.util.Date;
@@ -52,6 +53,7 @@ public class Todo {
         return status == Status.NOT_DONE;
     }
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     public Date getDueDate() {
         return dueDate;
     }

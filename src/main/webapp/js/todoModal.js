@@ -1,4 +1,5 @@
                     //see on javascripti klass, ainult et ei saa teha mitut selle klassi objekti
+                    //see on nagu suur jason objekt, sellep'rast  : ja komad meetodite vahel
 var TodoModal = {
     foo: 'tere',    //see on lihtsalt muutuja, kui teda väljaspool seda klassi välja kutsuda TodoModal.foo(), siis ei juhtu midagi, sest ta ei ole funktsioon ega tagasta midagi.
                     //_modal võiks olla siin ka defineeritud klassi muutujana (tühjana), aga seda pole vaja eraldi defineerida nagu nt javas, saab funktsiooni sees ka tekitada
@@ -26,9 +27,9 @@ var TodoModal = {
     _getData: function() {
         console.log('My modal is: ', this._modal)
         return {
-            description: this._getDescriptionElement().value;
-            status: this._getStatusElement().value;
-            date: this._getDateElement().value;
+            description: this._getDescriptionElement().value,
+            status: this._getStatusElement().value,
+            date: this._getDateElement().value
         }
     },
 
@@ -37,9 +38,9 @@ var TodoModal = {
 
 
            var bodyJson = {
-                   description = _getData.description;
-                   status = _getData.status;
-                   date = _getData.date;
+                   description: _getData().description,
+                   status: _getData().status,
+                   date: _getData().date
                };
            let request = new Request (
                "http://localhost:8080/todos/update",
@@ -62,11 +63,11 @@ var TodoModal = {
                         //küsib välja tühjad elemendid
     _getDescriptionElement: function() {
         return this._modal.getElementsByClassName('descriptionInModal')[0];
-    }
+    },
 
     _getStatusElement: function(){
         return this._modal.getElementsByClassName('statusInModal')[0];
-    }
+    },
 
     _getDateElement: function(){
         return this._modal.getElementsByClassName('dueDateInModal')[0];

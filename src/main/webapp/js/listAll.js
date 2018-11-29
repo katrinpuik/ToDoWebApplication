@@ -75,22 +75,22 @@ function addDueDate(event) {
     });
 }
 
-function updateDescription(event) {
-    var descriptionBox = event.target;
-    var bodyJson = {
-        id:getClosestRowId(descriptionBox),
-        description:descriptionBox.value
-        };
-    let request = new Request (
-        "http://localhost:8080/todos/update",
-        {
-            method: "POST",
-            body: JSON.stringify(bodyJson)
-        });
-    fetch(request).then(function(response) {
-        location.reload();
-        });
-}
+//function updateDescription(event) {
+//    var descriptionBox = event.target;
+//    var bodyJson = {
+//        id:getClosestRowId(descriptionBox),
+//        description:descriptionBox.value
+//        };
+//    let request = new Request (
+//        "http://localhost:8080/todos/update",
+//        {
+//            method: "POST",
+//            body: JSON.stringify(bodyJson)
+//        });
+//    fetch(request).then(function(response) {
+//        location.reload();
+//        });
+//}
 
 function showModal(event) {
     var editButton = event.target;
@@ -103,16 +103,8 @@ function showModal(event) {
             return response.json();
         })
         .then(function(jsonResponse) {
-            // TodoModal.show(jsonResponse)
-           fillModalWithData(jsonResponse)
+            TodoModal.show(jsonResponse)
         });
-
-    function fillModalWithData(data) {
-        var modal = document.getElementById("editModal");
-        modal.getElementsByClassName('descriptionInModal')[0].value= data.description;
-        modal.getElementsByClassName('statusInModal')[0].innerHTML=data.status;
-        modal.getElementsByClassName('dueDateInModal')[0].value=data.dueDate;
-    }
 }
 
 function calculateTimeLeft(dateInput) {

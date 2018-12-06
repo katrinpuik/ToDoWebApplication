@@ -18,8 +18,8 @@
                             <c:forEach items="${statusList}" var="status">
                                 <option <c:if test="${status.isSelected()}">selected</c:if>
                                     value="${status.getValue()}">${status.getName()}
-                            </option>
-                        </c:forEach>
+                                </option>
+                            </c:forEach>
                     </select>
                 </div>
                 <div class="addNew">
@@ -40,7 +40,7 @@
                         <c:forEach items="${todos}" var="todo">
                             <tr class="todoRow" data-id="${todo.getId()}">
                                 <td class="descriptionArea">
-                                    <textarea class="description">${todo.getDescription()}</textarea>
+                                    <p class="description">${todo.getDescription()}</p>
                                 </td>
                                 <td>${todo.getStatus()}</td>
                                 <td>

@@ -39,13 +39,9 @@
                     <tbody class="awesome table">
                         <c:forEach items="${todos}" var="todo">
                             <tr class="todoRow" data-id="${todo.getId()}">
-                                <td class="descriptionArea">
-                                    <p class="description">${todo.getDescription()}</p>
-                                </td>
+                                <td class="descriptionArea"> ${todo.getDescription()} </td>
                                 <td>${todo.getStatus()}</td>
-                                <td>
-                                    <input type="date" class="dueDate" name="date" value="${todo.getDueDate()}">
-                                </td>
+                                <td class ="dueDate">${todo.getDueDate()}</td>
                                 <td class="timeLeft"> </td>
                                 <td class="todoRowOverlay">
                                     <button type="button" class="toDelete btn btn-primary">Delete</button>

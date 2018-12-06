@@ -8,28 +8,38 @@ window.addEventListener("load", function(){
        timeout = setTimeout(function () {searchTodos()}, 500);
    };
 
-//   Array.from(document.getElementsByClassName("description")).forEach(function(descriptionInput) {
-//        var timeout = null;
-//        descriptionInput.onkeyup = function (event) {
-//            clearTimeout(timeout);
-//            timeout = setTimeout(function () {updateDescription(event)}, 500);
-//        };
+//   Array.from(document.getElementsByClassName("dueDate")).forEach(function(dateInput) {
+//       dateInput.onchange = addDueDate;
+//
+//       var row = dateInput.closest(".todoRow");
+//       var timeLeftBox = row.getElementsByClassName("timeLeft")[0];
+//       if (timeLeftBox) {
+//           var difference = calculateTimeLeft(dateInput);
+//           if (difference > 0) {
+//                timeLeftBox.innerHTML = difference + " days left";
+//           } else if (difference < 0) {
+//                timeLeftBox.innerHTML = Math.abs(difference) + " days due";
+//           }
+//       }
 //   });
 
-   Array.from(document.getElementsByClassName("dueDate")).forEach(function(dateInput) {
-       dateInput.onchange = addDueDate;
+   Array.from(document.getElementsByClassName("timeLeft")).forEach(function (timeLeftBox) {
+        var row = timeLeftBox.closest(".todoRow");
+        var dateInput = row.getElementsByClassName("dueDate")[0];
+        if (dateInput) {
+            var difference = calculateTimeLeft(dateInput.innerHTML);
+             console.log("test", difference, dateInput.innerHTML);
+            if (difference > 0) {
 
-       var row = dateInput.closest(".todoRow");
-       var timeLeftBox = row.getElementsByClassName("timeLeft")[0];
-       if (timeLeftBox) {
-           var difference = calculateTimeLeft(dateInput);
-           if (difference > 0) {
                 timeLeftBox.innerHTML = difference + " days left";
-           } else if (difference < 0) {
+
+            } else if (difference < 0) {
                 timeLeftBox.innerHTML = Math.abs(difference) + " days due";
-           }
-       }
+            }
+        }
    });
+
+
 
    Array.from(document.getElementsByClassName("toDone")).forEach(function(todoToDone) {
        todoToDone.onclick = changeStatusToDone;
@@ -57,41 +67,6 @@ function changeStatusToDone(event) {
     });
 }
 
-function addDueDate(event) {
-    var dueDateBox = event.target;
-    var bodyJson = {
-            id:getClosestRowId(dueDateBox),
-            date:dueDateBox.value
-            };
-
-    let request = new Request(
-        "http://localhost:8080/todos/update",
-        {
-            method: "POST",
-            body: JSON.stringify(bodyJson)
-        });
-    fetch(request).then(function(response) {
-        location.reload();
-    });
-}
-
-//function updateDescription(event) {
-//    var descriptionBox = event.target;
-//    var bodyJson = {
-//        id:getClosestRowId(descriptionBox),
-//        description:descriptionBox.value
-//        };
-//    let request = new Request (
-//        "http://localhost:8080/todos/update",
-//        {
-//            method: "POST",
-//            body: JSON.stringify(bodyJson)
-//        });
-//    fetch(request).then(function(response) {
-//        location.reload();
-//        });
-//}
-
 function showModal(event) {
     var editButton = event.target;
     var idOfTodoToEdit = getClosestRowId(editButton);
@@ -107,9 +82,9 @@ function showModal(event) {
         });
 }
 
-function calculateTimeLeft(dateInput) {
-    if(dateInput.value != "") {
-        var date = new Date(dateInput.value);
+function calculateTimeLeft(dateString) {
+    if(dateString != "") {
+        var date = new Date(dateString);
         var dateNow = new Date();
             return Math.floor((date-dateNow) / 1000 / 60 / 60/ 24);
     }

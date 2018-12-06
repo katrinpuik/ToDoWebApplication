@@ -18,7 +18,7 @@ var TodoModal = {
         this._getStatusElement().innerHTML = data.status;
         this._getDateElement().value = data.dueDate;
     },
-                        //puhastab modali
+                        //puhastab modali, hetkel pole see funktsioon küll kasutuses
     hide: function() {
         this._currentId = undefined;
         this._getDescriptionElement().value = '';

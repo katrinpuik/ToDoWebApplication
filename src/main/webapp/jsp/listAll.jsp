@@ -27,7 +27,7 @@
                 </div>
             </div>
             <div>
-                <table class="table table-striped">
+                <table class="todoListContainer table table-striped">
                     <thead class="table-secondary">
                         <tr>
                             <th scope="col">Todo</th>

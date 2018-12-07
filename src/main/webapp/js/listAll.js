@@ -1,6 +1,9 @@
 window.addEventListener("load", function(){
     TodoModal.init(document.getElementById("editModal"));
 
+    var todoList = new TodoList(document.getElementsByClassName("todoListContainer")[0]);
+    todoList.init()
+
    var textInputSearch = document.getElementById("descriptionSearched");
    var timeout = null;
    textInputSearch.onkeyup = function (e) {
@@ -8,6 +11,7 @@ window.addEventListener("load", function(){
        timeout = setTimeout(function () {searchTodos()}, 500);
    };
 
+   // TODO: move to todoListRow
    Array.from(document.getElementsByClassName("timeLeft")).forEach(function (timeLeftBox) {
         var row = timeLeftBox.closest(".todoRow");
         var dateInput = row.getElementsByClassName("dueDate")[0];
@@ -24,9 +28,7 @@ window.addEventListener("load", function(){
         }
    });
 
-   Array.from(document.getElementsByClassName("toDone")).forEach(function(todoToDone) {
-       todoToDone.onclick = changeStatusToDone;
-   });
+    // TODO: move to todoListRow
    Array.from(document.getElementsByClassName("toDelete")).forEach(function(todoToDelete) {
        todoToDelete.onclick = deleteTodo;
    });
@@ -35,24 +37,12 @@ window.addEventListener("load", function(){
    });
 });
 
-function changeStatusToDone(event) {
-    var todoToDoneButton = event.target;
-    var idOfTodoToChangeToDone = getClosestRowId(todoToDoneButton);
-
-    let request = new Request(
-        "http://localhost:8080/todos/done?id=" + idOfTodoToChangeToDone,
-        {
-            method: "PUT",
-        });
-    fetch(request).then(function(response) {
-        location.reload();
-    });
-}
-
+// TODO: move to todoListRow
 function showModal(event) {
     var editButton = event.target;
     var idOfTodoToEdit = getClosestRowId(editButton);
 
+    // TODO: move to TodoService.getTodo(id)
    let request = new Request("http://localhost:8080/todos/todo?id=" + idOfTodoToEdit, {method: "GET"});
 
    fetch(request)
@@ -72,16 +62,19 @@ function calculateTimeLeft(dateString) {
     }
 }
 
+// TODO: move to todoListRow
 function deleteTodo(event) {
     var todoToDeleteButton = event.target;
     var idOfTodoToDelete = getClosestRowId(todoToDeleteButton);
 
+    // TODO: move to TodoService.delete(id)
     let request = new Request("http://localhost:8080/todos/delete?id=" + idOfTodoToDelete, {method: "DELETE"});
     fetch(request).then(function(response) {
         location.reload();
     });
 }
 
+// TODO: remove later
 function getClosestRowId(element) {
     return element.closest(".todoRow").dataset.id;
 }

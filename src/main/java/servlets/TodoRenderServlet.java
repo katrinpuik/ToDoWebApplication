@@ -60,6 +60,7 @@ public class TodoRenderServlet extends HttpServlet {
     List<StatusForDropdown> createStatusList(Status status) {
         List<StatusForDropdown> result = new ArrayList<>();
         for (Status statusInEnums : Status.values()) {
+            if (statusInEnums == Status.DISCARDED) continue;
             result.add(new StatusForDropdown
                     (statusInEnums, statusInEnums.toString(),
                             checkIfSelected(status, statusInEnums))

@@ -4,7 +4,6 @@ import dto.Todo;
 import enums.Status;
 import exception.ServiceException;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -71,7 +70,7 @@ public class TodoRepository {
     }
 
     public List<Todo> getAll() throws ServiceException {
-        String query = "SELECT * FROM todos;";
+        String query = "SELECT * FROM todos WHERE status !='" + Status.DISCARDED + "';";
         try (PreparedStatement statement = database.getConnection().prepareStatement(query)) {
             ResultSet results = statement.executeQuery();
             return generateTodosFromDatabaseData(results);

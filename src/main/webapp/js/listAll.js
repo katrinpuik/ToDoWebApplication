@@ -8,21 +8,6 @@ window.addEventListener("load", function(){
        timeout = setTimeout(function () {searchTodos()}, 500);
    };
 
-//   Array.from(document.getElementsByClassName("dueDate")).forEach(function(dateInput) {
-//       dateInput.onchange = addDueDate;
-//
-//       var row = dateInput.closest(".todoRow");
-//       var timeLeftBox = row.getElementsByClassName("timeLeft")[0];
-//       if (timeLeftBox) {
-//           var difference = calculateTimeLeft(dateInput);
-//           if (difference > 0) {
-//                timeLeftBox.innerHTML = difference + " days left";
-//           } else if (difference < 0) {
-//                timeLeftBox.innerHTML = Math.abs(difference) + " days due";
-//           }
-//       }
-//   });
-
    Array.from(document.getElementsByClassName("timeLeft")).forEach(function (timeLeftBox) {
         var row = timeLeftBox.closest(".todoRow");
         var dateInput = row.getElementsByClassName("dueDate")[0];
@@ -39,8 +24,6 @@ window.addEventListener("load", function(){
         }
    });
 
-
-
    Array.from(document.getElementsByClassName("toDone")).forEach(function(todoToDone) {
        todoToDone.onclick = changeStatusToDone;
    });
@@ -51,7 +34,6 @@ window.addEventListener("load", function(){
        todoToEdit.onclick = showModal;
    });
 });
-
 
 function changeStatusToDone(event) {
     var todoToDoneButton = event.target;

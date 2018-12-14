@@ -18,6 +18,8 @@ var TodoService = {
         return fetch (request);
     },
 
+    showModal:
+
     _getUrl: function(path) {
         return "http://localhost:8080" + path;
     }

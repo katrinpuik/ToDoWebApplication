@@ -16,12 +16,16 @@ function TodoListRow(element) {
         }
 
         var modalButton = self._getModalButtonElement();
+        if (modalButton) {
+            modalButton.onclick = self._showModal
+        }
 
-            modalButton.onclick =
+
 
 //       Array.from(document.getElementsByClassName("edit")).forEach(function(todoToEdit) {
 //           todoToEdit.onclick = showModal;
 //       });
+
     }
 
     self._changeStatusToDone = function() {
@@ -32,6 +36,12 @@ function TodoListRow(element) {
 
     self._delete = function() {
         TodoService.deleteTodo(self._getId()).then(function(response) {
+            location.reload();
+        });
+    }
+
+    self._showModal = function(){
+        TodoService.showModal(self._getId).then(function(response) {
             location.reload();
         });
     }

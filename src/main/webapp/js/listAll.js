@@ -29,9 +29,9 @@ window.addEventListener("load", function(){
    });
 
     // TODO: move to todoListRow
-   Array.from(document.getElementsByClassName("toDelete")).forEach(function(todoToDelete) {
-       todoToDelete.onclick = deleteTodo;
-   });
+//   Array.from(document.getElementsByClassName("toDelete")).forEach(function(todoToDelete) {
+//       todoToDelete.onclick = deleteTodo;
+//   });
    Array.from(document.getElementsByClassName("edit")).forEach(function(todoToEdit) {
        todoToEdit.onclick = showModal;
    });
@@ -62,17 +62,17 @@ function calculateTimeLeft(dateString) {
     }
 }
 
-// TODO: move to todoListRow
-function deleteTodo(event) {
-    var todoToDeleteButton = event.target;
-    var idOfTodoToDelete = getClosestRowId(todoToDeleteButton);
-
-    // TODO: move to TodoService.delete(id)
-    let request = new Request("http://localhost:8080/todos/delete?id=" + idOfTodoToDelete, {method: "DELETE"});
-    fetch(request).then(function(response) {
-        location.reload();
-    });
-}
+//// TODO: move to todoListRow
+//function deleteTodo(event) {
+//    var todoToDeleteButton = event.target;
+//    var idOfTodoToDelete = getClosestRowId(todoToDeleteButton);
+//
+//    // TODO: move to TodoService.delete(id)
+//    let request = new Request("http://localhost:8080/todos/delete?id=" + idOfTodoToDelete, {method: "DELETE"});
+//    fetch(request).then(function(response) {
+//        location.reload();
+//    });
+//}
 
 // TODO: remove later
 function getClosestRowId(element) {

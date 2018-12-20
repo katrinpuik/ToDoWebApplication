@@ -3,7 +3,7 @@ function TodoListRow(element) {
     var _element = element;
 
     self.init = function() {
-        console.log("Initializing TodoListRow", _element);
+        //console.log("Initializing TodoListRow", _element);
 
         var doneButton = self._getDoneButtonElement();
         if (doneButton) {
@@ -19,13 +19,6 @@ function TodoListRow(element) {
         if (modalButton) {
             modalButton.onclick = self._showModal
         }
-
-
-
-//       Array.from(document.getElementsByClassName("edit")).forEach(function(todoToEdit) {
-//           todoToEdit.onclick = showModal;
-//       });
-
     }
 
     self._changeStatusToDone = function() {
@@ -41,7 +34,7 @@ function TodoListRow(element) {
     }
 
     self._showModal = function(){
-        TodoService.showModal(self._getId).then(function(response) {
+        TodoService.showModal(self._getId()).then(function(response) {
             location.reload();
         });
     }
@@ -50,21 +43,37 @@ function TodoListRow(element) {
         return _element.getElementsByClassName('toDone')[0];
     }
 
-    self._getDeleteButtonElement = function(){
+    self._getDeleteButtonElement = function() {
         return _element.getElementsByClassName('toDelete')[0];
     }
 
-    self._getModalButtonElement() = function() {
+    self._getModalButtonElement = function() {
         return _element.getElementsByClassName('edit')[0];
-
     }
 
     self.update = function() {
             // TODO: update time left
-            console.log("I should update time left");
+     //       console.log("I should update time left");
     }
 
     self._getId = function() {
             return _element.dataset.id;
     }
 }
+
+
+// Array.from(document.getElementsByClassName("timeLeft")).forEach(function (timeLeftBox) {
+//        var row = timeLeftBox.closest(".todoRow");
+//        var dateInput = row.getElementsByClassName("dueDate")[0];
+//        if (dateInput) {
+//            var difference = calculateTimeLeft(dateInput.innerHTML);
+//             console.log("test", difference, dateInput.innerHTML);
+//            if (difference > 0) {
+//
+//                timeLeftBox.innerHTML = difference + " days left";
+//
+//            } else if (difference < 0) {
+//                timeLeftBox.innerHTML = Math.abs(difference) + " days due";
+//            }
+//        }
+//   });

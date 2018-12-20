@@ -17,7 +17,7 @@ window.addEventListener("load", function(){
         var dateInput = row.getElementsByClassName("dueDate")[0];
         if (dateInput) {
             var difference = calculateTimeLeft(dateInput.innerHTML);
-             console.log("test", difference, dateInput.innerHTML);
+//             console.log("test", difference, dateInput.innerHTML);
             if (difference > 0) {
 
                 timeLeftBox.innerHTML = difference + " days left";
@@ -32,27 +32,27 @@ window.addEventListener("load", function(){
 //   Array.from(document.getElementsByClassName("toDelete")).forEach(function(todoToDelete) {
 //       todoToDelete.onclick = deleteTodo;
 //   });
-   Array.from(document.getElementsByClassName("edit")).forEach(function(todoToEdit) {
-       todoToEdit.onclick = showModal;
-   });
+//   Array.from(document.getElementsByClassName("edit")).forEach(function(todoToEdit) {
+//       todoToEdit.onclick = showModal;
+//   });
 });
 
 // TODO: move to todoListRow
-function showModal(event) {
-    var editButton = event.target;
-    var idOfTodoToEdit = getClosestRowId(editButton);
-
-    // TODO: move to TodoService.getTodo(id)
-   let request = new Request("http://localhost:8080/todos/todo?id=" + idOfTodoToEdit, {method: "GET"});
-
-   fetch(request)
-        .then(function(response) {
-            return response.json();
-        })
-        .then(function(jsonResponse) {
-            TodoModal.show(jsonResponse)
-        });
-}
+//function showModal(event) {
+//    var editButton = event.target;
+//    var idOfTodoToEdit = getClosestRowId(editButton);
+//
+//    // TODO: move to TodoService.getTodo(id)
+//   let request = new Request("http://localhost:8080/todos/todo?id=" + idOfTodoToEdit, {method: "GET"});
+//
+//   fetch(request)
+//        .then(function(response) {
+//            return response.json();
+//        })
+//        .then(function(jsonResponse) {
+//            TodoModal.show(jsonResponse)
+//        });
+//}
 
 function calculateTimeLeft(dateString) {
     if(dateString != "") {

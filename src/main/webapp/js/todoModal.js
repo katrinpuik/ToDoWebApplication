@@ -7,7 +7,7 @@ var TodoModal = {
                     //selle funktsiooniga tehakse klassimuutuja _modal ja öeldakse, et see, mis parameetriks sisse tuleb, ongi see
     init: function(modal) {
         this._modal = modal;
-        console.log('Initialized TodoModal', modal)
+      //  console.log('Initialized TodoModal', modal)
 
         TodoModal._getSaveButton().onclick = TodoModal._save
     },
@@ -27,7 +27,7 @@ var TodoModal = {
     },
                         //annab info, mis modalis parasjagu on
     _getData: function() {
-        console.log('My modal is: ', this._modal)
+       // console.log('My modal is: ', this._modal)
         return {
             id: this._currentId,
             description: this._getDescriptionElement().value,

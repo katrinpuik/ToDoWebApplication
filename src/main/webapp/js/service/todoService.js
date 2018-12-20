@@ -15,12 +15,30 @@ var TodoService = {
             {
                 method: "DELETE"
             });
-        return fetch (request);
+        return fetch(request);
     },
 
-    showModal:
+    showModal: function(id) {
+        let request = new Request (
+            TodoService._getUrl("/todos/todo?id=" + id),
+            {
+                method: "GET"
+            });
+        return fetch(request)
+            .then(function(response) {
+                  return response.json();
+             })
+             .then(function(jsonResponse) {
+                  TodoModal.show(jsonResponse)
+             });
+    },
+
+
+
 
     _getUrl: function(path) {
         return "http://localhost:8080" + path;
     }
 }
+
+

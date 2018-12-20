@@ -4,7 +4,7 @@ function TodoList(element) {
     var _todoRows = [];
 
     self.init = function() {
-        console.log("Initializing TodoList. Creating rows");
+        //console.log("Initializing TodoList. Creating rows");
         Array.from(_element.getElementsByClassName("todoRow")).forEach(function (rowElement) {
             var row = new TodoListRow(rowElement);
             row.init();

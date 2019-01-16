@@ -17,7 +17,6 @@ var TodoModal = {
         this._getDescriptionElement().value = data.description;
         this._getStatusElement().innerHTML = data.status;
         this._getDateElement().value = data.dueDate;
-        console.log('lähen peitu');
     },
                         //puhastab modali, hetkel pole see funktsioon küll kasutuses
     hide: function() {

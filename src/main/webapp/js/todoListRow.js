@@ -34,8 +34,8 @@ function TodoListRow(element) {
     }
 
     self._showModal = function(){
-        TodoService.showModal(self._getId()).then(function(response) {
-            location.reload();
+        TodoService.getTodo(self._getId()).then(function(todo){
+        TodoModal.show(todo);
         });
     }
 

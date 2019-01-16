@@ -17,7 +17,6 @@ window.addEventListener("load", function(){
         var dateInput = row.getElementsByClassName("dueDate")[0];
         if (dateInput) {
             var difference = calculateTimeLeft(dateInput.innerHTML);
-//             console.log("test", difference, dateInput.innerHTML);
             if (difference > 0) {
 
                 timeLeftBox.innerHTML = difference + " days left";
@@ -116,24 +115,3 @@ function submitNewTodo() {
 }
 
 
-// näide sellest, kuidas teades üht rea elementi (selle saab ikka event.target'iga), saab kätte kõik
-// teised selle rea elemendid
-
-//function getClosestRow(element) {
-//    var row = element.closest(".todoRow");
-//    if (row) {
-//        return {
-//            id: row.dataset.id,
-//            doneButton: row.getElementsByClassName("toDone")[0],
-//            deleteButton: row.getElementsByClassName("toDelete")[0],
-//            dueDateBox: row.getElementsByClassName("dueDate")[0],
-//            timeLeftBox: row.getElementsByClassName("timeLeft")[0]
-//        }
-//    }
-//    return {}
-//}
-
-// andmeid saab nii
-// var data = getClosestRow(element);
-// var id = data.id;
-// var deleteButton = data.deleteButton;

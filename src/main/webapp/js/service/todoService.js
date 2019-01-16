@@ -18,20 +18,35 @@ var TodoService = {
         return fetch(request);
     },
 
-    showModal: function(id) {
+    //see kirjutada showModal j'rgi, aga viimane ots j'tta todoListRow teha
+    getTodo: function(id) {
         let request = new Request (
             TodoService._getUrl("/todos/todo?id=" + id),
             {
                 method: "GET"
             });
-        return fetch(request)
-            .then(function(response) {
-                  return response.json();
-             })
-             .then(function(jsonResponse) {
-                  TodoModal.show(jsonResponse)
-             });
+                return fetch(request)
+                    .then(function(response) {
+                          return response.json();
+                     });
     },
+
+//    showModal: function(id) {
+//        let request = new Request (
+//            TodoService._getUrl("/todos/todo?id=" + id),
+//            {
+//                method: "GET"
+//            });
+//        return fetch(request)
+//            .then(function(response) {
+//                  return response.json();
+//             })
+//             .then(function(jsonResponse) {
+//
+//             //seda teeb todoListRow
+//                  TodoModal.show(jsonResponse)
+//             });
+//    },
 
 
 

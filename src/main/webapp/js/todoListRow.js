@@ -3,7 +3,6 @@ function TodoListRow(element) {
     var _element = element;
 
     self.init = function() {
-        //console.log("Initializing TodoListRow", _element);
 
         var doneButton = self._getDoneButtonElement();
         if (doneButton) {
@@ -51,29 +50,36 @@ function TodoListRow(element) {
         return _element.getElementsByClassName('edit')[0];
     }
 
+    self._getTimeLeftElement = function() {
+        return _element.getElementsByClassName('timeLeft')[0];
+    }
+
+    self._getDueDateElement = function(){
+        return _element.getElementsByClassName('dueDate')[0];
+    }
+
     self.update = function() {
-            // TODO: update time left
-     //       console.log("I should update time left");
+        var dueDateAsString = self._getDueDateElement().innerHTML;
+        if(dueDateAsString) {
+            var difference = self._calculateTimeLeft(dueDateAsString);
+            if (difference > 0) {
+                self._getTimeLeftElement().innerHTML = difference + " days left";
+            } else if (difference < 0) {
+                self._getTimeLeftElement().innerHTML = Math.abs(difference) + " days due";
+            }
+        }
     }
 
     self._getId = function() {
             return _element.dataset.id;
     }
+
+    self. _calculateTimeLeft = function (dateString) {
+        if(dateString != "") {
+            var date = new Date(dateString);
+            var dateNow = new Date();
+                return Math.floor((date-dateNow) / 1000 / 60 / 60/ 24);
+        }
+    }
+
 }
-
-
-// Array.from(document.getElementsByClassName("timeLeft")).forEach(function (timeLeftBox) {
-//        var row = timeLeftBox.closest(".todoRow");
-//        var dateInput = row.getElementsByClassName("dueDate")[0];
-//        if (dateInput) {
-//            var difference = calculateTimeLeft(dateInput.innerHTML);
-//             console.log("test", difference, dateInput.innerHTML);
-//            if (difference > 0) {
-//
-//                timeLeftBox.innerHTML = difference + " days left";
-//
-//            } else if (difference < 0) {
-//                timeLeftBox.innerHTML = Math.abs(difference) + " days due";
-//            }
-//        }
-//   });

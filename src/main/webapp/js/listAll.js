@@ -11,73 +11,6 @@ window.addEventListener("load", function(){
        timeout = setTimeout(function () {searchTodos()}, 500);
    };
 
-   // TODO: move to todoListRow
-   Array.from(document.getElementsByClassName("timeLeft")).forEach(function (timeLeftBox) {
-        var row = timeLeftBox.closest(".todoRow");
-        var dateInput = row.getElementsByClassName("dueDate")[0];
-        if (dateInput) {
-            var difference = calculateTimeLeft(dateInput.innerHTML);
-            if (difference > 0) {
-
-                timeLeftBox.innerHTML = difference + " days left";
-
-            } else if (difference < 0) {
-                timeLeftBox.innerHTML = Math.abs(difference) + " days due";
-            }
-        }
-   });
-
-    // TODO: move to todoListRow
-//   Array.from(document.getElementsByClassName("toDelete")).forEach(function(todoToDelete) {
-//       todoToDelete.onclick = deleteTodo;
-//   });
-//   Array.from(document.getElementsByClassName("edit")).forEach(function(todoToEdit) {
-//       todoToEdit.onclick = showModal;
-//   });
-});
-
-// TODO: move to todoListRow
-//function showModal(event) {
-//    var editButton = event.target;
-//    var idOfTodoToEdit = getClosestRowId(editButton);
-//
-//    // TODO: move to TodoService.getTodo(id)
-//   let request = new Request("http://localhost:8080/todos/todo?id=" + idOfTodoToEdit, {method: "GET"});
-//
-//   fetch(request)
-//        .then(function(response) {
-//            return response.json();
-//        })
-//        .then(function(jsonResponse) {
-//            TodoModal.show(jsonResponse)
-//        });
-//}
-
-function calculateTimeLeft(dateString) {
-    if(dateString != "") {
-        var date = new Date(dateString);
-        var dateNow = new Date();
-            return Math.floor((date-dateNow) / 1000 / 60 / 60/ 24);
-    }
-}
-
-//// TODO: move to todoListRow
-//function deleteTodo(event) {
-//    var todoToDeleteButton = event.target;
-//    var idOfTodoToDelete = getClosestRowId(todoToDeleteButton);
-//
-//    // TODO: move to TodoService.delete(id)
-//    let request = new Request("http://localhost:8080/todos/delete?id=" + idOfTodoToDelete, {method: "DELETE"});
-//    fetch(request).then(function(response) {
-//        location.reload();
-//    });
-//}
-
-// TODO: remove later
-function getClosestRowId(element) {
-    return element.closest(".todoRow").dataset.id;
-}
-
 function searchTodos() {
     location.href = "todos?" + generateStringForUrl();
 }
@@ -113,5 +46,3 @@ function checkIfDescriptionIsNotEmptyAndSubmit() {
 function submitNewTodo() {
     document.getElementById("submitNewTodo").submit();
 }
-
-

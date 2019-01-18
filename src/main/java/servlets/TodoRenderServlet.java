@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name = "servlets.TodoRenderServlet", urlPatterns = {"todos"}, loadOnStartup = 1)
+@WebServlet(name = "servlets.TodoRenderServlet", urlPatterns = {""}, loadOnStartup = 1)
 public class TodoRenderServlet extends HttpServlet {
 
     private TodoService service = new TodoService();

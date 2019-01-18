@@ -67,6 +67,10 @@ tr:hover .todoRowOverlay {
     margin-right:10px;
 }
 
+.doneRow {
+    background-color: green;
+}
+
 
 
 

@@ -24,7 +24,7 @@ public class NewTodoServlet extends HttpServlet {
         String newDescription = request.getParameter("newTodo");
         if (newDescription != null && !newDescription.equals("")) {
             service.save(new Todo(newDescription, Status.NOT_DONE));
-            response.sendRedirect("/todos");
+            response.sendRedirect("/");
         } else {
             response.sendRedirect("/todos/new");
         }

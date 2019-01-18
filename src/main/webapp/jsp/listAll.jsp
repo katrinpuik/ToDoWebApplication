@@ -38,9 +38,9 @@
                     </thead>
                     <tbody class="awesome table">
                         <c:forEach items="${todos}" var="todo">
-                            <tr class="todoRow" data-id="${todo.getId()}">
+                            <tr class="todoRow" data-id="${todo.getId()}" data-status="${todo.getStatus()}">
                                 <td class="descriptionArea"> ${todo.getDescription()} </td>
-                                <td>${todo.getStatus()}</td>
+                                <td >${todo.getStatus()}</td>
                                 <td class ="dueDate">${todo.getDueDate()}</td>
                                 <td class="timeLeft"> </td>
                                 <td class="todoRowOverlay">
@@ -75,17 +75,10 @@
                         <button type="button" class="saveInModal btn btn-primary">Save</button>
                       </div>
                     </div>
-
                   </div>
                 </div>
 
-
             </div>
-
-
-
-
-
         </div class="container">
         <%@ include file="footer.jsp" %>
     </body>

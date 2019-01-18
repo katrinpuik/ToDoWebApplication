@@ -4,12 +4,13 @@ window.addEventListener("load", function(){
     var todoList = new TodoList(document.getElementsByClassName("todoListContainer")[0]);
     todoList.init()
 
-   var textInputSearch = document.getElementById("descriptionSearched");
-   var timeout = null;
-   textInputSearch.onkeyup = function (e) {
-       clearTimeout(timeout);
-       timeout = setTimeout(function () {searchTodos()}, 500);
-   };
+    var textInputSearch = document.getElementById("descriptionSearched");
+    var timeout = null;
+        textInputSearch.onkeyup = function (e) {
+        clearTimeout(timeout);
+        timeout = setTimeout(function () {searchTodos()}, 500);
+        };
+ });
 
 function searchTodos() {
     location.href = "todos?" + generateStringForUrl();

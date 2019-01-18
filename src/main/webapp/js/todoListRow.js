@@ -18,6 +18,10 @@ function TodoListRow(element) {
         if (modalButton) {
             modalButton.onclick = self._showModal
         }
+
+        if (_element.dataset.status==='DONE') {
+            _element.classList.add('doneRow');
+        }
     }
 
     self._changeStatusToDone = function() {
@@ -81,5 +85,4 @@ function TodoListRow(element) {
                 return Math.floor((date-dateNow) / 1000 / 60 / 60/ 24);
         }
     }
-
 }

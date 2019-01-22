@@ -4,7 +4,7 @@
     <script src="/js/service/todoService.js"></script>
     <script src="/js/listAll.js"></script>
     <script src="/js/todoModal.js"></script>
-    <script src="/js/todoList.js"></script>
-    <script src="/js/todoListRow.js"></script>
+    <script src="/js/todoCard.js"></script>
+    <script src="/js/todoCardList.js"></script>
     <link rel="stylesheet" href="todos.css">
 </head>

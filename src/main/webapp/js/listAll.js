@@ -1,8 +1,11 @@
 window.addEventListener("load", function(){
     TodoModal.init(document.getElementById("editModal"));
 
-    var todoList = new TodoList(document.getElementsByClassName("todoListContainer")[0]);
-    todoList.init()
+//    var todoList = new TodoList(document.getElementsByClassName("todoListContainer")[0]);
+//    todoList.init()
+
+      var todoCardList = new TodoCardList(document.getElementsByClassName("cardContainer")[0]);
+      todoCardList.init()
 
     var textInputSearch = document.getElementById("descriptionSearched");
     var timeout = null;

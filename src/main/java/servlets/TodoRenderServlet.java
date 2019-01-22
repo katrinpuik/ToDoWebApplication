@@ -37,7 +37,7 @@ public class TodoRenderServlet extends HttpServlet {
                 descriptionOfTodoToFindFromRequest);
 
         try {
-            request.getRequestDispatcher("/jsp/listAll.jsp").forward(request, response);
+            request.getRequestDispatcher("/jsp/todosAsList.jsp").forward(request, response);
         } catch (IOException e) {
             e.printStackTrace();
         }

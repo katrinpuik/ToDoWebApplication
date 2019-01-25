@@ -27,18 +27,6 @@ h2{
     margin-top:60px;
 }
 
-.descriptionArea{
-    display:flex;
-}
-
-.description{
-   flex: 1 1 auto;
-}
-
-tr {
-    position: relative;
-}
-
 .todoCardOverlay {
   position: absolute;
   top:0;
@@ -68,10 +56,23 @@ tr {
     margin-right:10px;
 }
 
+.doneGreen {
+    border-left: 6px solid green;
+    height: 100%;
+    position: absolute;
+}
 
+.notDoneYellow {
+    border-left: 6px solid yellow;
+    height: 100%;
+    position: absolute;
+}
 
-
-
+.notDoneRed {
+    border-left: 6px solid red;
+    height: 100%;
+    position: absolute;
+}
 
 
 

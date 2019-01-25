@@ -37,9 +37,9 @@ var TodoModal = {
     },
 
     _save: function() {
-        console.log("This in _save", this)
-        console.log("TodoModal in _save", TodoModal)
-        console.log("Saving data", JSON.stringify(TodoModal._getData()))
+//        console.log("This in _save", this)
+//        console.log("TodoModal in _save", TodoModal)
+//        console.log("Saving data", JSON.stringify(TodoModal._getData()))
            let request = new Request (
                "http://localhost:8080/todos/update",
                {

@@ -13,9 +13,9 @@ function TodoCardList(element) {
         setInterval(self._updateCards, 5000);
     }
 
-//    self._updateCards = function() {
-//        _todoCards.forEach(function(card) {
-//            card.update();
-//        })
-//    }
+    self._updateCards = function() {
+        _todoCards.forEach(function(card) {
+            card.update();
+        })
+    }
 }

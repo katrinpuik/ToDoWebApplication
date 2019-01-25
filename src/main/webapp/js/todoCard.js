@@ -1,6 +1,7 @@
 function TodoCard(element) {
     const self = this;
     var _element = element;
+    var _statusColorElement = _element.getElementsByClassName("statusColor")[0];
 
     self.init = function() {
 
@@ -20,69 +21,78 @@ function TodoCard(element) {
         }
 
         if (_element.dataset.status==='DONE') {
-            _element.classList.add('doneRow');
+           _statusColorElement.classList.add('doneGreen');
+        } else {
+            self._addDateAndStatusColor();
+        }
+   }
+
+
+    self._changeStatusToDone = function() {
+        TodoService.updateStatusToDone(self._getId()).then(function(response) {
+            location.reload();
+        });
+    }
+
+    self._delete = function() {
+        TodoService.deleteTodo(self._getId()).then(function(response) {
+            location.reload();
+        });
+    }
+
+    self._showModal = function(){
+        TodoService.getTodo(self._getId()).then(function(todo){
+            TodoModal.show(todo);
+        });
+    }
+
+    self._getDoneButtonElement = function() {
+        return _element.getElementsByClassName('toDone')[0];
+    }
+
+    self._getDeleteButtonElement = function() {
+        return _element.getElementsByClassName('toDelete')[0];
+    }
+
+    self._getModalButtonElement = function() {
+        return _element.getElementsByClassName('edit')[0];
+    }
+
+    self._getId = function() {
+        return _element.dataset.id;
+    }
+
+    self._getDateField = function() {
+        return _element.getElementsByClassName('dateField')[0];
+    }
+
+    self.update = function() {
+        if(_element.dataset.status != "DONE") {
+            self._addDateAndStatusColor();
         }
     }
 
-    self._changeStatusToDone = function() {
-            TodoService.updateStatusToDone(self._getId()).then(function(response) {
-                location.reload();
-            });
-        }
-
-    self._delete = function() {
-            TodoService.deleteTodo(self._getId()).then(function(response) {
-                location.reload();
-            });
-        }
-    self._showModal = function(){
-                TodoService.getTodo(self._getId()).then(function(todo){
-                TodoModal.show(todo);
-                });
+    self._addDateAndStatusColor = function() {
+        var dueDate = _element.dataset.duedate;
+        if(dueDate) {
+            var difference = self._calculateTimeLeft(dueDate);
+            if (difference > 0) {
+                self._getDateField().innerHTML = difference + " days left";
+                _statusColorElement.classList.add('notDoneYellow');
+            } else if (difference < 0) {
+                self._getDateField().innerHTML = Math.abs(difference) + " days due";
+                _statusColorElement.classList.add('notDoneRed');
             }
+        }
+    }
 
-    self._getDoneButtonElement = function() {
-          return _element.getElementsByClassName('toDone')[0];
-      }
 
-      self._getDeleteButtonElement = function() {
-          return _element.getElementsByClassName('toDelete')[0];
-      }
-
-      self._getModalButtonElement = function() {
-          return _element.getElementsByClassName('edit')[0];
-      }
-
-//      self._getTimeLeftElement = function() {
-//          return _element.getElementsByClassName('timeLeft')[0];
-//      }
-//
-//      self._getDueDateElement = function(){
-//          return _element.getElementsByClassName('dueDate')[0];
-//      }
-//
-//      self.update = function() {
-//          var dueDateAsString = self._getDueDateElement().innerHTML;
-//          if(dueDateAsString) {
-//              var difference = self._calculateTimeLeft(dueDateAsString);
-//              if (difference > 0) {
-//                  self._getTimeLeftElement().innerHTML = difference + " days left";
-//              } else if (difference < 0) {
-//                  self._getTimeLeftElement().innerHTML = Math.abs(difference) + " days due";
-//              }
-//          }
-//      }
-
-      self._getId = function() {
-              return _element.dataset.id;
-      }
-
-      self. _calculateTimeLeft = function (dateString) {
-          if(dateString != "") {
-              var date = new Date(dateString);
-              var dateNow = new Date();
-                  return Math.floor((date-dateNow) / 1000 / 60 / 60/ 24);
-          }
-      }
+    self. _calculateTimeLeft = function (dateString) {
+        if(dateString != "") {
+            var date = new Date(dateString);
+            var dateNow = new Date();
+                return Math.floor((date-dateNow) / 1000 / 60 / 60 / 24);
+        }
+    }
 }
 

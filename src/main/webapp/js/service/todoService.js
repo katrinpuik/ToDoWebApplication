@@ -30,10 +30,6 @@ var TodoService = {
                      });
     },
 
-
-
-
-
     _getUrl: function(path) {
         return "http://localhost:8080" + path;
     }

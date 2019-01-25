@@ -26,23 +26,30 @@
                     <a class="btn btn-outline-secondary" href="todos/new" role="button">Insert new todo</a>
                 </div>
             </div>
-            <div class = "cardContainer">
+            <div class="cardContainer">
                 <c:forEach items="${todos}" var="todo">
-                    <div class="todoCard card border-dark mb-3" data-id="${todo.getId()}" >
-                        <div class="card-body">
-                            ${todo.getDescription()} ${todo.getStatus()} ${todo.getDueDate()}
-                            <p class="todoCardOverlay">
-                                <button type="button" class="toDelete btn btn-primary">Delete</button>
-                                    <c:if test="${todo.isCompletable()}">
-                                        <button type="button" class="toDone btn btn-primary">Done</button>
-                                    </c:if>
-                                <button type="button"
-                                    class="edit btn btn-info btn-lg"
-                                    data-toggle="modal" data-target="#editModal">
-                                    <i class="fa fa-edit" aria-hidden="true"></i>
-                                </button>
-                            </p>
-                        </div>
+                    <div class="todoCard card horizontal border-dark mb-3"
+                                data-id="${todo.getId()}"
+                                data-status="${todo.getStatus()}"
+                                data-duedate="${todo.getDueDate()}">
+
+                            <div class="statusColor"> </div>
+                            <div class="card-body">
+                                <p> ${todo.getDescription()} </p>
+                                <p class="dateField"> DATE </p>
+                                <div class="todoCardOverlay">
+                                    <button type="button" class="toDelete btn btn-primary">Delete</button>
+                                        <c:if test="${todo.isCompletable()}">
+                                            <button type="button" class="toDone btn btn-primary">Done</button>
+                                        </c:if>
+                                    <button type="button"
+                                        class="edit btn btn-info btn-lg"
+                                        data-toggle="modal" data-target="#editModal">
+                                        <i class="fa fa-edit" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+
                     </div>
                 </c:forEach>
             </div>

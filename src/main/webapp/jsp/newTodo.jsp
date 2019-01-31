@@ -8,7 +8,7 @@
             <br>
             <br>
             <br>
-            <form id="submitNewTodo" method="post" action="/todos/new">
+            <form id="submitNewTodo" method="post" action="/new">
                 Insert new todo:<br>
                 <input type="text" id="newTodo" name="newTodo"></input>
                 <br>

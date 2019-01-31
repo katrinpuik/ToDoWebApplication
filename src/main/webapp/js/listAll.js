@@ -1,11 +1,9 @@
 window.addEventListener("load", function(){
     TodoModal.init(document.getElementById("editModal"));
+    AddNewTodoModal.init(document.getElementById("addNewModal"));
 
-//    var todoList = new TodoList(document.getElementsByClassName("todoListContainer")[0]);
-//    todoList.init()
-
-      var todoCardList = new TodoCardList(document.getElementsByClassName("cardContainer")[0]);
-      todoCardList.init()
+    var todoCardList = new TodoCardList(document.getElementsByClassName("cardContainer")[0]);
+    todoCardList.init()
 
     var textInputSearch = document.getElementById("descriptionSearched");
     var timeout = null;
@@ -16,7 +14,7 @@ window.addEventListener("load", function(){
  });
 
 function searchTodos() {
-    location.href = "todos?" + generateStringForUrl();
+    location.href = "?" + generateStringForUrl();
 }
 
 function getDataForGeneratingUrl() {

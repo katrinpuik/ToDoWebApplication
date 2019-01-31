@@ -2,7 +2,7 @@ var TodoService = {
 
     updateStatusToDone: function(id) {
         let request = new Request(
-            TodoService._getUrl("/todos/done?id=" + id),
+            TodoService._getUrl("/done?id=" + id),
             {
                 method: "PUT",
             });
@@ -11,7 +11,7 @@ var TodoService = {
 
     deleteTodo: function(id) {
         let request = new Request (
-            TodoService._getUrl("/todos/delete?id=" + id),
+            TodoService._getUrl("/delete?id=" + id),
             {
                 method: "DELETE"
             });
@@ -20,7 +20,7 @@ var TodoService = {
 
     getTodo: function(id) {
         let request = new Request (
-            TodoService._getUrl("/todos/todo?id=" + id),
+            TodoService._getUrl("/todo?id=" + id),
             {
                 method: "GET"
             });

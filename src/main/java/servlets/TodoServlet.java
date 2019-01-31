@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-@WebServlet(name = "servlets.TodoServlet", urlPatterns = {"todos/todo"}, loadOnStartup = 1)
+@WebServlet(name = "servlets.TodoServlet", urlPatterns = {"/todo"}, loadOnStartup = 1)
 public class TodoServlet extends HttpServlet {
     private static Logger logger = Logger.getLogger(UpdateServlet.class.getName());
 

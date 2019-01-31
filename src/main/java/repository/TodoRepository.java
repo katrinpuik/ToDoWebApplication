@@ -18,16 +18,17 @@ public class TodoRepository {
     private static Logger logger = Logger.getLogger(TodoRepository.class.getName());
     private Database database = new Database();
 
-    public void saveTodos(Todo todo) throws ServiceException {
-        String query = "INSERT INTO todos (description, status) VALUES (?, ?);";
+    public void addNew(String newDescription, String date) throws ServiceException {
+        String query = "INSERT INTO todos (description, status, dueDate) VALUES(?,?,?);";
 
         try (PreparedStatement statement = database.getConnection().prepareStatement(query)) {
-            statement.setString(1, todo.getDescription());
-            statement.setString(2, todo.getStatus().name());
+            statement.setString(1, newDescription);
+            statement.setString(2, Status.NOT_DONE.name());
+            statement.setString(3, date);
             statement.executeUpdate();
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, ex.getMessage(), ex);
-            throw new ServiceException("Unable to save todo");
+            throw new ServiceException("Unable to save new todo");
         }
     }
 

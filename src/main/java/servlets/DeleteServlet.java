@@ -7,12 +7,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import java.util.logging.Logger;
 
 import static java.lang.Integer.parseInt;
 
-@WebServlet(name = "servlets.DeleteServlet", urlPatterns = {"todos/delete"}, loadOnStartup = 1)
+@WebServlet(name = "servlets.DeleteServlet", urlPatterns = {"/delete"}, loadOnStartup = 1)
 public class DeleteServlet extends HttpServlet {
     private static Logger logger = Logger.getLogger(UpdateServlet.class.getName());
 

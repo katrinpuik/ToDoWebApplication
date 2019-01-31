@@ -1,14 +1,7 @@
-                    //see on javascripti klass, ainult et ei saa teha mitut selle klassi objekti
-                    //see on nagu suur json objekt, sellep'rast  : ja komad meetodite vahel
 var TodoModal = {
-    foo: 'tere',    //see on lihtsalt muutuja, kui teda väljaspool seda klassi välja kutsuda TodoModal.foo(), siis ei juhtu midagi, sest ta ei ole funktsioon ega tagasta midagi.
-                    //_modal võiks olla siin ka defineeritud klassi muutujana (tühjana), aga seda pole vaja eraldi defineerida nagu nt javas, saab funktsiooni sees ka tekitada
-
-                    //selle funktsiooniga tehakse klassimuutuja _modal ja öeldakse, et see, mis parameetriks sisse tuleb, ongi see
     init: function(modal) {
         this._modal = modal;
       //  console.log('Initialized TodoModal', modal)
-
         TodoModal._getSaveButton().onclick = TodoModal._save
     },
                         //täidab elemendid andmebaasist võetava infoga (kui modalit kasutajale kuvatakse)
@@ -41,7 +34,7 @@ var TodoModal = {
 //        console.log("TodoModal in _save", TodoModal)
 //        console.log("Saving data", JSON.stringify(TodoModal._getData()))
            let request = new Request (
-               "http://localhost:8080/todos/update",
+               "http://localhost:8080/update",
                {
                    method: "POST",
                    body: JSON.stringify(TodoModal._getData())

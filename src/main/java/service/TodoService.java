@@ -11,8 +11,8 @@ public class TodoService {
 
     private TodoRepository repository = new TodoRepository();
 
-    public void save(Todo todo) throws ServiceException {
-        repository.saveTodos(todo);
+    public void addNew(String newDescription, String date) {
+        repository.addNew(newDescription,date);
     }
 
     public void updateStatus(Integer id) throws ServiceException {

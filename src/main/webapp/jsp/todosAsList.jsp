@@ -13,7 +13,7 @@
                     <input type="text" class="form-control" id="descriptionSearched" placeholder="Search" value="${query}">
                 </div>
                 <div class="dropdown">
-                    <select class="btn btn-secondary dropdown-toggle" type="button" id="selectStatus"  onchange="searchTodos()">
+                    <select class="btn btn-secondary dropdown-toggle" type="button" id="selectStatus" onchange="searchTodos()">
                         <option value="All">ALL</option>
                             <c:forEach items="${statusList}" var="status">
                                 <option <c:if test="${status.isSelected()}">selected</c:if>
@@ -22,8 +22,12 @@
                             </c:forEach>
                     </select>
                 </div>
-                <div class="addNew">
-                    <a class="btn btn-outline-secondary" href="todos/new" role="button">Insert new todo</a>
+                <div>
+                    <button type="button"
+                        class="btn btn-info btn-lg"
+                        data-toggle="modal" data-target="#addNewModal">
+                        <i class="fa fa-plus-square"> </i>
+                    </button>
                 </div>
             </div>
             <div class="cardContainer">
@@ -32,24 +36,22 @@
                                 data-id="${todo.getId()}"
                                 data-status="${todo.getStatus()}"
                                 data-duedate="${todo.getDueDate()}">
-
-                            <div class="statusColor"> </div>
-                            <div class="card-body">
-                                <p> ${todo.getDescription()} </p>
-                                <p class="dateField"> DATE </p>
-                                <div class="todoCardOverlay">
-                                    <button type="button" class="toDelete btn btn-primary">Delete</button>
-                                        <c:if test="${todo.isCompletable()}">
-                                            <button type="button" class="toDone btn btn-primary">Done</button>
-                                        </c:if>
-                                    <button type="button"
-                                        class="edit btn btn-info btn-lg"
-                                        data-toggle="modal" data-target="#editModal">
-                                        <i class="fa fa-edit" aria-hidden="true"></i>
-                                    </button>
-                                </div>
+                        <div class="statusColor"> </div>
+                        <div class="card-body">
+                            <p> ${todo.getDescription()} </p>
+                            <p class="dateField"> DATE </p>
+                            <div class="todoCardOverlay">
+                                 <button type="button" class="toDelete btn btn-primary">Delete</button>
+                                     <c:if test="${todo.isCompletable()}">
+                                         <button type="button" class="toDone btn btn-primary">Done</button>
+                                     </c:if>
+                                 <button type="button"
+                                     class="edit btn btn-info btn-lg"
+                                     data-toggle="modal" data-target="#editModal">
+                                     <i class="fa fa-edit" aria-hidden="true"></i>
+                                 </button>
                             </div>
-
+                        </div>
                     </div>
                 </c:forEach>
             </div>
@@ -68,6 +70,24 @@
                         </div>
                         <div class="modal-footer">
                              <button type="button" class="saveInModal btn btn-primary">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id=addNewModal class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Add new todo</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <textarea class="descriptionInAddNewModal"></textarea>
+                            <input type="date" class="dueDateInAddNewModal" name="date">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="saveInAddNewModal btn btn-primary">Save</button>
                         </div>
                     </div>
                 </div>

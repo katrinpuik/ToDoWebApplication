@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-@WebServlet(name = "servlets.UpdateServlet", urlPatterns = {"todos/update"}, loadOnStartup = 1)
+@WebServlet(name = "servlets.UpdateServlet", urlPatterns = {"/update"}, loadOnStartup = 1)
 public class UpdateServlet extends HttpServlet {
     private static Logger logger = Logger.getLogger(UpdateServlet.class.getName());
 

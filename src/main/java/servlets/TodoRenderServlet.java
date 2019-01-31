@@ -23,6 +23,7 @@ public class TodoRenderServlet extends HttpServlet {
 
         Status statusFromRequestAsEnum =
                 createValidStatus(request.getParameter("status"));
+
         String descriptionOfTodoToFindFromRequest =
                 request.getParameter("descriptionSearched");
 

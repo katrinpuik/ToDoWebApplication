@@ -25,8 +25,7 @@ function TodoCard(element) {
         } else {
             self._addDateAndStatusColor();
         }
-   }
-
+    }
 
     self._changeStatusToDone = function() {
         TodoService.updateStatusToDone(self._getId()).then(function(response) {
@@ -85,7 +84,6 @@ function TodoCard(element) {
             }
         }
     }
-
 
     self. _calculateTimeLeft = function (dateString) {
         if(dateString != "") {

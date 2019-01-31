@@ -6,5 +6,6 @@
     <script src="/js/todoModal.js"></script>
     <script src="/js/todoCard.js"></script>
     <script src="/js/todoCardList.js"></script>
+    <script src="/js/addNewTodoModal.js"></script>
     <link rel="stylesheet" href="todos.css">
 </head>

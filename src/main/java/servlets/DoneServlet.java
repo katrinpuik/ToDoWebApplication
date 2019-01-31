@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 
 import static java.lang.Integer.parseInt;
 
-@WebServlet(name = "servlets.DoneServlet", urlPatterns = {"todos/done"}, loadOnStartup = 1)
+@WebServlet(name = "servlets.DoneServlet", urlPatterns = {"/done"}, loadOnStartup = 1)
 public class DoneServlet extends HttpServlet {
     private static Logger logger = Logger.getLogger(UpdateServlet.class.getName());
 

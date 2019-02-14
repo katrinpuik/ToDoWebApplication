@@ -19,10 +19,6 @@ body {
     margin-right: 15px;
 }
 
-.addNew {
-    flex: 0 0 auto;
-}
-
 h2{
     margin-top:60px;
 }
@@ -81,3 +77,83 @@ h2{
     justify-content:flex-end;
     align-items:center;
 }
+
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+}
+
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    min-height: 100vh;
+    background-color: #4d4d4d;
+    color:Snow;
+    transition: all 0.3s;
+}
+
+.options {
+    background-color: #737373;
+    padding-left: 20px;
+    padding-top:20px;
+    padding-bottom:20px;
+}
+
+a, a:hover, a:focus {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+#sidebar ul li a {
+    display: block;
+    padding:10px;
+}
+
+#sidebar ul li a:hover {
+    background:Snow;
+    color: #737373;
+}
+
+#sidebar ul li.active > a, a[aria-expanded="true"] {
+    background: #4d4d4d;
+    color: Snow;
+    text-decoration: none;
+}
+
+#sidebar.active {
+    margin-left: -250px;
+}
+
+a[data-toggle="collapse"] {
+    position: relative;
+}
+
+.dropdown-toggle::after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+}
+
+.userInfo {
+    height: 200px;
+    margin: 20px;
+    padding: 20px;
+}
+
+.usersPicture {
+    height: 100px;
+    background-color: #f2f2f2;
+}
+
+nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+
+

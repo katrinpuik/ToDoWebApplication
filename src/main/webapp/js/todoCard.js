@@ -15,11 +15,6 @@ function TodoCard(element) {
             deleteButton.onclick = self._delete
         }
 
-        var modalButton = self._getModalButtonElement();
-        if (modalButton) {
-            modalButton.onclick = self._showModal
-        }
-
         if (_element.dataset.status==='DONE') {
            _statusColorElement.classList.add('doneGreen');
         } else {
@@ -39,22 +34,12 @@ function TodoCard(element) {
         });
     }
 
-    self._showModal = function(){
-        TodoService.getTodo(self._getId()).then(function(todo){
-            TodoModal.show(todo);
-        });
-    }
-
     self._getDoneButtonElement = function() {
         return _element.getElementsByClassName('toDone')[0];
     }
 
     self._getDeleteButtonElement = function() {
         return _element.getElementsByClassName('toDelete')[0];
-    }
-
-    self._getModalButtonElement = function() {
-        return _element.getElementsByClassName('edit')[0];
     }
 
     self._getId = function() {

@@ -155,5 +155,8 @@ nav {
     justify-content: space-evenly;
 }
 
+.invisible {
+    display: none !important;
+}
 
 

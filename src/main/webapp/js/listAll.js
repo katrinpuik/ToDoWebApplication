@@ -1,5 +1,4 @@
 window.addEventListener("load", function(){
-    TodoModal.init(document.getElementById("editModal"));
     AddNewTodoModal.init(document.getElementById("addNewModal"));
 
     var todoCardList = new TodoCardList(document.getElementsByClassName("cardContainer")[0]);
@@ -11,7 +10,9 @@ window.addEventListener("load", function(){
         clearTimeout(timeout);
         timeout = setTimeout(function () {searchTodos()}, 500);
         };
- });
+
+
+    });
 
 function searchTodos() {
     location.href = "?" + generateStringForUrl();

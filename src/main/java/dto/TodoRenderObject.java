@@ -1,15 +1,12 @@
 package dto;
 
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import enums.Status;
 
 import java.util.Date;
 import java.util.List;
 
-import static enums.Status.valueOf;
-
-public class Todo {
+public class TodoRenderObject {
     private Integer id;
     private String title;
     private String description;
@@ -19,24 +16,20 @@ public class Todo {
     private Date updateDate;
     private Date doneDate;
     private Date dueDate;
+    private String url;
+    private boolean expanded;
 
-    public Todo(String description, Status status) {
-        this.description = description;
-        this.status = status;
-    }
-
-    public Todo (String description, Status status, Integer id, Date dueDate) {
-        this(description, status);
-        this.id = id;
-        this.dueDate = dueDate;
-    }
-
-    public Todo (String description, Status status, Date dueDate) {
-        this(description, status);
-        this.dueDate = dueDate;
-    }
-
-    public Todo (Integer id, String title, String description, List<String>labels, Status status, Date doneDate, Date updateDate) {
+    public TodoRenderObject(
+            Integer id,
+            String title,
+            String description,
+            List<String> labels,
+            Status status,
+            Date doneDate,
+            Date updateDate,
+            Date dueDate,
+            String url,
+            boolean expanded) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -44,6 +37,18 @@ public class Todo {
         this.status = status;
         this.doneDate = doneDate;
         this.updateDate = updateDate;
+        this.dueDate = dueDate;
+        this.url = url;
+        this.expanded = expanded;
+    }
+
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDescription() {
@@ -58,8 +63,8 @@ public class Todo {
         return status;
     }
 
-    public void setStatus(String status) {
-        this.status = valueOf(status);
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     public Integer getId() {
@@ -68,22 +73,6 @@ public class Todo {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public List<String> getLabels() {
-        return labels;
-    }
-
-    public void setLabels(List<String> labels) {
-        this.labels = labels;
     }
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
@@ -106,12 +95,20 @@ public class Todo {
         return doneDate;
     }
 
-    public void setDueDate(Date dueDate) {
-        this.dueDate = dueDate;
+    public boolean isExpanded() {
+        return expanded;
     }
 
-    @Override
-    public String toString() {
-        return description + ", " + String.valueOf(status) + ", id" + id;
+    public String getUrl() {
+        return url;
     }
+
+
+    public boolean isCompletable() {
+        return status == Status.NOT_DONE;
+    }
+
+
 }
+
+

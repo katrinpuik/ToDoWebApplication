@@ -2,7 +2,9 @@ package servlets;
 
 import dto.StatusForDropdown;
 import dto.Todo;
+import dto.TodoRenderObject;
 import enums.Status;
+import org.apache.http.client.utils.URIBuilder;
 import service.TodoService;
 
 import javax.servlet.ServletException;
@@ -11,8 +13,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet(name = "servlets.TodoRenderServlet", urlPatterns = {""}, loadOnStartup = 1)
 public class TodoRenderServlet extends HttpServlet {
@@ -27,12 +31,16 @@ public class TodoRenderServlet extends HttpServlet {
         String descriptionOfTodoToFindFromRequest =
                 request.getParameter("descriptionSearched");
 
+        String expandedFromRequestAsString = request.getParameter("expanded");
+
         request.setAttribute("statusList",
                 createStatusList(statusFromRequestAsEnum));
 
         request.setAttribute("todos",
                 createTodoList(statusFromRequestAsEnum,
-                        descriptionOfTodoToFindFromRequest));
+                        descriptionOfTodoToFindFromRequest,
+                        request,
+                        expandedFromRequestAsString));
 
         request.setAttribute("query",
                 descriptionOfTodoToFindFromRequest);
@@ -44,7 +52,9 @@ public class TodoRenderServlet extends HttpServlet {
         }
     }
 
-    List<Todo> createTodoList(Status status, String description) {
+    List<TodoRenderObject> createTodoList
+            (Status status, String description, HttpServletRequest request, String expanded) {
+        List<TodoRenderObject> todoRenderObjects = new ArrayList<>();
         List<Todo> todos;
         if (status != null && description != null) {
             todos = service.findByStatusAndDescription(status, description);
@@ -55,7 +65,32 @@ public class TodoRenderServlet extends HttpServlet {
         } else {
             todos = service.getAll();
         }
-        return todos;
+
+        for (Todo todo : todos) {
+            // http://localhost:8080/?status=All&expanded=1
+            // http://localhost:8080/?status=Done&search=blah&expanded=1
+            todoRenderObjects.add(TodoRenderObjectMapper.map(
+                    todo,
+                    getFullExpandedURL(request, todo.getId().toString()),
+                    expanded != null && Integer.parseInt(expanded) == todo.getId()));
+        }
+        return todoRenderObjects;
+    }
+
+
+
+    private static String getFullExpandedURL(HttpServletRequest request, String id) {
+        try {
+            URIBuilder uriBuilder = new URIBuilder(request.getRequestURI());
+            for (Map.Entry<String, String[]> parameter : request.getParameterMap().entrySet()) {
+                uriBuilder.setParameter(parameter.getKey(), parameter.getValue()[0]);
+            }
+            uriBuilder.setParameter("expanded", id);
+            return uriBuilder.build().toString();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+            return "";
+        }
     }
 
     List<StatusForDropdown> createStatusList(Status status) {

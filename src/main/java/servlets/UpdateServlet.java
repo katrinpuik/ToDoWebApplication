@@ -25,16 +25,22 @@ public class UpdateServlet extends HttpServlet {
         //teeb stringist uue Todo ojekti
         TodoUpdateRequest todoUpdateRequest = new ObjectMapper().readValue(json, TodoUpdateRequest.class);
 
-        if(todoUpdateRequest.getId() == null) {
+        if (todoUpdateRequest.getId() == null) {
             logger.warning("Id is missing");
             return;
         }
 
-        if(todoUpdateRequest.getDescription() != null) {
+        if (todoUpdateRequest.getDescription() != null) {
             service.updateDescription(todoUpdateRequest.getDescription(), todoUpdateRequest.getId());
         }
-        if (todoUpdateRequest.getDate() != null) {
-            service.updateDate(todoUpdateRequest.getDate(), todoUpdateRequest.getId());
+
+        if (todoUpdateRequest.getDueDate() != null) {
+            service.updateDueDate(todoUpdateRequest.getDueDate(), todoUpdateRequest.getId());
         }
+
+        if (todoUpdateRequest.getTitle() !=null) {
+            service.updateTitle(todoUpdateRequest.getTitle(), todoUpdateRequest.getId());
+        }
+
     }
 }

@@ -10,8 +10,6 @@ window.addEventListener("load", function(){
         clearTimeout(timeout);
         timeout = setTimeout(function () {searchTodos()}, 500);
         };
-
-
     });
 
 function searchTodos() {

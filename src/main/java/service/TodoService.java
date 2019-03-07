@@ -18,12 +18,16 @@ public class TodoService {
     public void updateStatus(Integer id) throws ServiceException {
         repository.updateStatusToDone(id);
     }
-    public void updateDate(String date, Integer id) throws ServiceException {
-        repository.updateDate(date, id);
+    public void updateDueDate(String date, Integer id) throws ServiceException {
+        repository.updateDueDate(date, id);
     }
 
     public void updateDescription(String newDescription, Integer id) throws ServiceException {
         repository.updateDescription(newDescription,id);
+    }
+
+    public void updateTitle(String title, Integer id) throws ServiceException {
+        repository.updateTitle(title, id);
     }
 
     public List<Todo> getAll() throws ServiceException {
@@ -34,16 +38,16 @@ public class TodoService {
         repository.remove(id);
     }
 
-    public List<Todo> findByDescription(String description) throws ServiceException {
-        return repository.findByDescription(description);
+    public List<Todo> findByTitle(String title) throws ServiceException {
+        return repository.findByTitle(title);
     }
 
     public List<Todo> findByStatus(Status status) throws ServiceException {
         return repository.findByStatus(status);
     }
 
-    public List<Todo> findByStatusAndDescription (Status status, String description) throws ServiceException {
-        return repository.findByStatusAndDescription(status, description);
+    public List<Todo> findByStatusAndTitle (Status status, String title) throws ServiceException {
+        return repository.findByStatusAndTitle(status, title);
     }
 
     public Todo findById (Integer id) throws ServiceException {

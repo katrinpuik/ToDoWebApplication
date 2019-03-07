@@ -20,6 +20,11 @@ function TodoCard(element) {
         } else {
             self._addDateAndStatusColor();
         }
+
+        var closeExpandedAndSaveDataButton = self._getCloseExpandedAndSaveDataButton();
+        if (closeExpandedAndSaveDataButton) {
+            closeExpandedAndSaveDataButton.onclick = self.saveDataFromExpandedView
+        }
     }
 
     self._changeStatusToDone = function() {
@@ -34,6 +39,21 @@ function TodoCard(element) {
         });
     }
 
+    self.saveDataFromExpandedView = function() {
+        TodoService.saveDataFromExpandedView(self._getData()).then(function(response) {
+            location.reload();
+        });
+    }
+
+    self._getData = function() {
+        return {
+            id: self._getId(),
+            title: self._getTitleInEditViewInputField().value,
+            description: self._getDescriptionInEditViewTextAreaField().value,
+            dueDate: self._getDueDateInEditViewInputField().value
+        }
+    },
+
     self._getDoneButtonElement = function() {
         return _element.getElementsByClassName('toDone')[0];
     }
@@ -42,12 +62,28 @@ function TodoCard(element) {
         return _element.getElementsByClassName('toDelete')[0];
     }
 
+    self._getCloseExpandedAndSaveDataButton = function() {
+        return _element.getElementsByClassName("closeExpandedAndSaveData")[0];
+    }
+
     self._getId = function() {
         return _element.dataset.id;
     }
 
     self._getDateField = function() {
         return _element.getElementsByClassName('dateField')[0];
+    }
+
+    self._getTitleInEditViewInputField = function() {
+        return _element.getElementsByClassName('titleInEditView')[0];
+    }
+
+    self._getDescriptionInEditViewTextAreaField = function() {
+        return  _element.getElementsByClassName('descriptionInEditView')[0];
+    }
+
+    self._getDueDateInEditViewInputField = function() {
+        return _element.getElementsByClassName('dateEditView')[0];
     }
 
     self.update = function() {

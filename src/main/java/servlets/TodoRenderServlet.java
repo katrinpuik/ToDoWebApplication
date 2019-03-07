@@ -57,11 +57,11 @@ public class TodoRenderServlet extends HttpServlet {
         List<TodoRenderObject> todoRenderObjects = new ArrayList<>();
         List<Todo> todos;
         if (status != null && description != null) {
-            todos = service.findByStatusAndDescription(status, description);
+            todos = service.findByStatusAndTitle(status, description);
         } else if (status != null) {
             todos = service.findByStatus(status);
         } else if (description != null) {
-            todos = service.findByDescription(description);
+            todos = service.findByTitle(description);
         } else {
             todos = service.getAll();
         }
@@ -76,8 +76,6 @@ public class TodoRenderServlet extends HttpServlet {
         }
         return todoRenderObjects;
     }
-
-
 
     private static String getFullExpandedURL(HttpServletRequest request, String id) {
         try {

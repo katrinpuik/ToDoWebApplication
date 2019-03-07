@@ -12,6 +12,7 @@ class TodoRenderObjectMapper {
                 todo.getDescription(),
                 todo.getLabels(),
                 todo.getStatus(),
+                todo.getCreationDate(),
                 todo.getDoneDate(),
                 todo.getUpdateDate(),
                 todo.getDueDate(),

@@ -71,16 +71,32 @@
 
                                 <c:when test="${todo.isExpanded()}">
                                     <div class="card-bodyEditView">
-                                        <textarea class="descriptionInEditView"></textarea>
-                                        <p class="dateField"> DATE </p>
+                                        <div class="cardBodyEditViewMainRow">
+                                            <input class="form-control form-control-sm titleInEditView" type="text" value = ${todo.getTitle()}>
+                                            <input type="date" class="dateEditView" name="date" value=${todo.getDueDate()}>
+                                        </div>
+                                        <div class="cardBodyEditViewDescriptionArea">
+                                            <textarea class="form-control descriptionInEditView" rows="5" type="text" placeholder="Description"></textarea>
+                                        </div>
+                                        <div class="cardBodyEditViewBottomRow">
+                                            <input class="form-control form-control-sm labels" type="text" placeholder="Add labels">
+                                            <p class="created"> date </p>
+                                            <p class="modified"> date </p>
+                                        </div>
+                                        <div class="closeButtonArea">
+                                        <button type="button" class="btn btn-outline-primary closeExpandedAndSaveData">Close</button>
+                                        </div>
                                     </div>
                                 </c:when>
 
                                 <c:otherwise>
                                     <a href="${todo.getUrl()}">
                                         <div class="card-body" >
-                                            <p> ${todo.getDescription()} </p>
-                                            <p class="dateField"> DATE </p>
+                                            <div class="cardBodyMainRow">
+                                                <p> ${todo.getTitle()} </p>
+                                                <p class="dateField"> DONEDATE </p>
+                                            </div>
+                                            <p class="mainViewLabels"> labels </p>
                                             <div class="todoCardOverlay">
                                                 <button type="button" class="toDelete btn btn-primary">Delete</button>
                                                 <c:if test="${todo.isCompletable()}">

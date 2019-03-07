@@ -45,31 +45,72 @@ h2{
     margin-right:10px;
 }
 
-.edit {
-    margin-right:10px;
+.statusColor {
+    height: 100%;
+    position: absolute;
 }
 
 .doneGreen {
     border-left: 6px solid green;
-    height: 100%;
-    position: absolute;
 }
 
 .notDoneYellow {
     border-left: 6px solid yellow;
-    height: 100%;
-    position: absolute;
 }
 
 .notDoneRed {
     border-left: 6px solid red;
-    height: 100%;
-    position: absolute;
 }
 
-.card-body {
+.mainViewLabels {
+    margin-bottom: 0px;
+}
+
+.cardBodyMainRow {
     display: flex;
     justify-content: space-between;
+}
+
+.cardBodyEditViewMainRow {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+}
+
+.cardBodyEditViewBottomRow {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    margin-top: 50px;
+}
+
+.cardBodyEditViewDescriptionArea {
+    margin-bottom: 10px;
+}
+
+.descriptionInEditView {
+    margin-top: 20px;
+    margin-right: 20px;
+    margin-left: 20px;
+    width: -moz-available;
+}
+
+.titleInEditView {
+    margin-right:10px;
+}
+
+.created {
+    margin:10px;
+}
+
+.modified {
+    margin:10px;
+}
+
+.labels {
+    margin-right: 10px;
 }
 
 .todoCardOverlay {
@@ -159,4 +200,12 @@ nav {
     display: none !important;
 }
 
+.closeButtonArea {
+    display:flex;
+    justify-content:flex-end;
+}
 
+.closeExpandedAndSaveData {
+    margin-right:20px;
+    margin-bottom:10px;
+}

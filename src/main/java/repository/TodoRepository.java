@@ -45,7 +45,7 @@ public class TodoRepository {
         }
     }
 
-    public void updateDate(String date, Integer id) throws ServiceException {
+    public void updateDueDate(String date, Integer id) throws ServiceException {
         String query = "UPDATE todos SET dueDate = ? WHERE id=?";
 
         try (PreparedStatement statement = database.getConnection().prepareStatement(query)) {
@@ -57,6 +57,19 @@ public class TodoRepository {
             throw new ServiceException("Unable to update date");
         }
     }
+
+    public void updateTitle(String newTitle, Integer id) throws ServiceException{
+        String query = "UPDATE todos SET title = ? WHERE id = ?";
+
+        try(PreparedStatement statement = database.getConnection().prepareStatement(query)) {
+            statement.setString(1, newTitle);
+            statement.setInt(2, id);
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            throw new ServiceException("Unable to update title");        }
+    }
+
 
     public void updateDescription(String newDescription, Integer id) throws ServiceException{
         String query = "UPDATE todos SET description = ? WHERE id = ?";
@@ -104,10 +117,10 @@ public class TodoRepository {
         }
     }
 
-    public List<Todo> findByDescription(String description) throws ServiceException {
-        String query = "SELECT * FROM todos WHERE description =?;";
+    public List<Todo> findByTitle(String title) throws ServiceException {
+        String query = "SELECT * FROM todos WHERE title =?;";
         try (PreparedStatement statement = database.getConnection().prepareStatement(query)) {
-            statement.setString(1, description);
+            statement.setString(1, title);
             ResultSet results = statement.executeQuery();
             return generateTodosFromDatabaseData(results);
         } catch (SQLException ex) {
@@ -128,11 +141,11 @@ public class TodoRepository {
         }
     }
 
-    public List<Todo> findByStatusAndDescription(Status status, String description) throws ServiceException {
-        String query = "SELECT * FROM todos WHERE status = ? AND description = ?;";
+    public List<Todo> findByStatusAndTitle(Status status, String title) throws ServiceException {
+        String query = "SELECT * FROM todos WHERE status = ? AND title = ?;";
         try (PreparedStatement statement = database.getConnection().prepareStatement(query)) {
             statement.setString(1, status.name());
-            statement.setString(2, description);
+            statement.setString(2, title);
             ResultSet results = statement.executeQuery();
             return generateTodosFromDatabaseData(results);
         } catch (SQLException ex) {
@@ -151,7 +164,7 @@ public class TodoRepository {
 
     Todo createTodoFromResult(ResultSet results) throws SQLException {
         return new Todo(
-                results.getString("description"),
+                results.getString("title"),
                 Status.valueOf(results.getString("status")),
                 results.getInt("id"),
                 results.getDate("dueDate"));

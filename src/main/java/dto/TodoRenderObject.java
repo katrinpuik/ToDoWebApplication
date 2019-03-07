@@ -25,6 +25,7 @@ public class TodoRenderObject {
             String description,
             List<String> labels,
             Status status,
+            Date creationDate,
             Date doneDate,
             Date updateDate,
             Date dueDate,

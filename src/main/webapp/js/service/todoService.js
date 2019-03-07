@@ -30,6 +30,19 @@ var TodoService = {
                      });
     },
 
+    saveDataFromExpandedView: function(data) {
+        let request = new Request (
+        TodoService._getUrl("/update?id=" + data.id),
+        {
+            method: "POST",
+            body: JSON.stringify(data)
+        });
+        return fetch(request);
+    },
+
+
+
+
     _getUrl: function(path) {
         return "http://localhost:8080" + path;
     }

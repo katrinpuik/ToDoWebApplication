@@ -13,37 +13,27 @@ public class Todo {
     private Integer id;
     private String title;
     private String description;
-    private List<String> labels;
+    private List <String> labels;
     private Status status;
     private Date creationDate;
     private Date updateDate;
     private Date doneDate;
     private Date dueDate;
 
-    public Todo(String description, Status status) {
-        this.description = description;
-        this.status = status;
-    }
-
-    public Todo (String description, Status status, Integer id, Date dueDate) {
-        this(description, status);
-        this.id = id;
-        this.dueDate = dueDate;
-    }
-
-    public Todo (String description, Status status, Date dueDate) {
-        this(description, status);
-        this.dueDate = dueDate;
-    }
-
-    public Todo (Integer id, String title, String description, List<String>labels, Status status, Date doneDate, Date updateDate) {
-        this.id = id;
+    public Todo(String title, Status status) {
         this.title = title;
-        this.description = description;
-        this.labels = labels;
         this.status = status;
-        this.doneDate = doneDate;
-        this.updateDate = updateDate;
+    }
+
+    public Todo (String title, Status status, Integer id, Date dueDate) {
+        this(title, status);
+        this.id = id;
+        this.dueDate = dueDate;
+    }
+
+    public Todo (String title, Status status, Date dueDate) {
+        this(title, status);
+        this.dueDate = dueDate;
     }
 
     public String getDescription() {
@@ -78,7 +68,7 @@ public class Todo {
         this.title = title;
     }
 
-    public List<String> getLabels() {
+    public List<String>  getLabels() {
         return labels;
     }
 

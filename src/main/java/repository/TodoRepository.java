@@ -32,12 +32,13 @@ public class TodoRepository {
         }
     }
 
-    public void updateStatusToDone(Integer id) throws ServiceException {
-        String query = "UPDATE todos SET status = ? WHERE id=?;";
+    public void updateStatusToDone(Integer id, String doneDate) throws ServiceException {
+        String query = "UPDATE todos SET status = ?, doneDate = ? WHERE id=?;";
 
         try (PreparedStatement statement = database.getConnection().prepareStatement(query)) {
             statement.setString(1, Status.DONE.name());
-            statement.setInt(2, id);
+            statement.setString(2, doneDate);
+            statement.setInt(3, id);
             statement.executeUpdate();
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, ex.getMessage(), ex);
@@ -167,6 +168,8 @@ public class TodoRepository {
                 results.getString("title"),
                 Status.valueOf(results.getString("status")),
                 results.getInt("id"),
-                results.getDate("dueDate"));
+                results.getDate("dueDate"),
+                results.getString("description"),
+                results.getDate("doneDate"));
     }
 }

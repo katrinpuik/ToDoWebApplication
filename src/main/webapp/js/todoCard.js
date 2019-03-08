@@ -50,7 +50,7 @@ function TodoCard(element) {
             id: self._getId(),
             title: self._getTitleInEditViewInputField().value,
             description: self._getDescriptionInEditViewTextAreaField().value,
-            dueDate: self._getDueDateInEditViewInputField().value
+            dueDate: self._getDateField().value
         }
     },
 
@@ -82,10 +82,6 @@ function TodoCard(element) {
         return  _element.getElementsByClassName('descriptionInEditView')[0];
     }
 
-    self._getDueDateInEditViewInputField = function() {
-        return _element.getElementsByClassName('dateEditView')[0];
-    }
-
     self.update = function() {
         if(_element.dataset.status != "DONE") {
             self._addDateAndStatusColor();
@@ -97,10 +93,10 @@ function TodoCard(element) {
         if(dueDate) {
             var difference = self._calculateTimeLeft(dueDate);
             if (difference > 0) {
-                self._getDateField().innerHTML = difference + " days left";
+               self._getDateField().innerHTML = difference + " days left";
                 _statusColorElement.classList.add('notDoneYellow');
             } else if (difference < 0) {
-                self._getDateField().innerHTML = Math.abs(difference) + " days due";
+               self._getDateField().innerHTML = Math.abs(difference) + " days due";
                 _statusColorElement.classList.add('notDoneRed');
             }
         }

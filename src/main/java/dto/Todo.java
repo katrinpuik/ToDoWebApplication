@@ -31,6 +31,14 @@ public class Todo {
         this.dueDate = dueDate;
     }
 
+    public Todo (String title, Status status, Integer id, Date dueDate, String description, Date doneDate) {
+        this(title, status);
+        this.id = id;
+        this.dueDate = dueDate;
+        this.description = description;
+        this.doneDate = doneDate;
+    }
+
     public Todo (String title, Status status, Date dueDate) {
         this(title, status);
         this.dueDate = dueDate;

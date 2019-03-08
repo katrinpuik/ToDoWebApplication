@@ -72,11 +72,18 @@
                                 <c:when test="${todo.isExpanded()}">
                                     <div class="card-bodyEditView">
                                         <div class="cardBodyEditViewMainRow">
-                                            <input class="form-control form-control-sm titleInEditView" type="text" value = ${todo.getTitle()}>
-                                            <input type="date" class="dateEditView" name="date" value=${todo.getDueDate()}>
+                                            <input class="form-control form-control-sm titleInEditView" type="text" value ="${todo.getTitle()}">
+                                            <c:choose>
+                                                <c:when test="${todo.isDone()}">
+                                                    <p class="doneDate"> Date done: ${todo.getDoneDate()}</p>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <input type="date" class="dateField" name="date" value="${todo.getDueDate()}">
+                                                </c:otherwise>
+                                            </c:choose>
                                         </div>
                                         <div class="cardBodyEditViewDescriptionArea">
-                                            <textarea class="form-control descriptionInEditView" rows="5" type="text" placeholder="Description"></textarea>
+                                            <textarea class="form-control descriptionInEditView" rows="5" type="text" placeholder="Description">${todo.getDescription()}</textarea>
                                         </div>
                                         <div class="cardBodyEditViewBottomRow">
                                             <input class="form-control form-control-sm labels" type="text" placeholder="Add labels">
@@ -93,8 +100,15 @@
                                     <a href="${todo.getUrl()}">
                                         <div class="card-body" >
                                             <div class="cardBodyMainRow">
-                                                <p> ${todo.getTitle()} </p>
-                                                <p class="dateField"> DONEDATE </p>
+                                                <p class="title"> ${todo.getTitle()} </p>
+                                                <c:choose>
+                                                    <c:when test="${todo.isDone()}">
+                                                        <p class="doneDate">Date done: ${todo.getDoneDate()}</p>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <p class="dateField"></p>
+                                                    </c:otherwise>
+                                                </c:choose>
                                             </div>
                                             <p class="mainViewLabels"> labels </p>
                                             <div class="todoCardOverlay">
@@ -137,3 +151,4 @@
         <%@ include file="footer.jsp" %>
     </body>
 </html>
+

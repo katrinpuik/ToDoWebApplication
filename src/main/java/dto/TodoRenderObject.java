@@ -109,6 +109,10 @@ public class TodoRenderObject {
         return status == Status.NOT_DONE;
     }
 
+    public boolean isDone() {
+        return status == Status.DONE;
+    }
+
 
 }
 

@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDate;
 import java.util.logging.Logger;
 
 import static java.lang.Integer.parseInt;
@@ -22,7 +23,8 @@ public class DoneServlet extends HttpServlet {
         if (StringUtils.isNullOrEmpty(id)) {
             logger.warning("Id is missing");
         } else {
-            service.updateStatus(parseInt(id));
+            LocalDate dateNow = java.time.LocalDate.now();
+            service.updateStatus(parseInt(id), dateNow.toString());
         }
     }
 }

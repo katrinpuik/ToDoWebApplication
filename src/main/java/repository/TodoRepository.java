@@ -18,13 +18,15 @@ public class TodoRepository {
     private static Logger logger = Logger.getLogger(TodoRepository.class.getName());
     private Database database = new Database();
 
-    public void addNew(String newDescription, String date) throws ServiceException {
-        String query = "INSERT INTO todos (description, status, dueDate) VALUES(?,?,?);";
+    public void addNew(String title, String description, String dueDate, String creationDate) throws ServiceException {
+        String query = "INSERT INTO todos (title, description, status, dueDate, creationDate) VALUES(?,?,?,?,?);";
 
         try (PreparedStatement statement = database.getConnection().prepareStatement(query)) {
-            statement.setString(1, newDescription);
-            statement.setString(2, Status.NOT_DONE.name());
-            statement.setString(3, date);
+            statement.setString(1, title);
+            statement.setString(2, description);
+            statement.setString(3, Status.NOT_DONE.name());
+            statement.setString(4, dueDate);
+            statement.setString(5, creationDate);
             statement.executeUpdate();
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, ex.getMessage(), ex);
@@ -170,6 +172,7 @@ public class TodoRepository {
                 results.getInt("id"),
                 results.getDate("dueDate"),
                 results.getString("description"),
-                results.getDate("doneDate"));
+                results.getDate("doneDate"),
+                results.getDate("creationDate"));
     }
 }

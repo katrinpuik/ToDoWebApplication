@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.logging.Logger;
 
 
@@ -24,7 +25,8 @@ public class NewTodoServlet extends HttpServlet {
         NewTodoRequest newTodoRequest = new ObjectMapper().readValue(json, NewTodoRequest.class);
 
         if (newTodoRequest.getDescription() != null && !newTodoRequest.getDescription().equals("")) {
-            service.addNew(newTodoRequest.getDescription(), newTodoRequest.getDate());
+            LocalDate dateNow = java.time.LocalDate.now();
+            service.addNew(newTodoRequest.getTitle(), newTodoRequest.getDescription(), newTodoRequest.getDueDate(), dateNow.toString());
         } else {
             logger.warning("New todo's description is missing");
         }

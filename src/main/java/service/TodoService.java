@@ -11,8 +11,8 @@ public class TodoService {
 
     private TodoRepository repository = new TodoRepository();
 
-    public void addNew(String newDescription, String date) {
-        repository.addNew(newDescription,date);
+    public void addNew(String newTitle, String newDescription, String dueDate, String creationDate) {
+        repository.addNew(newTitle, newDescription, dueDate, creationDate);
     }
 
     public void updateStatus(Integer id, String doneDate) throws ServiceException {

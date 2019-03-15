@@ -7,8 +7,9 @@ var AddNewTodoModal = {
 
     _getDataToSave: function() {
         return {
+            title: this._getTitleElement().value,
             description: this._getDescriptionElement().value,
-            date: this._getDateElement().value
+            dueDate: this._getDueDateElement().value
         }
     },
 
@@ -31,11 +32,15 @@ var AddNewTodoModal = {
         return this._modal.getElementsByClassName('saveInAddNewModal')[0];
     },
 
+    _getTitleElement: function() {
+        return this._modal.getElementsByClassName('titleInAddNewModal')[0];
+    },
+
     _getDescriptionElement: function() {
         return this._modal.getElementsByClassName('descriptionInAddNewModal')[0];
     },
 
-    _getDateElement: function(){
+    _getDueDateElement: function(){
         return this._modal.getElementsByClassName('dueDateInAddNewModal')[0];
     }
 

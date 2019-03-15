@@ -36,6 +36,7 @@ public class TodoRenderObject {
         this.description = description;
         this.labels = labels;
         this.status = status;
+        this.creationDate = creationDate;
         this.doneDate = doneDate;
         this.updateDate = updateDate;
         this.dueDate = dueDate;

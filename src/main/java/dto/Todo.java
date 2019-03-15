@@ -31,12 +31,13 @@ public class Todo {
         this.dueDate = dueDate;
     }
 
-    public Todo (String title, Status status, Integer id, Date dueDate, String description, Date doneDate) {
+    public Todo (String title, Status status, Integer id, Date dueDate, String description, Date doneDate, Date creationDate) {
         this(title, status);
         this.id = id;
         this.dueDate = dueDate;
         this.description = description;
         this.doneDate = doneDate;
+        this.creationDate = creationDate;
     }
 
     public Todo (String title, Status status, Date dueDate) {

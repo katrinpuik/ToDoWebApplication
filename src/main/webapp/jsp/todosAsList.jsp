@@ -75,7 +75,7 @@
                                             <input class="form-control form-control-sm titleInEditView" type="text" value ="${todo.getTitle()}">
                                             <c:choose>
                                                 <c:when test="${todo.isDone()}">
-                                                    <p class="doneDate"> Date done: ${todo.getDoneDate()}</p>
+                                                    <p class="dateField"> Date done: ${todo.getDoneDate()}</p>
                                                 </c:when>
                                                 <c:otherwise>
                                                     <input type="date" class="dateField" name="date" value="${todo.getDueDate()}">
@@ -87,7 +87,7 @@
                                         </div>
                                         <div class="cardBodyEditViewBottomRow">
                                             <input class="form-control form-control-sm labels" type="text" placeholder="Add labels">
-                                            <p class="created"> date </p>
+                                            <p class="created">Created: ${todo.getCreationDate()} </p>
                                             <p class="modified"> date </p>
                                         </div>
                                         <div class="closeButtonArea">
@@ -127,16 +127,21 @@
                     </c:forEach>
                 </div>
 
-                <div id=addNewModal class="modal fade" role="dialog">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
+                <div id="addNewModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content modal-lg">
                             <div class="modal-header">
                                 <h4 class="modal-title">Add new todo</h4>
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
                             <div class="modal-body">
-                                <textarea class="descriptionInAddNewModal"></textarea>
-                                <input type="date" class="dueDateInAddNewModal" name="date">
+                                <div class="titleAndDueDateAreaInAddNewModal">
+                                    <input class="form-control form-control-sm titleInAddNewModal" type="text" placeholder="Title">
+                                    <p id="errorMessage" hidden> Add title!</p>
+                                    <input type="date" class="dueDateInAddNewModal" name="date">
+                                </div>
+                                <textarea class="form-control descriptionInAddNewModal" rows="5" type="text" placeholder="Description"></textarea>
+                                <input class="form-control form-control-sm labelsInAddNewModal" type="text" placeholder="Labels">
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="saveInAddNewModal btn btn-primary">Save</button>

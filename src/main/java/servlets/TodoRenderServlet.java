@@ -4,6 +4,7 @@ import dto.StatusForDropdown;
 import dto.Todo;
 import dto.TodoRenderObject;
 import enums.Status;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URIBuilder;
 import service.TodoService;
 
@@ -72,6 +73,7 @@ public class TodoRenderServlet extends HttpServlet {
             todoRenderObjects.add(TodoRenderObjectMapper.map(
                     todo,
                     getFullExpandedURL(request, todo.getId().toString()),
+                    getSimpleUrl(request),
                     expanded != null && Integer.parseInt(expanded) == todo.getId()));
         }
         return todoRenderObjects;
@@ -90,6 +92,23 @@ public class TodoRenderServlet extends HttpServlet {
             return "";
         }
     }
+
+    private static String getSimpleUrl (HttpServletRequest request) {
+        try {
+            URIBuilder uriBuilder = new URIBuilder(request.getRequestURI());
+            List<NameValuePair> queryParameters = uriBuilder.getQueryParams();
+            //listi queryParameters streamida ja v'lja v]tta expanded
+            uriBuilder.setParameters(queryParameters);
+            return uriBuilder.build().toString();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+
+
+
 
     List<StatusForDropdown> createStatusList(Status status) {
         List<StatusForDropdown> result = new ArrayList<>();

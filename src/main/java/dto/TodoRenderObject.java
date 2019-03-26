@@ -16,7 +16,8 @@ public class TodoRenderObject {
     private Date updateDate;
     private Date doneDate;
     private Date dueDate;
-    private String url;
+    private String expandedUrl;
+    private String simpleUrl;
     private boolean expanded;
 
     public TodoRenderObject(
@@ -29,7 +30,8 @@ public class TodoRenderObject {
             Date doneDate,
             Date updateDate,
             Date dueDate,
-            String url,
+            String expandedUrl,
+            String simpleUrl,
             boolean expanded) {
         this.id = id;
         this.title = title;
@@ -40,7 +42,8 @@ public class TodoRenderObject {
         this.doneDate = doneDate;
         this.updateDate = updateDate;
         this.dueDate = dueDate;
-        this.url = url;
+        this.expandedUrl = expandedUrl;
+        this.simpleUrl = simpleUrl;
         this.expanded = expanded;
     }
 
@@ -101,8 +104,12 @@ public class TodoRenderObject {
         return expanded;
     }
 
-    public String getUrl() {
-        return url;
+    public String getExpandedUrl() {
+        return expandedUrl;
+    }
+
+    public String getSimpleUrl(){
+        return simpleUrl;
     }
 
 

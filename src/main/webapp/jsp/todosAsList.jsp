@@ -91,13 +91,14 @@
                                             <p class="modified"> date </p>
                                         </div>
                                         <div class="closeButtonArea">
-                                        <button type="button" class="btn btn-outline-primary closeExpandedAndSaveData">Close</button>
+
+                                        <a class="btn btn-primary closeExpandedAndSaveData" href="${todo.getSimpleUrl()}" role="button">Close</a>
                                         </div>
                                     </div>
                                 </c:when>
 
                                 <c:otherwise>
-                                    <a href="${todo.getUrl()}">
+                                    <a href="${todo.getExpandedUrl()}">
                                         <div class="card-body" >
                                             <div class="cardBodyMainRow">
                                                 <p class="title"> ${todo.getTitle()} </p>
@@ -114,7 +115,7 @@
                                             <div class="todoCardOverlay">
                                                 <button type="button" class="toDelete btn btn-primary">Delete</button>
                                                 <c:if test="${todo.isCompletable()}">
-                                                    <button type="button" class="toDone btn btn-primary">Done</button>
+                                                    <button type="button" class="toDone btn btn-primary" onclick="event.stopPropagation()">Done</button>
                                                 </c:if>
                                             </div>
                                         </div>

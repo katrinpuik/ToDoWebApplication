@@ -5,7 +5,7 @@ import dto.TodoRenderObject;
 
 class TodoRenderObjectMapper {
 
-    static TodoRenderObject map(Todo todo, String url, Boolean expanded) {
+    static TodoRenderObject map(Todo todo, String expandedUrl, String simpleUrl, Boolean expanded) {
         return new TodoRenderObject(
                 todo.getId(),
                 todo.getTitle(),
@@ -16,7 +16,8 @@ class TodoRenderObjectMapper {
                 todo.getDoneDate(),
                 todo.getUpdateDate(),
                 todo.getDueDate(),
-                url,
+                expandedUrl,
+                simpleUrl,
                 expanded
         );
     }

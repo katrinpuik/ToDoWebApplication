@@ -34,16 +34,3 @@ function generateStringForUrl() {
     return arrayFromDataToUrl.join("&");
 }
 
-//function checkIfTitleIsNotEmptyAndSubmit() {
-//    var titleOfNewTodo = document.getElementById("titleInAddNewModal").value;
-//    if (titleOfNewTodo === null || titleOfNewTodo ==="") {
-//        var errorMessage = document.getElementById("errorMessage");
-//        errorMessage.hidden = false;
-//    } else {
-//        submitNewTodo()
-//    }
-//}
-//
-//function submitNewTodo() {
-//    document.getElementById("submitNewTodo").submit();
-//}

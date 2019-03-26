@@ -40,9 +40,7 @@ function TodoCard(element) {
     }
 
     self.saveDataFromExpandedView = function() {
-        TodoService.saveDataFromExpandedView(self._getData()).then(function(response) {
-            location.reload();
-        });
+        TodoService.saveDataFromExpandedView(self._getData())
     }
 
     self._getData = function() {
